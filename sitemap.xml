@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  
+  <url>
+    <loc>http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go</loc>
+    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://jbeaudaux.github.io/categories/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jbeaudaux.github.io/categories/informatique/</loc>
+    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jbeaudaux.github.io/post/</loc>
+    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jbeaudaux.github.io/tags/programmation/</loc>
+    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jbeaudaux.github.io/tags/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://jbeaudaux.github.io/</loc>
+    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Quelques impressions sur le Go &middot; Zirka</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Julien Beaudaux">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go"/>
+    <link rel="icon" href="http://jbeaudaux.github.io/favicon.ico">
+    <link rel="apple-touch-icon" href="http://jbeaudaux.github.io/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/css/style.css">
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/css/monokai.css">
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Quelques impressions sur le Go" />
+<meta property="og:description" content="Il y a de cela des années, j&rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&rsquo;étais à l&rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&rsquo;étendue de ses librairies. Autant d&rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&rsquo;ont amené à me détourner petit à petit de ce langage1." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go" />
+
+
+<meta property="og:updated_time" content="2017-01-18T17:20:17&#43;01:00"/>
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Quelques impressions sur le Go">
+<meta itemprop="description" content="Il y a de cela des années, j&rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&rsquo;étais à l&rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&rsquo;étendue de ses librairies. Autant d&rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&rsquo;ont amené à me détourner petit à petit de ce langage1.">
+
+
+<meta itemprop="dateModified" content="2017-01-18T17:20:17&#43;01:00" />
+<meta itemprop="wordCount" content="1266">
+
+
+
+<meta itemprop="keywords" content="informatique,programmation," />
+
+    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Quelques impressions sur le Go"/>
+<meta name="twitter:description" content="Il y a de cela des années, j&rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&rsquo;étais à l&rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&rsquo;étendue de ses librairies. Autant d&rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&rsquo;ont amené à me détourner petit à petit de ce langage1."/>
+
+
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="http://jbeaudaux.github.io/" id="logo">
+          
+          <i class="logo" style="background-image: url('http://jbeaudaux.github.io/css/images/zirkaLogo.png')"></i>
+          
+          <span class="site-title">Zirka</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="http://jbeaudaux.github.io/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="http://jbeaudaux.github.io/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="http://jbeaudaux.github.io/blog/">Blog</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="http://jbeaudaux.github.io/css/images/jul.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="http://jbeaudaux.github.io/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="http://jbeaudaux.github.io/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="http://jbeaudaux.github.io/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="http://jbeaudaux.github.io/blog/">Blog</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="http://jbeaudaux.github.io/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   		
+	    <aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      <img id="avatar" src="http://jbeaudaux.github.io/css/images/jul.png">
+      <h2 id="name">Julien Beaudaux</h2>
+      
+      <span id="location"><i class="fa fa-map-marker"></i>Strasbourg, France</span>
+      
+          <a id="follow" href="https://github.com/jbeaudaux">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        1
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          1
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/jbeaudaux" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/jbeaudaux" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <td><a href="http://jbeaudaux.github.io/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+	    
+
+	    
+<section id="main">
+
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+        <div class="article-inner">
+            
+                <img src="http://jbeaudaux.github.io/banners/placeholder.png" class="article-banner">
+            
+
+            <header class="article-header">
+    <a href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go">
+    <h1 class="article-title" itemprop="name">
+        Quelques impressions sur le Go
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-01-18 17:20:17 &#43;0100 CET" itemprop="datePublished">2017-01-18</time>
+            &middot;
+            1266
+            words
+            &middot;
+            6
+            minute read
+        </div>
+
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="http://jbeaudaux.github.io/categories/informatique">Informatique</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="http://jbeaudaux.github.io/tags/programmation">Programmation</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+            <div class="article-entry" itemprop="articleBody">
+                
+
+<p>Il y a de cela des années, j&rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&rsquo;étais à l&rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&rsquo;étendue de ses librairies. Autant d&rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&rsquo;ont amené à me détourner petit à petit de ce langage<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. J&rsquo;ai donc commencé à chercher si ce n&rsquo;est un successeur au moins un complément.</p>
+
+<p><a href="https://golang.org/">Go</a> fait partie de ces langages &ldquo;à la mode&rdquo; ces dernières années (avec <a href="https://www.scala-lang.org/">Scala</a>, <a href="https://www.rust-lang.org">Rust</a>, <a href="http://dlang.org/">D</a>, etc.), mais il se démarque par sa croissance<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup> et ses origines<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup>. Je me suis donc laissé tenter, et vous fait part de mes impressions après quelques semaines d&rsquo;utilisation.</p>
+
+<h1 id="une-philosophie-nouvelle">Une philosophie nouvelle</h1>
+
+<p>Comme le jeu du même nom, Le langage Go a été conçu pour être simple à apprendre, mais profond dans ses possibilités. Celà se traduit par de nombreux aspects, assez novateurs dans le monde du développement.</p>
+
+<h2 id="un-langage-rigide">Un langage rigide&hellip;</h2>
+
+<p>Au premier regard, avec un typage fort et une syntaxe stricte, le Go semble assez rigide. Pas question ici de faire les choses à sa sauce. Les crochets suivent la déclaration des méthodes/fonctions/conditions/boucles sur la même ligne, il est interdit d&rsquo;importer une bibliothèque sans l&rsquo;appeler dans le code, toute variable a un type fixe, etc. Il existe même <a href="https://blog.golang.org/go-fmt-your-code">un outil</a> fourni par défaut pour rendre conforme la syntaxe d&rsquo;un code source en suivant les pratiques préconisées ou imposées.</p>
+
+<p>Un exemple de code en Go :</p>
+
+<pre><code>package main
+
+import (
+    &quot;fmt&quot;
+    &quot;flag&quot;
+)
+
+func main() {
+    var svar string
+    wordPtr := flag.String(&quot;file&quot;, &quot;foo&quot;, &quot;a string&quot;)
+
+    flag.StringVar(&amp;svar, &quot;svar&quot;, &quot;bar&quot;, &quot;a string var&quot;)
+    flag.Parse()
+
+    if fileExists(*filePtr) {
+        fmt.Println(&quot;Valid file provided&quot;)
+    } else {
+        fmt.Println(&quot;File &quot; + *filePtr + &quot; not found&quot;)
+    }
+}
+</code></pre>
+
+<p>Cela peut sembler désagréable, surtout lorsque l&rsquo;on est habitué à des langages plus permissifs (la plupart des langages en fait&hellip;). Cependant, cette rigidité a pour avantage de forcer une uniformisation du code, et donc de faciliter grandement son inter-compréhension et son maintien. À ce niveau, le Go est particulièrement adapté aux projets de grande taille impliquant des développeurs d&rsquo;expériences différentes (comme dans la communauté Open-Source, par exemple).</p>
+
+<p>Pour contrebalancer, La syntaxe du Go emprunte beaucoup au C/C++<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>, en y mêlant des éléments issus de langages plus récents. Elle se veut donc rassurante tout en étant moderne et puissante. Reste qu&rsquo;une telle rigueur est un parti-pris qui ne plaira pas à tout le monde.</p>
+
+<h2 id="et-flexible-à-la-fois">&hellip;Et flexible à la fois</h2>
+
+<p>Passée cette première impression, le Go fait preuve de nombreuses avantages. Comme citer ses qualités et inconvénients demanderait un article à lui seul (qui viendra peut-être, qui sait), je ne m&rsquo;attarderai que sur ceux qui m&rsquo;ont semblé les plus marquants :</p>
+
+<ul>
+<li><p><strong>Optimisé et optimisable</strong> : Le langage Go, suivant le cas d&rsquo;utilisation, n&rsquo;est pas forcément le plus rapide ni le moins gourmand, comme le montrent les <a href="https://days2011.scala-lang.org/sites/days2011/files/ws3-1-Hundt.pdf">études</a> sur le sujet. Par contre, outre la la présence d&rsquo;un ramasse-miettes efficace, son utilisation du paradigme de programmation <a href="https://blog.golang.org/concurrency-is-not-parallelism">concurrente</a> fait qu&rsquo;il peut tirer le meilleur parti d&rsquo;une architecture muti-coeurs sans perdre en qualité et propreté de code.</p></li>
+
+<li><p><strong>Intuitif</strong> : Comme je l&rsquo;ai mentionné plus avant, pour qui est versé dans le C, C++ ou Java, le Go s&rsquo;apprend de manière intuitive. Sa syntaxe proche de ces langages, la <a href="https://blog.golang.org/error-handling-and-go">gestion des erreurs</a> simple et élégente, l&rsquo;import des packages (notamment possible <a href="https://golang.org/doc/code.html#ImportPaths">via leur URL</a>) largement simplifié, rendent sa prise en main rapide et facile. Comparé à aux langages fonctionnels tels que <a href="https://www.scala-lang.org/">Scala</a> ou à des syntaxes plus originales comme <a href="https://www.rust-lang.org">Rust</a>, Go permet une transition rapide et efficace. Un atout de poids lorsque l&rsquo;on travaille en équipe.</p></li>
+
+<li><p><strong>Des outils pour tout</strong> : Go propose une large panoplie d&rsquo;outils intégrés qui apportent un réel plus au langage en tant que tel. On y trouve entre autres <a href="https://blog.golang.org/godoc-documenting-go-code">Go doc</a> pour la documentation automatique de code, <a href="https://blog.golang.org/introducing-gofix">Gofix</a> pour la mise à niveau de code source au fil des versions, <a href="https://golang.org/cmd/go/#hdr-List_packages">Go list</a> pour la génération des graphes de dépendances du package, <a href="https://blog.golang.org/profiling-go-programs">Go pprof</a> pour le profilage, <a href="https://blog.golang.org/debugging-go-code-status-report">GDB</a> pour le déboguage, et bien d&rsquo;autres encore&hellip; Enfin, il jouis d&rsquo;une communauté très active proposant des packages variés et puissants<sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">5</a></sup>, le tout en plus de ceux proposés officiellement.</p></li>
+
+<li><p><strong>Orienté Back-End</strong> : La gestion native et optimisée protocoles et standards de l&rsquo;Internet (<a href="https://golang.org/pkg/net/http/">HTTP</a>, <a href="https://godoc.org/golang.org/x/crypto/ssh">SSH</a>, <a href="https://golang.org/pkg/encoding/json/">JSON</a>, <a href="https://golang.org/pkg/encoding/xml/">XML</a>, <a href="https://golang.org/pkg/database/sql/">SQL</a>, <a href="https://golang.org/pkg/crypto/">cryptographie</a>, etc.) et sa gestion de la concurrence font du Go un langage de choix pour le développement Cloud et Back-end. Ce n&rsquo;est pas pour rien que des fournisseur de services comme SendGrid, Docker ou encore Dropbox s&rsquo;y sont lancés.</p></li>
+
+<li><p><strong>Multi-plateformes</strong> : Go intègre aussi nativement la <a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5">compilation croisée</a>, permettant ainsi de compiler un executable pour une autre architecture que la sienne. Il offre la possibilité de réaliser des <a href="https://blog.golang.org/c-go-cgo">appels à du code C</a>, et ainsi d&rsquo;intégrer des bibliothèques héritées (ou Legacy code) plus facilement.</p></li>
+</ul>
+
+<!-- Built with concurrency in mind -->
+
+<h2 id="puissant-mais-perfectible">Puissant, mais perfectible</h2>
+
+<p>Malgré tous ses apports, il reste au Go bien des défauts. Certains tiennent plus de choix clivants et d&rsquo;une volonté de rester proche du C/C++, comme son typage fort et le manque d&rsquo;<a href="https://fr.wikipedia.org/wiki/Inf%C3%A9rence_de_types">inférence de types</a>, l&rsquo;absence de paradigme orienté objet, ou encore l&rsquo;usage de pointeurs que nous avons mentionnés plus haut, mais d&rsquo;autres rentrent moins dans cette logique.</p>
+
+<ul>
+<li><p><strong>Pas de généricité</strong> : Le défaut le plus évident est le manque de support pour la programmation générique et tout ce qu&rsquo;elle apporte (dont le polymorphisme). Même si les <a href="http://golangtutorials.blogspot.fr/2011/06/polymorphism-in-go.html">interfaces</a> peuvent remplir ce rôle et donc contourner le problème, on y perd grandement en transparence et en propreté du code.</p></li>
+
+<li><p><strong>Mutable ou immutable?</strong> : Pour des &ldquo;objets&rdquo; complexes (structures, etc.), il n&rsquo;est pas toujours évident de savoir si il sera copié ou modifié. Un objet peut etre passé par adresse et ainsi lever le doute, mais une gestion explicite de l&rsquo;<a href="https://fr.wikipedia.org/wiki/Objet_immuable">immutabilité</a> aurait été un plus bienvenu.</p></li>
+
+<li><p><strong>Pas le plus performant</strong> : Comme mentionné plus haut, le langage Go n&rsquo;est pas toujours le plus performant. Son empreinte mémoire est supérieure à celle de langages tels que C++ ou Scala, et il en va de même pour le temps d&rsquo;exécution ou la taille du binaire généré. Malgré tout, Go reste un langage performant, tout est une question de priorités.</p></li>
+</ul>
+
+<h1 id="au-final-ça-en-vaut-la-peine">Au final, ça en vaut la peine?</h1>
+
+<p>Le Go peut en rebuter certains par ses choix clivants, mais ses inspirations font de lui un langage simple à apprendre mais profond, et qui apporte de nombreuses récompenses à qui fait l&rsquo;effort de s&rsquo;y investir. Il n&rsquo;a certes pas les performances du C/C++ ou des langages fonctionnels modernes, mais il a pour lui la flexibilité du Python tout en étant plus maintenable et plus strict.</p>
+
+<p>En tout cas, il semble promis à un bel avenir, en témoigne <a href="http://www.tiobe.com/tiobe-index/go/">sa progression</a>, sa communauté grandissante et son adoption par des grandes companies et services de l&rsquo;Internet, tels que <a href="http://fr.slideshare.net/jpetazzo/docker-and-go-why-did-we-decide-to-write-docker-in-go">Docker</a>, <a href="https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/">Dropbox</a>, <a href="https://developers.soundcloud.com/blog/go-at-soundcloud">Soundcloud</a> ou encore <a href="https://sendgrid.com/blog/convince-company-go-golang/">SendGrid</a>, <a href="https://github.com/Netflix/rend">Netflix</a> et bien d&rsquo;autres.</p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1">Pour n&rsquo;en citer qu&rsquo;une, rendre disponible et maintenir un outil pour des cibles n&rsquo;ayant pas d&rsquo;interpréteur python et/ou l&rsquo;ensemble des librairies installées, est un parcours du combattant (pas de cross-compilation possible, nécessité d&rsquo;utiliser des packets spécifiques, exécutables ainsi générés souvent lents et gourmands, etc.).
+ <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2">Le langage Go se situait en 2016 à la 13ème place au <a href="http://www.tiobe.com/tiobe-index/">classement Tiobe</a> des langages les plus utilisés, contre la 54ème en 2015.
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+<li id="fn:3">Le langage Go est issu des laboratoires de Google et de l&rsquo;esprit de <a href="https://en.wikipedia.org/wiki/Rob_Pike">Rob Pike</a>
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
+<li id="fn:4">La syntaxe elle-même, proche du style <a href="https://fr.wikipedia.org/wiki/Style_d'indentation#Style_K.26R">K&amp;R</a>, l&rsquo;usage des <a href="https://blog.golang.org/gos-declaration-syntax">pointeurs</a>, etc.
+ <a class="footnote-return" href="#fnref:4">↩</a></li>
+<li id="fn:5">Pour une liste non exhaustive, on peut se référer <a href="https://github.com/golang/go/wiki/Projects">ici</a>, <a href="https://github.com/avelino/awesome-go">là</a> et <a href="http://www.mjhall.org/golang-data-science-libraries/">là-bas</a>.
+ <a class="footnote-return" href="#fnref:5">↩</a></li>
+</ol>
+</div>
+
+            </div>
+            <footer class="article-footer">
+    <a data-url="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go" data-id="6db94f5a554669d84ea9a0cb9ae6ce5d" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+        </div>
+
+        
+
+    </article>
+
+    
+    <section id="comments">
+        <div id="disqus_thread">
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'spf13';
+    var disqus_identifier = 'http:\/\/jbeaudaux.github.io\/2017\/01\/18\/quelques-impressions-sur-le-go';
+    var disqus_title = 'Quelques impressions sur le Go';
+    var disqus_url = 'http:\/\/jbeaudaux.github.io\/2017\/01\/18\/quelques-impressions-sur-le-go';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </section>
+    
+</section>
+
+
+	    
+	    <aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go" class="thumbnail">
+                    
+                        <span style="background-image:url(http://jbeaudaux.github.io/banners/placeholder.png)" alt="Quelques impressions sur le Go" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="http://jbeaudaux.github.io/categories/informatique">
+                        Informatique
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go" class="title">Quelques impressions sur le Go</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-01-18 17:20:17 &#43;0100 CET" itemprop="datePublished">2017-01-18</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="http://jbeaudaux.github.io/categories/informatique">
+                    informatique
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="http://jbeaudaux.github.io/tags/programmation">
+                    programmation
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="http://jbeaudaux.github.io/tags/programmation" style="font-size: 12px;">programmation</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+	    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017
+      Julien Beaudaux. Written in <a href="https://golang.org/">Go</a>, powered by <a href="//gohugo.io">Hugo</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="http://jbeaudaux.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script src="http://jbeaudaux.github.io/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+</body>
+</html>

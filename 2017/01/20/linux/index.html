@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>Linux &middot; Zirka</title>
+    <meta name="generator" content="Hugo 0.18.1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="author" content="Julien Beaudaux">
+    
+      <meta name="description" content="">
+    
+    
+    <link rel="canonical" href="http://jbeaudaux.github.io/2017/01/20/linux"/>
+    <link rel="icon" href="http://jbeaudaux.github.io/favicon.ico">
+    <link rel="apple-touch-icon" href="http://jbeaudaux.github.io/apple-touch-icon.png"/>
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/css/style.css">
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/css/monokai.css">
+    <link rel="stylesheet" href="http://jbeaudaux.github.io/fancybox/jquery.fancybox.css">
+    
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,600' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Source+Code+Pro' rel='stylesheet' type='text/css'>
+    <meta property="og:title" content="Linux" />
+<meta property="og:description" content="Linux fête cette année ses 25 ans, autant d&rsquo;années pendant lesquelles il n&rsquo;a cessé de prendre du poids. Son importance se remarque tout particulièrement dans des secteurs professionnels tels que l&rsquo;embarqué ou encore le Cloud, où il est devenu un acteur majeur. Ainsi, plus que jamais, une connaissance extensive du système Linux est devenue un atout essentiel.
+Construire et mettre en avant ses compétences En 2014, la fondation Linux1 a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi qu&rsquo;une certification reconnue dans ce domaine." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://jbeaudaux.github.io/2017/01/20/linux" />
+
+
+<meta property="og:updated_time" content="2017-01-20T16:01:18&#43;01:00"/>
+
+
+
+
+
+
+
+
+
+
+    
+    
+<meta itemprop="name" content="Linux">
+<meta itemprop="description" content="Linux fête cette année ses 25 ans, autant d&rsquo;années pendant lesquelles il n&rsquo;a cessé de prendre du poids. Son importance se remarque tout particulièrement dans des secteurs professionnels tels que l&rsquo;embarqué ou encore le Cloud, où il est devenu un acteur majeur. Ainsi, plus que jamais, une connaissance extensive du système Linux est devenue un atout essentiel.
+Construire et mettre en avant ses compétences En 2014, la fondation Linux1 a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi qu&rsquo;une certification reconnue dans ce domaine.">
+
+
+<meta itemprop="dateModified" content="2017-01-20T16:01:18&#43;01:00" />
+<meta itemprop="wordCount" content="198">
+
+
+
+<meta itemprop="keywords" content="dev,misc,,linux,script," />
+
+    
+
+  <meta name="twitter:card" content="summary"/>
+
+
+
+<meta name="twitter:title" content="Linux"/>
+<meta name="twitter:description" content="Linux fête cette année ses 25 ans, autant d&rsquo;années pendant lesquelles il n&rsquo;a cessé de prendre du poids. Son importance se remarque tout particulièrement dans des secteurs professionnels tels que l&rsquo;embarqué ou encore le Cloud, où il est devenu un acteur majeur. Ainsi, plus que jamais, une connaissance extensive du système Linux est devenue un atout essentiel.
+Construire et mettre en avant ses compétences En 2014, la fondation Linux1 a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi qu&rsquo;une certification reconnue dans ce domaine."/>
+
+
+
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+
+
+<div id="container">
+	<header id="header">
+  <div id="header-main" class="header-inner">
+    <div class="outer">
+      <a href="http://jbeaudaux.github.io/" id="logo">
+          
+          <i class="logo" style="background-image: url('http://jbeaudaux.github.io/css/images/zirkaLogo.png')"></i>
+          
+          <span class="site-title">Zirka</span>
+      </a>
+      <nav id="main-nav">
+          
+          
+          <a class="main-nav-link" href="http://jbeaudaux.github.io/">Home</a>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <a class="main-nav-link" href="http://jbeaudaux.github.io/tags/">Tags</a>
+          
+          
+          
+          <a class="main-nav-link" href="http://jbeaudaux.github.io/blog/">Blog</a>
+          
+          
+      </nav>
+        <nav id="sub-nav">
+          <div class="profile" id="profile-nav">
+            <a id="profile-anchor" href="javascript:;"><img class="avatar" src="http://jbeaudaux.github.io/css/images/jul.png"><i class="fa fa-caret-down"></i></a>
+          </div>
+        </nav>
+        <div id="search-form-wrap">
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+              <input type="search" name="q" class="search-form-input" placeholder="Search">
+              <button type="submit" class="search-form-submit">
+              </button>
+              <input type="hidden" name="sitesearch" value="http://jbeaudaux.github.io/" />
+         </form>
+        </div>
+    </div>
+  </div>
+  <div id="main-nav-mobile" class="header-sub header-inner">
+    <table class="menu outer">
+      <tbody>
+          <tr>
+          
+          
+          <td><a class="main-nav-link" href="http://jbeaudaux.github.io/">Home</a></td>
+          
+          
+          
+          
+          
+          
+
+          
+
+          
+          
+          
+          
+          <td><a class="main-nav-link" href="http://jbeaudaux.github.io/tags/">Tags</a></td>
+          
+          
+          
+          <td><a class="main-nav-link" href="http://jbeaudaux.github.io/blog/">Blog</a></td>
+          
+          
+          <td>
+          <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form">
+          <input type="search" name="q" class="search-form-input" placeholder="Search">
+          <input type="hidden" name="sitesearch" value="http://jbeaudaux.github.io/" />
+          </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</header>
+
+   	
+   	<div class="outer">
+   		
+	    <aside id="profile">
+  <div class="inner profile-inner">
+    <div class="base-info profile-block">
+      <img id="avatar" src="http://jbeaudaux.github.io/css/images/jul.png">
+      <h2 id="name">Julien Beaudaux</h2>
+      
+      <span id="location"><i class="fa fa-map-marker"></i>Strasbourg, France</span>
+      
+          <a id="follow" href="https://github.com/jbeaudaux">
+              Follow
+          </a>
+      
+    </div>
+    <div class="article-info profile-block">
+      <div class="article-info-block">
+        3
+        <span>Posts</span>
+      </div>
+      <div class="article-info-block">
+        
+          3
+        
+        <span>
+            Tags
+        </span>
+      </div>
+    </div>
+    <div class="profile-block social-links">
+      <table>
+        <tr>
+          
+<td><a href="//github.com/jbeaudaux" target="_blank" title="GitHub"><i class="fa fa-github"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<td><a href="//linkedin.com/in/jbeaudaux" target="_blank" title="LinkedIn"><i class="fa fa-linkedin"></i></a></td>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <td><a href="http://jbeaudaux.github.io/index.xml" target="_blank" title="RSS"><i class="fa fa-rss"></i></a></td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</aside>
+
+	    
+
+	    
+<section id="main">
+
+    <article id="page-undefined" class="article article-type-page" itemscope="" itemprop="blogPost">
+        <div class="article-inner">
+            
+                <img src="http://jbeaudaux.github.io/banners/placeholder.png" class="article-banner">
+            
+
+            <header class="article-header">
+    <a href="http://jbeaudaux.github.io/2017/01/20/linux">
+    <h1 class="article-title" itemprop="name">
+        Linux
+    </h1>
+    </a>
+    <div class="article-meta">
+        <div class="article-date">
+            <i class="fa fa-calendar"></i>
+            <time datetime="2017-01-20 16:01:18 &#43;0100 CET" itemprop="datePublished">2017-01-20</time>
+            &middot;
+            198
+            words
+            &middot;
+            1
+            minute read
+        </div>
+
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-folder"></i>
+                
+                
+                <a class="article-category-link" href="http://jbeaudaux.github.io/categories/dev">dev</a>
+                
+                
+            </div>
+            
+        
+
+        
+            
+            
+            <div class="article-category">
+                <i class="fa fa-tags"></i>
+                
+                
+                <a class="article-category-link" href="http://jbeaudaux.github.io/tags/linux">Linux</a>
+                
+                
+            </div>
+            
+        
+    </div>
+</header>
+
+            <div class="article-entry" itemprop="articleBody">
+                
+
+<p>Linux fête cette année ses 25 ans, autant d&rsquo;années pendant lesquelles il n&rsquo;a cessé de prendre du poids. Son importance se remarque tout particulièrement dans des secteurs professionnels tels que l&rsquo;embarqué ou encore le Cloud, où il est devenu un acteur majeur. Ainsi, plus que jamais, une connaissance extensive du système Linux est devenue un atout essentiel.</p>
+
+<!-- Pour autant, il est encore difficile pour les ingénieurs de faire valoir leurs connaissances de Linux, autant qu'il est difficile pour un recruteur d'évaluer les compétences d'un candidat en la matière. -->
+
+<!-- Théorie
+Pratique
+Exercices -->
+
+<h1 id="construire-et-mettre-en-avant-ses-compétences">Construire et mettre en avant ses compétences</h1>
+
+<p>En 2014, la fondation Linux<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup> a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi qu&rsquo;une certification reconnue dans ce domaine. Ainsi sont nées les LFCS &amp; LFCE (Linux Foundation Certified Sysadmi &amp; Engineer), ouvrant ainsi la voie à une validation et une meilleure reconnaissance des compétences dans ce domaine</p>
+
+<p>The Linux Foundation announced the LFCS (Linux Foundation Certified Sysadmin) certification, a new program that aims at helping individuals all over the world to get certified in basic to intermediate system administration tasks for Linux systems. This includes supporting running systems and services, along with first-hand troubleshooting and analysis, and smart decision-making to escalate issues to engineering teams.</p>
+
+<p>(15:15:10) julienbeaudaux@gmail.com/995F25C3: <a href="http://www.tecmint.com/linux-boot-process-and-manage-services/">http://www.tecmint.com/linux-boot-process-and-manage-services/</a>
+(15:39:18) julienbeaudaux@gmail.com/995F25C3: <a href="https://www.freedesktop.org/software/systemd/man/systemd.service.html">https://www.freedesktop.org/software/systemd/man/systemd.service.html</a>
+(15:45:31) Ben Zingraff: <a href="https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files">https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files</a>
+(15:51:34) Ben Zingraff: <a href="https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Targets.html#tabl-Managing_Services_with_systemd-Targets-Runlevels">https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Targets.html#tabl-Managing_Services_with_systemd-Targets-Runlevels</a>
+(16:19:08) Ben Zingraff: <a href="http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd">http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd</a></p>
+<div class="footnotes">
+
+<hr />
+
+<ol>
+<li id="fn:1"> <a class="footnote-return" href="#fnref:1">↩</a></li>
+</ol>
+</div>
+
+            </div>
+            <footer class="article-footer">
+    <a data-url="http://jbeaudaux.github.io/2017/01/20/linux" data-id="1d7eb69ca3b6b255d45d6cea06750331" class="article-share-link">
+        <i class="fa fa-share"></i>
+        Share
+    </a>
+    
+    <a href="http://jbeaudaux.github.io/2017/01/20/linux/#disqus_thread" class="article-comment-link">
+        Comments
+    </a>
+    
+
+    <script>
+    (function ($) {
+        
+        if (typeof(__SHARE_BUTTON_BINDED__) === 'undefined' || !__SHARE_BUTTON_BINDED__) {
+            __SHARE_BUTTON_BINDED__ = true;
+        } else {
+            return;
+        }
+        $('body').on('click', function() {
+            $('.article-share-box.on').removeClass('on');
+        }).on('click', '.article-share-link', function(e) {
+            e.stopPropagation();
+
+            var $this = $(this),
+                url = $this.attr('data-url'),
+                encodedUrl = encodeURIComponent(url),
+                id = 'article-share-box-' + $this.attr('data-id'),
+                offset = $this.offset(),
+                box;
+
+            if ($('#' + id).length) {
+                box = $('#' + id);
+
+                if (box.hasClass('on')){
+                    box.removeClass('on');
+                    return;
+                }
+            } else {
+                var html = [
+                    '<div id="' + id + '" class="article-share-box">',
+                        '<input class="article-share-input" value="' + url + '">',
+                        '<div class="article-share-links">',
+                            '<a href="https://twitter.com/intent/tweet?url=' + encodedUrl + '" class="fa fa-twitter article-share-twitter" target="_blank" title="Twitter"></a>',
+                            '<a href="https://www.facebook.com/sharer.php?u=' + encodedUrl + '" class="fa fa-facebook article-share-facebook" target="_blank" title="Facebook"></a>',
+                            '<a href="http://pinterest.com/pin/create/button/?url=' + encodedUrl + '" class="fa fa-pinterest article-share-pinterest" target="_blank" title="Pinterest"></a>',
+                            '<a href="https://plus.google.com/share?url=' + encodedUrl + '" class="fa fa-google article-share-google" target="_blank" title="Google+"></a>',
+                        '</div>',
+                    '</div>'
+                ].join('');
+
+              box = $(html);
+
+              $('body').append(box);
+            }
+
+            $('.article-share-box.on').hide();
+
+            box.css({
+                top: offset.top + 25,
+                left: offset.left
+            }).addClass('on');
+
+        }).on('click', '.article-share-box', function (e) {
+            e.stopPropagation();
+        }).on('click', '.article-share-box-input', function () {
+            $(this).select();
+        }).on('click', '.article-share-box-link', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            window.open(this.href, 'article-share-box-window-' + Date.now(), 'width=500,height=450');
+        });
+    })(jQuery);
+    </script>
+</footer>
+
+        </div>
+
+        
+<nav id="article-nav">
+    
+    <a href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">
+          Older
+      </strong>
+      <div class="article-nav-title">Quelques impressions sur le Go</div>
+    </a>
+    
+
+    
+</nav>
+
+
+    </article>
+
+    
+    <section id="comments">
+        <div id="disqus_thread">
+            <div id="disqus_thread"></div>
+<script type="text/javascript">
+    var disqus_shortname = 'spf13';
+    var disqus_identifier = 'http:\/\/jbeaudaux.github.io\/2017\/01\/20\/linux';
+    var disqus_title = 'Linux';
+    var disqus_url = 'http:\/\/jbeaudaux.github.io\/2017\/01\/20\/linux';
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+        </div>
+    </section>
+    
+</section>
+
+
+	    
+	    <aside id="sidebar">
+    
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Recents
+    </h3>
+    <div class="widget">
+        <ul id="recent-post">
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="http://jbeaudaux.github.io/2017/01/20/linux" class="thumbnail">
+                    
+                        <span style="background-image:url(http://jbeaudaux.github.io/banners/placeholder.png)" alt="Linux" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="http://jbeaudaux.github.io/categories/dev">
+                        dev
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="http://jbeaudaux.github.io/2017/01/20/linux" class="title">Linux</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-01-20 16:01:18 &#43;0100 CET" itemprop="datePublished">2017-01-20</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go" class="thumbnail">
+                    
+                        <span style="background-image:url(http://jbeaudaux.github.io/banners/placeholder.png)" alt="Linux" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="http://jbeaudaux.github.io/categories/dev">
+                        dev
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go" class="title">Quelques impressions sur le Go</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-01-18 17:20:17 &#43;0100 CET" itemprop="datePublished">2017-01-18</time>
+                    </p>
+                </div>
+            </li>
+            
+            <li>
+                <div class="item-thumbnail">
+                    <a href="http://jbeaudaux.github.io/2017/01/16/hello-world" class="thumbnail">
+                    
+                        <span style="background-image:url(http://jbeaudaux.github.io/banners/placeholder.png)" alt="Linux" class="thumbnail-image"></span>
+                    
+                    </a>
+                </div>
+                <div class="item-inner">
+                    
+                    
+                    <p class="item-category">
+                        
+                        <a class="article-category-link" href="http://jbeaudaux.github.io/categories/misc">
+                        misc
+                        </a>
+                    </p>
+                    
+                    
+                    <p class="item-title"><a href="http://jbeaudaux.github.io/2017/01/16/hello-world" class="title">Hello world</a></p>
+                    <p class="item-date">
+                        <time datetime="2017-01-16 15:18:23 &#43;0100 CET" itemprop="datePublished">2017-01-16</time>
+                    </p>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="http://jbeaudaux.github.io/categories/dev">
+                    dev
+                </a>
+                <span class="category-list-count">2</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="http://jbeaudaux.github.io/categories/misc">
+                    misc
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tags
+    </h3>
+    <div class="widget">
+        <ul class="category-list">
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="http://jbeaudaux.github.io/tags/">
+                    
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="http://jbeaudaux.github.io/tags/linux">
+                    linux
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+            <li class="category-list-item">
+                
+                <a class="category-list-link" href="http://jbeaudaux.github.io/tags/script">
+                    script
+                </a>
+                <span class="category-list-count">1</span>
+            </li>
+            
+        </ul>
+    </div>
+</div>
+
+
+
+
+    
+
+
+<div class="widget-wrap">
+    <h3 class="widget-title">
+        Tag cloud
+    </h3>
+    <div class="widget tagcloud">
+        
+        
+        <a href="http://jbeaudaux.github.io/tags/" style="font-size: 12px;"></a>
+        
+        
+        <a href="http://jbeaudaux.github.io/tags/linux" style="font-size: 12px;">linux</a>
+        
+        
+        <a href="http://jbeaudaux.github.io/tags/script" style="font-size: 12px;">script</a>
+        
+    </div>
+</div>
+
+
+
+
+
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+
+	    
+	</div>
+</div>
+
+<footer id="footer">
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017
+      Julien Beaudaux. Written in <a href="https://golang.org/">Go</a>, powered by <a href="//gohugo.io">Hugo</a>.
+    </div>
+  </div>
+</footer>
+
+
+<script src="http://jbeaudaux.github.io/fancybox/jquery.fancybox.pack.js"></script>
+<script src="http://jbeaudaux.github.io/js/script.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+<!-- MathJax -->
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']]}
+  });
+</script>
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+
+</body>
+</html>
