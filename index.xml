@@ -22,6 +22,18 @@
 
 &lt;p&gt;Avec cet essor, Linux a aussi beaucoup gagné en reconnaissance et en ouverture au public. Les livres et tutoriels à son sujet sont maintenant légion, et de nombreuses entreprises sont demandeuses de profils experts en développement ou administration de tels systèmes. Linux est donc devenu un incontournable pour la plupars des ingénieurs informatique, mais il reste malgré tout pour beaucoup assez méconnu.&lt;/p&gt;
 
+&lt;h1 id=&#34;mettre-en-avant-son-expertise&#34;&gt;Mettre en avant son expertise&lt;/h1&gt;
+
+&lt;p&gt;Utilisateur quotidien d&amp;rsquo;environnements Linux allant de sytèmes embarqués minimalistes et serveurs dans le cadre de mon travail, aux distributions graphiques &amp;ldquo;classiques&amp;rdquo; sur mon ordinateur personnel, j&amp;rsquo;ai depuis mes débuts été versé dans ce domaine. Pourtant, il m&amp;rsquo;a aussi souvent été difficile de mettre en avant cette expertise et me différencier. La faute au fait que souvent, il est nécessaire de convaincre ses interlocuteurs rapidement, sans engager une conversation technique de haute volée&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. Et à ce niveau, seuls deux critères comptent : l&amp;rsquo;expérience et les diplômes/certifications.&lt;/p&gt;
+
+&lt;p&gt;Depuis 2014, la Fondation Linux&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp;amp; LFCE (Linux Foundation Certified Sysadmin &amp;amp; Engineer)&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;. Ces certifications rejoignent ainsi celles proposées par Red-Hat, qui ont peinent à gagner en reconnaissance du fait de leur spécificité, et offrent une sorte d&amp;rsquo;équivalent à celles proposées par Microsoft pour son système Windows.&lt;/p&gt;
+
+&lt;p&gt;D&amp;rsquo;un point de vue pratique, les examens de certification se font à distance, contrôlés par la fondation Linux. Une évaluation est donnée suivant un barème précis, en suivant un programme public, offrant un certain gage de qualité et de transparence. Cette évaluation permet d&amp;rsquo;ailleurs aussi de se faire une idée assez précise du niveau de la personne. Le &lt;a href=&#34;https://training.linuxfoundation.org/certification/lfce&#34;&gt;programme&lt;/a&gt; est complet, et couvre la majorité des situations auxquelles peuvent être confronté un ingénieur dans son travail avec Linux. Une bonne nouvelle en somme, qui pourra permettre de mettre en avant de manière claire et transparente ses compétences.&lt;/p&gt;
+
+&lt;h1 id=&#34;construire-ses-compétences&#34;&gt;Construire ses compétences&lt;/h1&gt;
+
+&lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.&lt;/p&gt;
+
 &lt;!-- La fondation Linux[^2] propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud[^1] permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
 
 &lt;!-- # Et les certifications dans tout ça?
@@ -36,19 +48,13 @@ La fondation Linux[^2] a même lancé un programme destiné à former des ingén
 Pratique
 Exercices --&gt;
 
-&lt;h1 id=&#34;construire-ses-compétences&#34;&gt;Construire ses compétences&lt;/h1&gt;
-
-&lt;h1 id=&#34;mettre-en-avant-son-expertise&#34;&gt;Mettre en avant son expertise&lt;/h1&gt;
-
-&lt;p&gt;En 2014, la fondation Linux&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp;amp; LFCE (Linux Foundation Certified Sysadmi &amp;amp; Engineer).&lt;/p&gt;
-
-&lt;p&gt;, ouvrant ainsi la voie à une validation et une meilleure reconnaissance des compétences dans ce domaine&lt;/p&gt;
-
-&lt;p&gt;(15:15:10) julienbeaudaux@gmail.com/995F25C3: &lt;a href=&#34;http://www.tecmint.com/linux-boot-process-and-manage-services/&#34;&gt;http://www.tecmint.com/linux-boot-process-and-manage-services/&lt;/a&gt;
-(15:39:18) julienbeaudaux@gmail.com/995F25C3: &lt;a href=&#34;https://www.freedesktop.org/software/systemd/man/systemd.service.html&#34;&gt;https://www.freedesktop.org/software/systemd/man/systemd.service.html&lt;/a&gt;
-(15:45:31) Ben Zingraff: &lt;a href=&#34;https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files&#34;&gt;https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files&lt;/a&gt;
-(15:51:34) Ben Zingraff: &lt;a href=&#34;https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Targets.html#tabl-Managing_Services_with_systemd-Targets-Runlevels&#34;&gt;https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Targets.html#tabl-Managing_Services_with_systemd-Targets-Runlevels&lt;/a&gt;
-(16:19:08) Ben Zingraff: &lt;a href=&#34;http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd&#34;&gt;http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd&lt;/a&gt;&lt;/p&gt;
+&lt;!--
+(15:15:10) julienbeaudaux@gmail.com/995F25C3: http://www.tecmint.com/linux-boot-process-and-manage-services/
+(15:39:18) julienbeaudaux@gmail.com/995F25C3: https://www.freedesktop.org/software/systemd/man/systemd.service.html
+(15:45:31) Ben Zingraff: https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
+(15:51:34) Ben Zingraff: https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Targets.html#tabl-Managing_Services_with_systemd-Targets-Runlevels
+(16:19:08) Ben Zingraff: http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd
+ --&gt;
 &lt;div class=&#34;footnotes&#34;&gt;
 
 &lt;hr /&gt;
@@ -56,8 +62,12 @@ Exercices --&gt;
 &lt;ol&gt;
 &lt;li id=&#34;fn:1&#34;&gt;Les &amp;ldquo;Infrastructure as a service&amp;rdquo; ou IaaS, comme &lt;a href=&#34;http://scaleway.com/&#34;&gt;Scaleway&lt;/a&gt; par exemple.
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:1&#34;&gt;Les &amp;ldquo;Infrastructure as a service&amp;rdquo; ou IaaS, comme &lt;a href=&#34;http://scaleway.com/&#34;&gt;Scaleway&lt;/a&gt; par exemple.
- &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux. &amp;ndash;&amp;gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;Outre les deux citées ici, la Fondation Linux propose un catalogue assez vaste de &lt;a href=&#34;https://training.linuxfoundation.org/&#34;&gt;formations&lt;/a&gt; en ligne sur des sujets aussi variés que l&amp;rsquo;administration des systèmes ou les infrastructures Cloud.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </description>
@@ -400,14 +410,15 @@ disable_widgets = true
     </item>
     
     <item>
-      <title>Hello world</title>
-      <link>http://zirkachok.github.io/2017/01/16/hello-world</link>
+      <title>Mes impressions sur le travail au Japon</title>
+      <link>http://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</link>
       <pubDate>Mon, 16 Jan 2017 15:18:23 +0100</pubDate>
       
-      <guid>http://zirkachok.github.io/2017/01/16/hello-world</guid>
+      <guid>http://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</guid>
       <description>
 
-&lt;p&gt;&lt;a href=&#34;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&#34;&gt;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&#34;&gt;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&lt;/a&gt;
+&lt;a href=&#34;https://en.wikipedia.org/wiki/Gal%C3%A1pagos_syndrome&#34;&gt;https://en.wikipedia.org/wiki/Gal%C3%A1pagos_syndrome&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;keiretsu (系列)&lt;/p&gt;
 

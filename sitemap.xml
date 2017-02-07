@@ -17,7 +17,7 @@
   </url>
   
   <url>
-    <loc>http://zirkachok.github.io/2017/01/16/hello-world</loc>
+    <loc>http://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</loc>
     <lastmod>2017-01-16T15:18:23+01:00</lastmod>
   </url>
   
@@ -34,6 +34,12 @@
   
   <url>
     <loc>http://zirkachok.github.io/categories/informatique/</loc>
+    <lastmod>2017-01-20T16:01:18+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>http://zirkachok.github.io/tags/lfce-lfcs/</loc>
     <lastmod>2017-01-20T16:01:18+01:00</lastmod>
     <priority>0</priority>
   </url>
