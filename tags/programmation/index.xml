@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Programmation on Zirka</title>
-    <link>http://jbeaudaux.github.io/tags/programmation/index.xml</link>
+    <link>http://zirkachok.github.io/tags/programmation/index.xml</link>
     <description>Recent content in Programmation on Zirka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
-    <atom:link href="http://jbeaudaux.github.io/tags/programmation/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://zirkachok.github.io/tags/programmation/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Quelques impressions sur le Go</title>
-      <link>http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go</link>
+      <link>http://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</link>
       <pubDate>Wed, 18 Jan 2017 17:20:17 +0100</pubDate>
       
-      <guid>http://jbeaudaux.github.io/2017/01/18/quelques-impressions-sur-le-go</guid>
+      <guid>http://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</guid>
       <description>
 
 &lt;p&gt;Il y a de cela des années, j&amp;rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&amp;rsquo;étais à l&amp;rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&amp;rsquo;étendue de ses librairies. Autant d&amp;rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&amp;rsquo;ont amené à me détourner petit à petit de ce langage&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. J&amp;rsquo;ai donc commencé à chercher si ce n&amp;rsquo;est un successeur au moins un complément.&lt;/p&gt;

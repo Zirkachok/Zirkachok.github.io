@@ -2,22 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Zirka</title>
-    <link>http://jbeaudaux.github.io/tags/linux/index.xml</link>
+    <link>http://zirkachok.github.io/tags/linux/index.xml</link>
     <description>Recent content in Linux on Zirka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
-    <atom:link href="http://jbeaudaux.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://zirkachok.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Linux</title>
-      <link>http://jbeaudaux.github.io/2017/01/20/linux</link>
+      <title>Linux a 25 ans, il est temps de se certifier!</title>
+      <link>http://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</link>
       <pubDate>Fri, 20 Jan 2017 16:01:18 +0100</pubDate>
       
-      <guid>http://jbeaudaux.github.io/2017/01/20/linux</guid>
+      <guid>http://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</guid>
       <description>
 
-&lt;p&gt;Linux fête cette année ses 25 ans, autant d&amp;rsquo;années pendant lesquelles il n&amp;rsquo;a cessé de prendre du poids. Son importance se remarque tout particulièrement dans des secteurs professionnels tels que l&amp;rsquo;embarqué ou encore le Cloud, où il est devenu un acteur majeur. Ainsi, plus que jamais, une connaissance extensive du système Linux est devenue un atout essentiel.&lt;/p&gt;
+&lt;p&gt;Linux fête cette année ses 25 ans, autant d&amp;rsquo;années pendant lesquelles nous l&amp;rsquo;avons vu prendre du poids. Son influence s&amp;rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&amp;rsquo;importantes transformations, tels que l&amp;rsquo;embarqué ou le Cloud, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, tout un symbole.&lt;/p&gt;
+
+&lt;p&gt;Avec cet essor, Linux a aussi beaucoup gagné en reconnaissance et en ouverture au public. Les livres et tutoriels à son sujet sont maintenant légion, et de nombreuses entreprises sont demandeuses de profils experts en développement ou administration de tels systèmes. Linux est donc devenu un incontournable pour la plupars des ingénieurs informatique, mais il reste malgré tout pour beaucoup assez méconnu.&lt;/p&gt;
+
+&lt;!-- La fondation Linux[^2] propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud[^1] permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+
+&lt;!-- # Et les certifications dans tout ça?
+Pour mettre en avant ses compétences, les certifications restent un instrument de choix. Cependant, autant Microsoft propose des certifications claires et reconnues pour ses systèmes Windows, Autant pour Linux les choses sont moins claires.
+
+La fondation Linux[^2] a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp; LFCE (Linux Foundation Certified Sysadmin &amp; Engineer).
+ --&gt;
 
 &lt;!-- Pour autant, il est encore difficile pour les ingénieurs de faire valoir leurs connaissances de Linux, autant qu&#39;il est difficile pour un recruteur d&#39;évaluer les compétences d&#39;un candidat en la matière. --&gt;
 
@@ -25,11 +35,13 @@
 Pratique
 Exercices --&gt;
 
-&lt;h1 id=&#34;construire-et-mettre-en-avant-ses-compétences&#34;&gt;Construire et mettre en avant ses compétences&lt;/h1&gt;
+&lt;h1 id=&#34;construire-ses-compétences&#34;&gt;Construire ses compétences&lt;/h1&gt;
 
-&lt;p&gt;En 2014, la fondation Linux&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi qu&amp;rsquo;une certification reconnue dans ce domaine. Ainsi sont nées les LFCS &amp;amp; LFCE (Linux Foundation Certified Sysadmi &amp;amp; Engineer), ouvrant ainsi la voie à une validation et une meilleure reconnaissance des compétences dans ce domaine&lt;/p&gt;
+&lt;h1 id=&#34;mettre-en-avant-son-expertise&#34;&gt;Mettre en avant son expertise&lt;/h1&gt;
 
-&lt;p&gt;The Linux Foundation announced the LFCS (Linux Foundation Certified Sysadmin) certification, a new program that aims at helping individuals all over the world to get certified in basic to intermediate system administration tasks for Linux systems. This includes supporting running systems and services, along with first-hand troubleshooting and analysis, and smart decision-making to escalate issues to engineering teams.&lt;/p&gt;
+&lt;p&gt;En 2014, la fondation Linux&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp;amp; LFCE (Linux Foundation Certified Sysadmi &amp;amp; Engineer).&lt;/p&gt;
+
+&lt;p&gt;, ouvrant ainsi la voie à une validation et une meilleure reconnaissance des compétences dans ce domaine&lt;/p&gt;
 
 &lt;p&gt;(15:15:10) julienbeaudaux@gmail.com/995F25C3: &lt;a href=&#34;http://www.tecmint.com/linux-boot-process-and-manage-services/&#34;&gt;http://www.tecmint.com/linux-boot-process-and-manage-services/&lt;/a&gt;
 (15:39:18) julienbeaudaux@gmail.com/995F25C3: &lt;a href=&#34;https://www.freedesktop.org/software/systemd/man/systemd.service.html&#34;&gt;https://www.freedesktop.org/software/systemd/man/systemd.service.html&lt;/a&gt;
@@ -41,7 +53,10 @@ Exercices --&gt;
 &lt;hr /&gt;
 
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt; &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Les &amp;ldquo;Infrastructure as a service&amp;rdquo; ou IaaS, comme &lt;a href=&#34;http://scaleway.com/&#34;&gt;Scaleway&lt;/a&gt; par exemple.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Les &amp;ldquo;Infrastructure as a service&amp;rdquo; ou IaaS, comme &lt;a href=&#34;http://scaleway.com/&#34;&gt;Scaleway&lt;/a&gt; par exemple.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </description>
