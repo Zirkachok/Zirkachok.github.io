@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux on Zirka</title>
-    <link>http://zirkachok.github.io/tags/linux/index.xml</link>
+    <link>https://zirkachok.github.io/tags/linux/index.xml</link>
     <description>Recent content in Linux on Zirka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
-    <atom:link href="http://zirkachok.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://zirkachok.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux a 25 ans, il est temps de se certifier!</title>
-      <link>http://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</link>
+      <link>https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</link>
       <pubDate>Fri, 20 Jan 2017 16:01:18 +0100</pubDate>
       
-      <guid>http://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</guid>
+      <guid>https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</guid>
       <description>
 
 &lt;p&gt;Linux fête cette année ses 25 ans, autant d&amp;rsquo;années pendant lesquelles nous l&amp;rsquo;avons vu prendre du poids. Son influence s&amp;rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&amp;rsquo;importantes transformations, tels que l&amp;rsquo;embarqué ou le Cloud, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, tout un symbole.&lt;/p&gt;
@@ -31,14 +31,17 @@
 
 &lt;h1 id=&#34;construire-ses-compétences&#34;&gt;Construire ses compétences&lt;/h1&gt;
 
-&lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.&lt;/p&gt;
+&lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&amp;rsquo;est le système Linux.&lt;/p&gt;
 
-&lt;!-- La fondation Linux[^2] propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud[^1] permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+&lt;!-- La fondation Linux propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+
+Les &#34;Infrastructure as a service&#34; ou IaaS, comme [Scaleway](http://scaleway.com/) par exemple.
+Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux. --&gt;
 
 &lt;!-- # Et les certifications dans tout ça?
 Pour mettre en avant ses compétences, les certifications restent un instrument de choix. Cependant, autant Microsoft propose des certifications claires et reconnues pour ses systèmes Windows, Autant pour Linux les choses sont moins claires.
 
-La fondation Linux[^2] a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp; LFCE (Linux Foundation Certified Sysadmin &amp; Engineer).
+La fondation Linux a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp; LFCE (Linux Foundation Certified Sysadmin &amp; Engineer).
  --&gt;
 
 &lt;!-- Pour autant, il est encore difficile pour les ingénieurs de faire valoir leurs connaissances de Linux, autant qu&#39;il est difficile pour un recruteur d&#39;évaluer les compétences d&#39;un candidat en la matière. --&gt;
@@ -59,9 +62,9 @@ Exercices --&gt;
 &lt;hr /&gt;
 
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;Les &amp;ldquo;Infrastructure as a service&amp;rdquo; ou IaaS, comme &lt;a href=&#34;http://scaleway.com/&#34;&gt;Scaleway&lt;/a&gt; par exemple.
+&lt;li id=&#34;fn:1&#34;&gt;En témoignent des initiatives comme l&amp;rsquo;&lt;a href=&#34;https://www.openmainframeproject.org/&#34;&gt;Open Mainframe&lt;/a&gt;, soutenue par IBM et Hitachi entre autres.
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34;&gt;Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux. &amp;ndash;&amp;gt;
+&lt;li id=&#34;fn:2&#34;&gt;Surtout lorsque Linux n&amp;rsquo;est pas bien connu par l&amp;rsquo;interlocuteur en question. On retrouve la plupart du temps en face de soi des responsables n&amp;rsquo;ayant que peu pied dans le technique, ou des &amp;ldquo;experts&amp;rdquo; pas nécessairement à jour avec la technologie.
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
 &lt;li id=&#34;fn:3&#34;&gt;Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux.
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;

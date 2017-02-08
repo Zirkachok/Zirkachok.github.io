@@ -2,20 +2,20 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zirka</title>
-    <link>http://zirkachok.github.io/index.xml</link>
+    <link>https://zirkachok.github.io/index.xml</link>
     <description>Recent content on Zirka</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
     <lastBuildDate>Fri, 20 Jan 2017 16:01:18 +0100</lastBuildDate>
-    <atom:link href="http://zirkachok.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://zirkachok.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Linux a 25 ans, il est temps de se certifier!</title>
-      <link>http://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</link>
+      <link>https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</link>
       <pubDate>Fri, 20 Jan 2017 16:01:18 +0100</pubDate>
       
-      <guid>http://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</guid>
+      <guid>https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</guid>
       <description>
 
 &lt;p&gt;Linux fête cette année ses 25 ans, autant d&amp;rsquo;années pendant lesquelles nous l&amp;rsquo;avons vu prendre du poids. Son influence s&amp;rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&amp;rsquo;importantes transformations, tels que l&amp;rsquo;embarqué ou le Cloud, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, tout un symbole.&lt;/p&gt;
@@ -32,14 +32,17 @@
 
 &lt;h1 id=&#34;construire-ses-compétences&#34;&gt;Construire ses compétences&lt;/h1&gt;
 
-&lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.&lt;/p&gt;
+&lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&amp;rsquo;est le système Linux.&lt;/p&gt;
 
-&lt;!-- La fondation Linux[^2] propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud[^1] permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+&lt;!-- La fondation Linux propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+
+Les &#34;Infrastructure as a service&#34; ou IaaS, comme [Scaleway](http://scaleway.com/) par exemple.
+Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux. --&gt;
 
 &lt;!-- # Et les certifications dans tout ça?
 Pour mettre en avant ses compétences, les certifications restent un instrument de choix. Cependant, autant Microsoft propose des certifications claires et reconnues pour ses systèmes Windows, Autant pour Linux les choses sont moins claires.
 
-La fondation Linux[^2] a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp; LFCE (Linux Foundation Certified Sysadmin &amp; Engineer).
+La fondation Linux a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp; LFCE (Linux Foundation Certified Sysadmin &amp; Engineer).
  --&gt;
 
 &lt;!-- Pour autant, il est encore difficile pour les ingénieurs de faire valoir leurs connaissances de Linux, autant qu&#39;il est difficile pour un recruteur d&#39;évaluer les compétences d&#39;un candidat en la matière. --&gt;
@@ -60,9 +63,9 @@ Exercices --&gt;
 &lt;hr /&gt;
 
 &lt;ol&gt;
-&lt;li id=&#34;fn:1&#34;&gt;Les &amp;ldquo;Infrastructure as a service&amp;rdquo; ou IaaS, comme &lt;a href=&#34;http://scaleway.com/&#34;&gt;Scaleway&lt;/a&gt; par exemple.
+&lt;li id=&#34;fn:1&#34;&gt;En témoignent des initiatives comme l&amp;rsquo;&lt;a href=&#34;https://www.openmainframeproject.org/&#34;&gt;Open Mainframe&lt;/a&gt;, soutenue par IBM et Hitachi entre autres.
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
-&lt;li id=&#34;fn:2&#34;&gt;Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux. &amp;ndash;&amp;gt;
+&lt;li id=&#34;fn:2&#34;&gt;Surtout lorsque Linux n&amp;rsquo;est pas bien connu par l&amp;rsquo;interlocuteur en question. On retrouve la plupart du temps en face de soi des responsables n&amp;rsquo;ayant que peu pied dans le technique, ou des &amp;ldquo;experts&amp;rdquo; pas nécessairement à jour avec la technologie.
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
 &lt;li id=&#34;fn:3&#34;&gt;Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux.
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
@@ -75,10 +78,10 @@ Exercices --&gt;
     
     <item>
       <title>Quelques impressions sur le Go</title>
-      <link>http://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</link>
+      <link>https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</link>
       <pubDate>Wed, 18 Jan 2017 17:20:17 +0100</pubDate>
       
-      <guid>http://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</guid>
+      <guid>https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</guid>
       <description>
 
 &lt;p&gt;Il y a de cela des années, j&amp;rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&amp;rsquo;étais à l&amp;rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&amp;rsquo;étendue de ses librairies. Autant d&amp;rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&amp;rsquo;ont amené à me détourner petit à petit de ce langage&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. J&amp;rsquo;ai donc commencé à chercher si ce n&amp;rsquo;est un successeur au moins un complément.&lt;/p&gt;
@@ -173,479 +176,6 @@ func main() {
  &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:5&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Hello world</title>
-      <link>http://zirkachok.github.io/2017/01/16/hello-world</link>
-      <pubDate>Mon, 16 Jan 2017 15:18:23 +0100</pubDate>
-      
-      <guid>http://zirkachok.github.io/2017/01/16/hello-world</guid>
-      <description>
-
-&lt;p&gt;ilà ! C&amp;rsquo;est chose faite, je viens enfin de mettre en place mon blog. Je trouvais l&amp;rsquo;ancienne version de mon site personnel un peu trop statique à mon goût, je compte ainsi utiliser pleinement le concept du blog pour le rendre un peu plus vivant.&lt;/p&gt;
-
-&lt;p&gt;Tout d&amp;rsquo;abord je me présente, Yoann, 22 ans et étudiant en informatique en dernière année d&amp;rsquo;école d&amp;rsquo;ingénieur à l&amp;rsquo;UTT en spécialité systèmes embarqués.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai créé ce blog pour deux raisons:&lt;/p&gt;
-
-&lt;p&gt;Tout d&amp;rsquo;abord afin d&amp;rsquo;écrire et partager sur des domaines qui m&amp;rsquo;intéressent , notamment la robotique, les systèmes embarqués, le traitement d&amp;rsquo;image et la programmation en général. Ensuite ce blog est pour moi l&amp;rsquo;occasion de présenter les projets sur lesquels je travaille (ou ai travaillé), et de discuter de mes trouvailles et bidouilles technologiques.&lt;/p&gt;
-
-&lt;p&gt;Ce blog me sert également de CV numérique, je compte y déposer mes références. Déjà dans l&amp;rsquo;optique d&amp;rsquo;une recherche d&amp;rsquo;emploi dans 6 mois, mais aussi à plus long terme pour me faire un espace où se cotoient mes références personnelles et professionnelles.&lt;/p&gt;
-
-&lt;p&gt;Étant à la recherche d&amp;rsquo;un site plutôt dynamique je vous invite à venir me dire ce que vous pensez de mes articles (commentaire ou email) et à discuter de manière générale autour de nos passions communes.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;y parlerai informatique, l&amp;rsquo;accent sera donné sur le monde de l&amp;rsquo;embarqué et tout ce qui gravite autour, mais aussi
-J&amp;rsquo;y référencerai mes découvertes
-développement personnel,&lt;/p&gt;
-
-&lt;h2 id=&#34;get-the-theme&#34;&gt;Get the theme&lt;/h2&gt;
-
-&lt;p&gt;I assume you&amp;rsquo;ve Git installed. Inside the folder of your Hugo site run&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkdir themes
-$ cd themes
-$ git clone git@github.com:digitalcraftsman/hugo-icarus-theme.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should see a folder called &lt;code&gt;hugo-icarus-theme&lt;/code&gt; inside the &lt;code&gt;themes&lt;/code&gt; directory that we created a few moments ago. For more information read the official &lt;a href=&#34;https://gohugo.io/overview/installing/&#34;&gt;setup guide&lt;/a&gt; of Hugo.&lt;/p&gt;
-
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;In the next step navigate to the &lt;code&gt;exampleSite&lt;/code&gt; folder at &lt;code&gt;themes/hugo-icarus-theme/exampleSite/&lt;/code&gt;. Its structure should look similar to this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;exampleSite
-├── config.toml
-├── content
-│   └── post
-│       ├── creating-a-new-theme.md
-│       ├── go-is-for-lovers.md
-│       ├── hugo-is-for-lovers.md
-│       ├── introducing-icarus-and-its-features.md
-│       ├── linked-post.md
-│       └── migrate-from-jekyll.md
-├── data
-│   └── l10n.toml
-└── static
-    └── banners
-        └── placeholder.png
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In order to get your site running, you need to copy &lt;code&gt;config.toml&lt;/code&gt; and &lt;code&gt;data/l10n.toml&lt;/code&gt; into the root folders.&lt;/p&gt;
-
-&lt;h2 id=&#34;the-config-file&#34;&gt;The config file&lt;/h2&gt;
-
-&lt;p&gt;Now, let us take a look into the &lt;code&gt;config.toml&lt;/code&gt;. Feel free to play around with the settings.&lt;/p&gt;
-
-&lt;h3 id=&#34;comments&#34;&gt;Comments&lt;/h3&gt;
-
-&lt;p&gt;The optional comment system is powered by Disqus. Enter your shortname to enable the comment section under your posts.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;disqusShortname = &amp;quot;&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Tip: you can disable the comment section for a single page in its frontmatter:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;+++
-disable_comments = true
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;menu&#34;&gt;Menu&lt;/h3&gt;
-
-&lt;p&gt;You can also define the items menu entries as you like. First, let us link a post that you&amp;rsquo;ve written. We can do this in the frontmatter of the post&amp;rsquo;s content file by setting &lt;code&gt;menu&lt;/code&gt; to &lt;code&gt;main&lt;/code&gt;. Take a look at the menu if you want to see a live example.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;+++
-menu = &amp;quot;main&amp;quot;
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Furthermore, we can add entries that don&amp;rsquo;t link to posts. Back in the &lt;code&gt;config.toml&lt;/code&gt; you&amp;rsquo;ll find a section for the menus:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[[params.menu]]
-    before = true
-    label  = &amp;quot;Home&amp;quot;
-    link   = &amp;quot;/&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Define a label and enter the URL to resource you want to link. With &lt;code&gt;before&lt;/code&gt; you can decide whether the link should appear before &lt;strong&gt;or&lt;/strong&gt; after all linked posts in the menu. &lt;code&gt;Home&lt;/code&gt; appears before the linked post, &lt;code&gt;Tags&lt;/code&gt; and &lt;code&gt;Categories&lt;/code&gt; after them (as in the menu above).&lt;/p&gt;
-
-&lt;h3 id=&#34;sidebars&#34;&gt;Sidebars&lt;/h3&gt;
-
-&lt;p&gt;In order to use the full width of the website you can disable the profile on the left and / or the widgets on the right for a single page in the frontmatter:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;+++
-disable_profile = true
-disable_widgets = true
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;tell-me-who-you-are&#34;&gt;Tell me who you are&lt;/h3&gt;
-
-&lt;p&gt;Maybe you noticed the profile section on the left. Add your social network accounts to the profile section on the left by entering your username under &lt;code&gt;social&lt;/code&gt;. The links to your account will be create automatically.&lt;/p&gt;
-
-&lt;h3 id=&#34;widgets&#34;&gt;Widgets&lt;/h3&gt;
-
-&lt;p&gt;On the right, you can see some useful widgets that you can activate as you like. You can deactivate them under &lt;code&gt;params.widgets&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[params.widgets]
-    recent_articles = false
-    categories = true
-    tags = true
-    tag_cloud = true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;localization-l10n&#34;&gt;Localization (l10n)&lt;/h2&gt;
-
-&lt;p&gt;You don&amp;rsquo;t blog in English and you want to translate the theme into your native locale? No problem. Take a look in the &lt;code&gt;data&lt;/code&gt; folder and you&amp;rsquo;ll find a file &lt;code&gt;l10n.toml&lt;/code&gt; that we&amp;rsquo;ve copied at the beginning. It contains all strings related to the theme. Just replace the original strings with your own.&lt;/p&gt;
-
-&lt;h2 id=&#34;linking-thumbnails&#34;&gt;Linking thumbnails&lt;/h2&gt;
-
-&lt;p&gt;After creating a new post you can define a banner by entering the relative path to the image.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;banner = &amp;quot;banners/placeholder.png&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This way you can store them either next to the content file or in the &lt;code&gt;static&lt;/code&gt; folder.&lt;/p&gt;
-
-&lt;h2 id=&#34;mathematical-equations&#34;&gt;Mathematical equations&lt;/h2&gt;
-
-&lt;p&gt;Mathematical equations in form of LaTeX or MathML code can be rendered with the support of &lt;a href=&#34;https://www.mathjax.org&#34;&gt;MathJax&lt;/a&gt;. MathML works out of the box. If you&amp;rsquo;re using LaTeX you need to wrap your equation with &lt;code&gt;$$&lt;/code&gt; as shown in the following example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$$ z = r \cdot (\sin{\phi} + \cos{\phi} \cdot i) $$
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;$$ z = r \cdot (\sin{\phi} + \cos{\phi} \cdot i) $$&lt;/p&gt;
-
-&lt;p&gt;You can also print formulas inline: $a^2 + b^2 = c^2$. In this case wrap the formula only once with &lt;code&gt;$&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;shortcodes&#34;&gt;Shortcodes&lt;/h2&gt;
-
-&lt;p&gt;Last but not least I included some useful &lt;a href=&#34;http://gohugo.io/extras/shortcodes/&#34;&gt;shortcodes&lt;/a&gt; to make your life easier.&lt;/p&gt;
-
-&lt;h3 id=&#34;gallery&#34;&gt;Gallery&lt;/h3&gt;
-
-&lt;p&gt;This way you can include a gallery into your post. Copy the code below into your content file and enter the relative paths to your images.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; gallery
-    &amp;quot;/banners/placeholder.png&amp;quot;
-    &amp;quot;/banners/placeholder.png&amp;quot;
-    &amp;quot;/banners/placeholder.png&amp;quot;
-&amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;div class=&#34;article-gallery&#34;&gt;
-    &lt;div class=&#34;article-gallery-photos&#34;&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-    &lt;/div&gt;
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;jsfiddle&#34;&gt;JSFiddle&lt;/h3&gt;
-
-&lt;p&gt;It works the same with JSFiddle examples you want to showcase. The parameter &lt;code&gt;id&lt;/code&gt; consists of the username and id of the example.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;p&gt;As descibed in the &lt;a href=&#34;http://doc.jsfiddle.net/use/embedding.html&#34;&gt;docs of JSFiddle&lt;/a&gt;, you can define which tabs will be shown. Enter the tabs you want to see separated by a comma in the &lt;code&gt;tabs&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; tabs=&amp;quot;html,result&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Do you see the difference?&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/html,result/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;h2 id=&#34;nearly-finished&#34;&gt;Nearly finished&lt;/h2&gt;
-
-&lt;p&gt;In order to see your site in action, run Hugo&amp;rsquo;s built-in local server.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ hugo server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now enter &lt;a href=&#34;http://localhost:1313&#34;&gt;&lt;code&gt;localhost:1313&lt;/code&gt;&lt;/a&gt; in the address bar of your browser.&lt;/p&gt;
-
-&lt;h2 id=&#34;contributing&#34;&gt;Contributing&lt;/h2&gt;
-
-&lt;p&gt;Have you found a bug or got an idea for a new feature? Feel free to use the &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/issues&#34;&gt;issue tracker&lt;/a&gt; to let me know. Or make directly a &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/pulls&#34;&gt;pull request&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;license&#34;&gt;License&lt;/h2&gt;
-
-&lt;p&gt;This theme is released under the MIT license. For more information read the &lt;a href=&#34;https://github.com/digitalcraftsman/hugo-icarus-theme/blob/master/LICENSE.md&#34;&gt;License&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;annotations&#34;&gt;Annotations&lt;/h2&gt;
-
-&lt;p&gt;Thanks to &lt;a href=&#34;//github.com/spf13&#34;&gt;Steve Francia&lt;/a&gt; for creating Hugo and the awesome community around the project.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Mes impressions sur le travail au Japon</title>
-      <link>http://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</link>
-      <pubDate>Mon, 16 Jan 2017 15:18:23 +0100</pubDate>
-      
-      <guid>http://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</guid>
-      <description>
-
-&lt;p&gt;&lt;a href=&#34;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&#34;&gt;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&lt;/a&gt;
-&lt;a href=&#34;https://en.wikipedia.org/wiki/Gal%C3%A1pagos_syndrome&#34;&gt;https://en.wikipedia.org/wiki/Gal%C3%A1pagos_syndrome&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;keiretsu (系列)&lt;/p&gt;
-
-&lt;p&gt;Randy &lt;a href=&#34;https://en.wikipedia.org/wiki/Randy_Bush_(scientist&#34;&gt;https://en.wikipedia.org/wiki/Randy_Bush_(scientist&lt;/a&gt;)&lt;/p&gt;
-
-&lt;p&gt;ilà ! C&amp;rsquo;est chose faite, je viens enfin de mettre en place mon blog. Je trouvais l&amp;rsquo;ancienne version de mon site personnel un peu trop statique à mon goût, je compte ainsi utiliser pleinement le concept du blog pour le rendre un peu plus vivant.&lt;/p&gt;
-
-&lt;p&gt;Tout d&amp;rsquo;abord je me présente, Yoann, 22 ans et étudiant en informatique en dernière année d&amp;rsquo;école d&amp;rsquo;ingénieur à l&amp;rsquo;UTT en spécialité systèmes embarqués.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;ai créé ce blog pour deux raisons:&lt;/p&gt;
-
-&lt;p&gt;Tout d&amp;rsquo;abord afin d&amp;rsquo;écrire et partager sur des domaines qui m&amp;rsquo;intéressent , notamment la robotique, les systèmes embarqués, le traitement d&amp;rsquo;image et la programmation en général. Ensuite ce blog est pour moi l&amp;rsquo;occasion de présenter les projets sur lesquels je travaille (ou ai travaillé), et de discuter de mes trouvailles et bidouilles technologiques.&lt;/p&gt;
-
-&lt;p&gt;Ce blog me sert également de CV numérique, je compte y déposer mes références. Déjà dans l&amp;rsquo;optique d&amp;rsquo;une recherche d&amp;rsquo;emploi dans 6 mois, mais aussi à plus long terme pour me faire un espace où se cotoient mes références personnelles et professionnelles.&lt;/p&gt;
-
-&lt;p&gt;Étant à la recherche d&amp;rsquo;un site plutôt dynamique je vous invite à venir me dire ce que vous pensez de mes articles (commentaire ou email) et à discuter de manière générale autour de nos passions communes.&lt;/p&gt;
-
-&lt;p&gt;J&amp;rsquo;y parlerai informatique, l&amp;rsquo;accent sera donné sur le monde de l&amp;rsquo;embarqué et tout ce qui gravite autour, mais aussi
-J&amp;rsquo;y référencerai mes découvertes
-développement personnel,&lt;/p&gt;
-
-&lt;h2 id=&#34;get-the-theme&#34;&gt;Get the theme&lt;/h2&gt;
-
-&lt;p&gt;I assume you&amp;rsquo;ve Git installed. Inside the folder of your Hugo site run&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ mkdir themes
-$ cd themes
-$ git clone git@github.com:digitalcraftsman/hugo-icarus-theme.git
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;You should see a folder called &lt;code&gt;hugo-icarus-theme&lt;/code&gt; inside the &lt;code&gt;themes&lt;/code&gt; directory that we created a few moments ago. For more information read the official &lt;a href=&#34;https://gohugo.io/overview/installing/&#34;&gt;setup guide&lt;/a&gt; of Hugo.&lt;/p&gt;
-
-&lt;h2 id=&#34;setup&#34;&gt;Setup&lt;/h2&gt;
-
-&lt;p&gt;In the next step navigate to the &lt;code&gt;exampleSite&lt;/code&gt; folder at &lt;code&gt;themes/hugo-icarus-theme/exampleSite/&lt;/code&gt;. Its structure should look similar to this:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;exampleSite
-├── config.toml
-├── content
-│   └── post
-│       ├── creating-a-new-theme.md
-│       ├── go-is-for-lovers.md
-│       ├── hugo-is-for-lovers.md
-│       ├── introducing-icarus-and-its-features.md
-│       ├── linked-post.md
-│       └── migrate-from-jekyll.md
-├── data
-│   └── l10n.toml
-└── static
-    └── banners
-        └── placeholder.png
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;In order to get your site running, you need to copy &lt;code&gt;config.toml&lt;/code&gt; and &lt;code&gt;data/l10n.toml&lt;/code&gt; into the root folders.&lt;/p&gt;
-
-&lt;h2 id=&#34;the-config-file&#34;&gt;The config file&lt;/h2&gt;
-
-&lt;p&gt;Now, let us take a look into the &lt;code&gt;config.toml&lt;/code&gt;. Feel free to play around with the settings.&lt;/p&gt;
-
-&lt;h3 id=&#34;comments&#34;&gt;Comments&lt;/h3&gt;
-
-&lt;p&gt;The optional comment system is powered by Disqus. Enter your shortname to enable the comment section under your posts.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;disqusShortname = &amp;quot;&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Tip: you can disable the comment section for a single page in its frontmatter:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;+++
-disable_comments = true
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;menu&#34;&gt;Menu&lt;/h3&gt;
-
-&lt;p&gt;You can also define the items menu entries as you like. First, let us link a post that you&amp;rsquo;ve written. We can do this in the frontmatter of the post&amp;rsquo;s content file by setting &lt;code&gt;menu&lt;/code&gt; to &lt;code&gt;main&lt;/code&gt;. Take a look at the menu if you want to see a live example.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;+++
-menu = &amp;quot;main&amp;quot;
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Furthermore, we can add entries that don&amp;rsquo;t link to posts. Back in the &lt;code&gt;config.toml&lt;/code&gt; you&amp;rsquo;ll find a section for the menus:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[[params.menu]]
-    before = true
-    label  = &amp;quot;Home&amp;quot;
-    link   = &amp;quot;/&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Define a label and enter the URL to resource you want to link. With &lt;code&gt;before&lt;/code&gt; you can decide whether the link should appear before &lt;strong&gt;or&lt;/strong&gt; after all linked posts in the menu. &lt;code&gt;Home&lt;/code&gt; appears before the linked post, &lt;code&gt;Tags&lt;/code&gt; and &lt;code&gt;Categories&lt;/code&gt; after them (as in the menu above).&lt;/p&gt;
-
-&lt;h3 id=&#34;sidebars&#34;&gt;Sidebars&lt;/h3&gt;
-
-&lt;p&gt;In order to use the full width of the website you can disable the profile on the left and / or the widgets on the right for a single page in the frontmatter:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&#34;language-toml&#34;&gt;+++
-disable_profile = true
-disable_widgets = true
-+++
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&#34;tell-me-who-you-are&#34;&gt;Tell me who you are&lt;/h3&gt;
-
-&lt;p&gt;Maybe you noticed the profile section on the left. Add your social network accounts to the profile section on the left by entering your username under &lt;code&gt;social&lt;/code&gt;. The links to your account will be create automatically.&lt;/p&gt;
-
-&lt;h3 id=&#34;widgets&#34;&gt;Widgets&lt;/h3&gt;
-
-&lt;p&gt;On the right, you can see some useful widgets that you can activate as you like. You can deactivate them under &lt;code&gt;params.widgets&lt;/code&gt;:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;[params.widgets]
-    recent_articles = false
-    categories = true
-    tags = true
-    tag_cloud = true
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;localization-l10n&#34;&gt;Localization (l10n)&lt;/h2&gt;
-
-&lt;p&gt;You don&amp;rsquo;t blog in English and you want to translate the theme into your native locale? No problem. Take a look in the &lt;code&gt;data&lt;/code&gt; folder and you&amp;rsquo;ll find a file &lt;code&gt;l10n.toml&lt;/code&gt; that we&amp;rsquo;ve copied at the beginning. It contains all strings related to the theme. Just replace the original strings with your own.&lt;/p&gt;
-
-&lt;h2 id=&#34;linking-thumbnails&#34;&gt;Linking thumbnails&lt;/h2&gt;
-
-&lt;p&gt;After creating a new post you can define a banner by entering the relative path to the image.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;banner = &amp;quot;banners/placeholder.png&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;This way you can store them either next to the content file or in the &lt;code&gt;static&lt;/code&gt; folder.&lt;/p&gt;
-
-&lt;h2 id=&#34;mathematical-equations&#34;&gt;Mathematical equations&lt;/h2&gt;
-
-&lt;p&gt;Mathematical equations in form of LaTeX or MathML code can be rendered with the support of &lt;a href=&#34;https://www.mathjax.org&#34;&gt;MathJax&lt;/a&gt;. MathML works out of the box. If you&amp;rsquo;re using LaTeX you need to wrap your equation with &lt;code&gt;$$&lt;/code&gt; as shown in the following example:&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$$ z = r \cdot (\sin{\phi} + \cos{\phi} \cdot i) $$
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;$$ z = r \cdot (\sin{\phi} + \cos{\phi} \cdot i) $$&lt;/p&gt;
-
-&lt;p&gt;You can also print formulas inline: $a^2 + b^2 = c^2$. In this case wrap the formula only once with &lt;code&gt;$&lt;/code&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;shortcodes&#34;&gt;Shortcodes&lt;/h2&gt;
-
-&lt;p&gt;Last but not least I included some useful &lt;a href=&#34;http://gohugo.io/extras/shortcodes/&#34;&gt;shortcodes&lt;/a&gt; to make your life easier.&lt;/p&gt;
-
-&lt;h3 id=&#34;gallery&#34;&gt;Gallery&lt;/h3&gt;
-
-&lt;p&gt;This way you can include a gallery into your post. Copy the code below into your content file and enter the relative paths to your images.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; gallery
-    &amp;quot;/banners/placeholder.png&amp;quot;
-    &amp;quot;/banners/placeholder.png&amp;quot;
-    &amp;quot;/banners/placeholder.png&amp;quot;
-&amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;div class=&#34;article-gallery&#34;&gt;
-    &lt;div class=&#34;article-gallery-photos&#34;&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-    &lt;/div&gt;
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;jsfiddle&#34;&gt;JSFiddle&lt;/h3&gt;
-
-&lt;p&gt;It works the same with JSFiddle examples you want to showcase. The parameter &lt;code&gt;id&lt;/code&gt; consists of the username and id of the example.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;p&gt;As descibed in the &lt;a href=&#34;http://doc.jsfiddle.net/use/embedding.html&#34;&gt;docs of JSFiddle&lt;/a&gt;, you can define which tabs will be shown. Enter the tabs you want to see separated by a comma in the &lt;code&gt;tabs&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; tabs=&amp;quot;html,result&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Do you see the difference?&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/html,result/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;h2 id=&#34;nearly-finished&#34;&gt;Nearly finished&lt;/h2&gt;
-
-&lt;p&gt;In order to see your site in action, run Hugo&amp;rsquo;s built-in local server.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ hugo server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now enter &lt;a href=&#34;http://localhost:1313&#34;&gt;&lt;code&gt;localhost:1313&lt;/code&gt;&lt;/a&gt; in the address bar of your browser.&lt;/p&gt;
-
-&lt;h2 id=&#34;contributing&#34;&gt;Contributing&lt;/h2&gt;
-
-&lt;p&gt;Have you found a bug or got an idea for a new feature? Feel free to use the &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/issues&#34;&gt;issue tracker&lt;/a&gt; to let me know. Or make directly a &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/pulls&#34;&gt;pull request&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;license&#34;&gt;License&lt;/h2&gt;
-
-&lt;p&gt;This theme is released under the MIT license. For more information read the &lt;a href=&#34;https://github.com/digitalcraftsman/hugo-icarus-theme/blob/master/LICENSE.md&#34;&gt;License&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;annotations&#34;&gt;Annotations&lt;/h2&gt;
-
-&lt;p&gt;Thanks to &lt;a href=&#34;//github.com/spf13&#34;&gt;Steve Francia&lt;/a&gt; for creating Hugo and the awesome community around the project.&lt;/p&gt;
 </description>
     </item>
     
