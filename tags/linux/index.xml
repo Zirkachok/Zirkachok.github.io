@@ -5,7 +5,7 @@
     <link>https://zirkachok.github.io/tags/linux/index.xml</link>
     <description>Recent content in Linux on Zirka</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>fr-fr</language>
     <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
     <atom:link href="https://zirkachok.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
@@ -17,7 +17,7 @@
       <guid>https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</guid>
       <description>
 
-&lt;p&gt;Linux fête cette année ses 25 ans, autant d&amp;rsquo;années pendant lesquelles nous l&amp;rsquo;avons vu prendre du poids. Son influence s&amp;rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&amp;rsquo;importantes transformations, tels que l&amp;rsquo;embarqué ou le Cloud, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, tout un symbole.&lt;/p&gt;
+&lt;p&gt;Linux fête cette année ses 25 ans, autant d&amp;rsquo;années pendant lesquelles nous l&amp;rsquo;avons vu prendre du poids. Son influence s&amp;rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&amp;rsquo;importantes transformations, tels que l&amp;rsquo;embarqué, le Cloud ou les smartphones, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, tout un symbole.&lt;/p&gt;
 
 &lt;p&gt;Avec cet essor, Linux a aussi beaucoup gagné en reconnaissance et en ouverture au public. Les livres et tutoriels à son sujet sont maintenant légion, et de nombreuses entreprises sont demandeuses de profils experts en développement ou administration de tels systèmes. Linux est donc devenu un incontournable pour la plupars des ingénieurs informatique, mais il reste malgré tout pour beaucoup assez méconnu.&lt;/p&gt;
 
@@ -31,31 +31,19 @@
 
 &lt;h1 id=&#34;construire-ses-compétences&#34;&gt;Construire ses compétences&lt;/h1&gt;
 
-&lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&amp;rsquo;est le système Linux.&lt;/p&gt;
+&lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.&lt;/p&gt;
+
+&lt;p&gt;Chaque article sera composé de trois parties. Tout d&amp;rsquo;abord, je parlerai du système lui-même, des choix qui l&amp;rsquo;ont guidé et des grandes figures qui l&amp;rsquo;ont influencé, pour ensuite présenter une ou plusieurs fonctionnalités, et enfin je vous proposerai quelques exercices pour approfondir ces nouvelles connaissances. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&amp;rsquo;est le système Linux.&lt;/p&gt;
 
 &lt;!-- La fondation Linux propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
 
 Les &#34;Infrastructure as a service&#34; ou IaaS, comme [Scaleway](http://scaleway.com/) par exemple.
-Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux. --&gt;
+--&gt;
 
 &lt;!-- # Et les certifications dans tout ça?
 Pour mettre en avant ses compétences, les certifications restent un instrument de choix. Cependant, autant Microsoft propose des certifications claires et reconnues pour ses systèmes Windows, Autant pour Linux les choses sont moins claires.
 
 La fondation Linux a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp; LFCE (Linux Foundation Certified Sysadmin &amp; Engineer).
- --&gt;
-
-&lt;!-- Pour autant, il est encore difficile pour les ingénieurs de faire valoir leurs connaissances de Linux, autant qu&#39;il est difficile pour un recruteur d&#39;évaluer les compétences d&#39;un candidat en la matière. --&gt;
-
-&lt;!-- Théorie
-Pratique
-Exercices --&gt;
-
-&lt;!--
-(15:15:10) julienbeaudaux@gmail.com/995F25C3: http://www.tecmint.com/linux-boot-process-and-manage-services/
-(15:39:18) julienbeaudaux@gmail.com/995F25C3: https://www.freedesktop.org/software/systemd/man/systemd.service.html
-(15:45:31) Ben Zingraff: https://www.digitalocean.com/community/tutorials/understanding-systemd-units-and-unit-files
-(15:51:34) Ben Zingraff: https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/System_Administrators_Guide/sect-Managing_Services_with_systemd-Targets.html#tabl-Managing_Services_with_systemd-Targets-Runlevels
-(16:19:08) Ben Zingraff: http://unix.stackexchange.com/questions/47695/how-to-write-startup-script-for-systemd
  --&gt;
 &lt;div class=&#34;footnotes&#34;&gt;
 

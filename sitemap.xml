@@ -17,6 +17,18 @@
   </url>
   
   <url>
+    <loc>https://zirkachok.github.io/tags/dev/index./</loc>
+    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/tags/golang/</loc>
+    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>https://zirkachok.github.io/categories/informatique/</loc>
     <lastmod>2017-01-20T16:01:18+01:00</lastmod>
     <priority>0</priority>
@@ -37,12 +49,6 @@
   <url>
     <loc>https://zirkachok.github.io/post/</loc>
     <lastmod>2017-01-20T16:01:18+01:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://zirkachok.github.io/tags/programmation/</loc>
-    <lastmod>2017-01-18T17:20:17+01:00</lastmod>
     <priority>0</priority>
   </url>
   

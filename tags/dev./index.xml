@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Dev. on Zirka</title>
+    <link>https://zirkachok.github.io/tags/dev./index.xml</link>
+    <description>Recent content in Dev. on Zirka</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>fr-fr</language>
+    <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
+    <atom:link href="https://zirkachok.github.io/tags/dev./index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Quelques impressions sur le Go</title>
+      <link>https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</link>
+      <pubDate>Wed, 18 Jan 2017 17:20:17 +0100</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go</guid>
+      <description>
+
+&lt;p&gt;Il y a de cela des années, j&amp;rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&amp;rsquo;étais à l&amp;rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&amp;rsquo;étendue de ses librairies. Autant d&amp;rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&amp;rsquo;ont amené à me détourner petit à petit de ce langage&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. J&amp;rsquo;ai donc commencé à chercher si ce n&amp;rsquo;est un successeur au moins un complément.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://golang.org/&#34;&gt;Go&lt;/a&gt; fait partie de ces langages &amp;ldquo;à la mode&amp;rdquo; ces dernières années (avec &lt;a href=&#34;https://www.scala-lang.org/&#34;&gt;Scala&lt;/a&gt;, &lt;a href=&#34;https://www.rust-lang.org&#34;&gt;Rust&lt;/a&gt;, &lt;a href=&#34;http://dlang.org/&#34;&gt;D&lt;/a&gt;, etc.), mais il se démarque par sa croissance&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; et ses origines&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. Je me suis donc laissé tenter, et vous fait part de mes impressions après quelques semaines d&amp;rsquo;utilisation.&lt;/p&gt;
+
+&lt;h1 id=&#34;une-philosophie-nouvelle&#34;&gt;Une philosophie nouvelle&lt;/h1&gt;
+
+&lt;p&gt;Comme le jeu du même nom, Le langage Go a été conçu pour être simple à apprendre, mais profond dans ses possibilités. Celà se traduit par de nombreux aspects, assez novateurs dans le monde du développement.&lt;/p&gt;
+
+&lt;h2 id=&#34;un-langage-rigide&#34;&gt;Un langage rigide&amp;hellip;&lt;/h2&gt;
+
+&lt;p&gt;Au premier regard, avec un typage fort et une syntaxe stricte, le Go semble assez rigide. Pas question ici de faire les choses à sa sauce. Les crochets suivent la déclaration des méthodes/fonctions/conditions/boucles sur la même ligne, il est interdit d&amp;rsquo;importer une bibliothèque sans l&amp;rsquo;appeler dans le code, toute variable a un type fixe, etc. Il existe même &lt;a href=&#34;https://blog.golang.org/go-fmt-your-code&#34;&gt;un outil&lt;/a&gt; fourni par défaut pour rendre conforme la syntaxe d&amp;rsquo;un code source en suivant les pratiques préconisées ou imposées.&lt;/p&gt;
+
+&lt;p&gt;Un exemple de code en Go :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;package main
+
+import (
+    &amp;quot;fmt&amp;quot;
+    &amp;quot;flag&amp;quot;
+)
+
+func main() {
+    var svar string
+    wordPtr := flag.String(&amp;quot;file&amp;quot;, &amp;quot;foo&amp;quot;, &amp;quot;a string&amp;quot;)
+
+    flag.StringVar(&amp;amp;svar, &amp;quot;svar&amp;quot;, &amp;quot;bar&amp;quot;, &amp;quot;a string var&amp;quot;)
+    flag.Parse()
+
+    if fileExists(*filePtr) {
+        fmt.Println(&amp;quot;Valid file provided&amp;quot;)
+    } else {
+        fmt.Println(&amp;quot;File &amp;quot; + *filePtr + &amp;quot; not found&amp;quot;)
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cela peut sembler désagréable, surtout lorsque l&amp;rsquo;on est habitué à des langages plus permissifs (la plupart des langages en fait&amp;hellip;). Cependant, cette rigidité a pour avantage de forcer une uniformisation du code, et donc de faciliter grandement son inter-compréhension et son maintien. À ce niveau, le Go est particulièrement adapté aux projets de grande taille impliquant des développeurs d&amp;rsquo;expériences différentes (comme dans la communauté Open-Source, par exemple).&lt;/p&gt;
+
+&lt;p&gt;Pour contrebalancer, La syntaxe du Go emprunte beaucoup au C/C++&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;, en y mêlant des éléments issus de langages plus récents. Elle se veut donc rassurante tout en étant moderne et puissante. Reste qu&amp;rsquo;une telle rigueur est un parti-pris qui ne plaira pas à tout le monde.&lt;/p&gt;
+
+&lt;h2 id=&#34;et-flexible-à-la-fois&#34;&gt;&amp;hellip;Et flexible à la fois&lt;/h2&gt;
+
+&lt;p&gt;Passée cette première impression, le Go fait preuve de nombreuses avantages. Comme citer ses qualités et inconvénients demanderait un article à lui seul (qui viendra peut-être, qui sait), je ne m&amp;rsquo;attarderai que sur ceux qui m&amp;rsquo;ont semblé les plus marquants :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Optimisé et optimisable&lt;/strong&gt; : Le langage Go, suivant le cas d&amp;rsquo;utilisation, n&amp;rsquo;est pas forcément le plus rapide ni le moins gourmand, comme le montrent les &lt;a href=&#34;https://days2011.scala-lang.org/sites/days2011/files/ws3-1-Hundt.pdf&#34;&gt;études&lt;/a&gt; sur le sujet. Par contre, outre la la présence d&amp;rsquo;un ramasse-miettes efficace, son utilisation du paradigme de programmation &lt;a href=&#34;https://blog.golang.org/concurrency-is-not-parallelism&#34;&gt;concurrente&lt;/a&gt; fait qu&amp;rsquo;il peut tirer le meilleur parti d&amp;rsquo;une architecture muti-coeurs sans perdre en qualité et propreté de code.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Intuitif&lt;/strong&gt; : Comme je l&amp;rsquo;ai mentionné plus avant, pour qui est versé dans le C, C++ ou Java, le Go s&amp;rsquo;apprend de manière intuitive. Sa syntaxe proche de ces langages, la &lt;a href=&#34;https://blog.golang.org/error-handling-and-go&#34;&gt;gestion des erreurs&lt;/a&gt; simple et élégente, l&amp;rsquo;import des packages (notamment possible &lt;a href=&#34;https://golang.org/doc/code.html#ImportPaths&#34;&gt;via leur URL&lt;/a&gt;) largement simplifié, rendent sa prise en main rapide et facile. Comparé à aux langages fonctionnels tels que &lt;a href=&#34;https://www.scala-lang.org/&#34;&gt;Scala&lt;/a&gt; ou à des syntaxes plus originales comme &lt;a href=&#34;https://www.rust-lang.org&#34;&gt;Rust&lt;/a&gt;, Go permet une transition rapide et efficace. Un atout de poids lorsque l&amp;rsquo;on travaille en équipe.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Des outils pour tout&lt;/strong&gt; : Go propose une large panoplie d&amp;rsquo;outils intégrés qui apportent un réel plus au langage en tant que tel. On y trouve entre autres &lt;a href=&#34;https://blog.golang.org/godoc-documenting-go-code&#34;&gt;Go doc&lt;/a&gt; pour la documentation automatique de code, &lt;a href=&#34;https://blog.golang.org/introducing-gofix&#34;&gt;Gofix&lt;/a&gt; pour la mise à niveau de code source au fil des versions, &lt;a href=&#34;https://golang.org/cmd/go/#hdr-List_packages&#34;&gt;Go list&lt;/a&gt; pour la génération des graphes de dépendances du package, &lt;a href=&#34;https://blog.golang.org/profiling-go-programs&#34;&gt;Go pprof&lt;/a&gt; pour le profilage, &lt;a href=&#34;https://blog.golang.org/debugging-go-code-status-report&#34;&gt;GDB&lt;/a&gt; pour le déboguage, et bien d&amp;rsquo;autres encore&amp;hellip; Enfin, il jouis d&amp;rsquo;une communauté très active proposant des packages variés et puissants&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:5&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:5&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;, le tout en plus de ceux proposés officiellement.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Orienté Back-End&lt;/strong&gt; : La gestion native et optimisée protocoles et standards de l&amp;rsquo;Internet (&lt;a href=&#34;https://golang.org/pkg/net/http/&#34;&gt;HTTP&lt;/a&gt;, &lt;a href=&#34;https://godoc.org/golang.org/x/crypto/ssh&#34;&gt;SSH&lt;/a&gt;, &lt;a href=&#34;https://golang.org/pkg/encoding/json/&#34;&gt;JSON&lt;/a&gt;, &lt;a href=&#34;https://golang.org/pkg/encoding/xml/&#34;&gt;XML&lt;/a&gt;, &lt;a href=&#34;https://golang.org/pkg/database/sql/&#34;&gt;SQL&lt;/a&gt;, &lt;a href=&#34;https://golang.org/pkg/crypto/&#34;&gt;cryptographie&lt;/a&gt;, etc.) et sa gestion de la concurrence font du Go un langage de choix pour le développement Cloud et Back-end. Ce n&amp;rsquo;est pas pour rien que des fournisseur de services comme SendGrid, Docker ou encore Dropbox s&amp;rsquo;y sont lancés.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Multi-plateformes&lt;/strong&gt; : Go intègre aussi nativement la &lt;a href=&#34;https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5&#34;&gt;compilation croisée&lt;/a&gt;, permettant ainsi de compiler un executable pour une autre architecture que la sienne. Il offre la possibilité de réaliser des &lt;a href=&#34;https://blog.golang.org/c-go-cgo&#34;&gt;appels à du code C&lt;/a&gt;, et ainsi d&amp;rsquo;intégrer des bibliothèques héritées (ou Legacy code) plus facilement.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Built with concurrency in mind --&gt;
+
+&lt;h2 id=&#34;puissant-mais-perfectible&#34;&gt;Puissant, mais perfectible&lt;/h2&gt;
+
+&lt;p&gt;Malgré tous ses apports, il reste au Go bien des défauts. Certains tiennent plus de choix clivants et d&amp;rsquo;une volonté de rester proche du C/C++, comme son typage fort et le manque d&amp;rsquo;&lt;a href=&#34;https://fr.wikipedia.org/wiki/Inf%C3%A9rence_de_types&#34;&gt;inférence de types&lt;/a&gt;, l&amp;rsquo;absence de paradigme orienté objet, ou encore l&amp;rsquo;usage de pointeurs que nous avons mentionnés plus haut, mais d&amp;rsquo;autres rentrent moins dans cette logique.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Pas de généricité&lt;/strong&gt; : Le défaut le plus évident est le manque de support pour la programmation générique et tout ce qu&amp;rsquo;elle apporte (dont le polymorphisme). Même si les &lt;a href=&#34;http://golangtutorials.blogspot.fr/2011/06/polymorphism-in-go.html&#34;&gt;interfaces&lt;/a&gt; peuvent remplir ce rôle et donc contourner le problème, on y perd grandement en transparence et en propreté du code.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Mutable ou immutable?&lt;/strong&gt; : Pour des &amp;ldquo;objets&amp;rdquo; complexes (structures, etc.), il n&amp;rsquo;est pas toujours évident de savoir si il sera copié ou modifié. Un objet peut etre passé par adresse et ainsi lever le doute, mais une gestion explicite de l&amp;rsquo;&lt;a href=&#34;https://fr.wikipedia.org/wiki/Objet_immuable&#34;&gt;immutabilité&lt;/a&gt; aurait été un plus bienvenu.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;Pas le plus performant&lt;/strong&gt; : Comme mentionné plus haut, le langage Go n&amp;rsquo;est pas toujours le plus performant. Son empreinte mémoire est supérieure à celle de langages tels que C++ ou Scala, et il en va de même pour le temps d&amp;rsquo;exécution ou la taille du binaire généré. Malgré tout, Go reste un langage performant, tout est une question de priorités.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;au-final-ça-en-vaut-la-peine&#34;&gt;Au final, ça en vaut la peine?&lt;/h1&gt;
+
+&lt;p&gt;Le Go peut en rebuter certains par ses choix clivants, mais ses inspirations font de lui un langage simple à apprendre mais profond, et qui apporte de nombreuses récompenses à qui fait l&amp;rsquo;effort de s&amp;rsquo;y investir. Il n&amp;rsquo;a certes pas les performances du C/C++ ou des langages fonctionnels modernes, mais il a pour lui la flexibilité du Python tout en étant plus maintenable et plus strict.&lt;/p&gt;
+
+&lt;p&gt;En tout cas, il semble promis à un bel avenir, en témoigne &lt;a href=&#34;http://www.tiobe.com/tiobe-index/go/&#34;&gt;sa progression&lt;/a&gt;, sa communauté grandissante et son adoption par des grandes companies et services de l&amp;rsquo;Internet, tels que &lt;a href=&#34;http://fr.slideshare.net/jpetazzo/docker-and-go-why-did-we-decide-to-write-docker-in-go&#34;&gt;Docker&lt;/a&gt;, &lt;a href=&#34;https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/&#34;&gt;Dropbox&lt;/a&gt;, &lt;a href=&#34;https://developers.soundcloud.com/blog/go-at-soundcloud&#34;&gt;Soundcloud&lt;/a&gt; ou encore &lt;a href=&#34;https://sendgrid.com/blog/convince-company-go-golang/&#34;&gt;SendGrid&lt;/a&gt;, &lt;a href=&#34;https://github.com/Netflix/rend&#34;&gt;Netflix&lt;/a&gt; et bien d&amp;rsquo;autres.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Pour n&amp;rsquo;en citer qu&amp;rsquo;une, rendre disponible et maintenir un outil pour des cibles n&amp;rsquo;ayant pas d&amp;rsquo;interpréteur python et/ou l&amp;rsquo;ensemble des librairies installées, est un parcours du combattant (pas de cross-compilation possible, nécessité d&amp;rsquo;utiliser des packets spécifiques, exécutables ainsi générés souvent lents et gourmands, etc.).
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Le langage Go se situait en 2016 à la 13ème place au &lt;a href=&#34;http://www.tiobe.com/tiobe-index/&#34;&gt;classement Tiobe&lt;/a&gt; des langages les plus utilisés, contre la 54ème en 2015.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;Le langage Go est issu des laboratoires de Google et de l&amp;rsquo;esprit de &lt;a href=&#34;https://en.wikipedia.org/wiki/Rob_Pike&#34;&gt;Rob Pike&lt;/a&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;La syntaxe elle-même, proche du style &lt;a href=&#34;https://fr.wikipedia.org/wiki/Style_d&#39;indentation#Style_K.26R&#34;&gt;K&amp;amp;R&lt;/a&gt;, l&amp;rsquo;usage des &lt;a href=&#34;https://blog.golang.org/gos-declaration-syntax&#34;&gt;pointeurs&lt;/a&gt;, etc.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;Pour une liste non exhaustive, on peut se référer &lt;a href=&#34;https://github.com/golang/go/wiki/Projects&#34;&gt;ici&lt;/a&gt;, &lt;a href=&#34;https://github.com/avelino/awesome-go&#34;&gt;là&lt;/a&gt; et &lt;a href=&#34;http://www.mjhall.org/golang-data-science-libraries/&#34;&gt;là-bas&lt;/a&gt;.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:5&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

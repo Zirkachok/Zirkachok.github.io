@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Misc on Zirka</title>
-    <link>http://zirkachok.github.io/categories/misc/index.xml</link>
+    <link>https://zirkachok.github.io/categories/misc/index.xml</link>
     <description>Recent content in Misc on Zirka</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
+    <language>fr-fr</language>
     <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
-    <atom:link href="http://zirkachok.github.io/categories/misc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://zirkachok.github.io/categories/misc/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Hello world</title>
-      <link>http://zirkachok.github.io/2017/01/16/hello-world</link>
+      <link>https://zirkachok.github.io/2017/01/16/hello-world</link>
       <pubDate>Mon, 16 Jan 2017 15:18:23 +0100</pubDate>
       
-      <guid>http://zirkachok.github.io/2017/01/16/hello-world</guid>
+      <guid>https://zirkachok.github.io/2017/01/16/hello-world</guid>
       <description>
 
 &lt;p&gt;ilà ! C&amp;rsquo;est chose faite, je viens enfin de mettre en place mon blog. Je trouvais l&amp;rsquo;ancienne version de mon site personnel un peu trop statique à mon goût, je compte ainsi utiliser pleinement le concept du blog pour le rendre un peu plus vivant.&lt;/p&gt;
@@ -169,85 +169,15 @@ disable_widgets = true
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;/p&gt;
-
-&lt;div class=&#34;article-gallery&#34;&gt;
-    &lt;div class=&#34;article-gallery-photos&#34;&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-    &lt;/div&gt;
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;jsfiddle&#34;&gt;JSFiddle&lt;/h3&gt;
-
-&lt;p&gt;It works the same with JSFiddle examples you want to showcase. The parameter &lt;code&gt;id&lt;/code&gt; consists of the username and id of the example.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;p&gt;As descibed in the &lt;a href=&#34;http://doc.jsfiddle.net/use/embedding.html&#34;&gt;docs of JSFiddle&lt;/a&gt;, you can define which tabs will be shown. Enter the tabs you want to see separated by a comma in the &lt;code&gt;tabs&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; tabs=&amp;quot;html,result&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Do you see the difference?&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/html,result/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;h2 id=&#34;nearly-finished&#34;&gt;Nearly finished&lt;/h2&gt;
-
-&lt;p&gt;In order to see your site in action, run Hugo&amp;rsquo;s built-in local server.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ hugo server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now enter &lt;a href=&#34;http://localhost:1313&#34;&gt;&lt;code&gt;localhost:1313&lt;/code&gt;&lt;/a&gt; in the address bar of your browser.&lt;/p&gt;
-
-&lt;h2 id=&#34;contributing&#34;&gt;Contributing&lt;/h2&gt;
-
-&lt;p&gt;Have you found a bug or got an idea for a new feature? Feel free to use the &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/issues&#34;&gt;issue tracker&lt;/a&gt; to let me know. Or make directly a &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/pulls&#34;&gt;pull request&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;license&#34;&gt;License&lt;/h2&gt;
-
-&lt;p&gt;This theme is released under the MIT license. For more information read the &lt;a href=&#34;https://github.com/digitalcraftsman/hugo-icarus-theme/blob/master/LICENSE.md&#34;&gt;License&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;annotations&#34;&gt;Annotations&lt;/h2&gt;
-
-&lt;p&gt;Thanks to &lt;a href=&#34;//github.com/spf13&#34;&gt;Steve Francia&lt;/a&gt; for creating Hugo and the awesome community around the project.&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Mes impressions sur le travail au Japon</title>
-      <link>http://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</link>
+      <link>https://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</link>
       <pubDate>Mon, 16 Jan 2017 15:18:23 +0100</pubDate>
       
-      <guid>http://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</guid>
+      <guid>https://zirkachok.github.io/2017/01/16/mes-impressions-sur-le-travail-au-japon</guid>
       <description>
 
 &lt;p&gt;&lt;a href=&#34;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&#34;&gt;http://www.kalzumeus.com/2014/11/07/doing-business-in-japan/&lt;/a&gt;
@@ -409,76 +339,6 @@ disable_widgets = true
 &lt;/code&gt;&lt;/pre&gt;
 
 &lt;p&gt;&lt;/p&gt;
-
-&lt;div class=&#34;article-gallery&#34;&gt;
-    &lt;div class=&#34;article-gallery-photos&#34;&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-        &lt;a class=&#34;article-gallery-img fancybox&#34; href=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; rel=&#34;group1&#34;&gt;
-            &lt;img src=&#34;http://zirkachok.github.io/banners/placeholder.png&#34; itemprop=&#34;image&#34;&gt;
-        &lt;/a&gt;
-        
-    &lt;/div&gt;
-&lt;/div&gt;
-
-
-&lt;h3 id=&#34;jsfiddle&#34;&gt;JSFiddle&lt;/h3&gt;
-
-&lt;p&gt;It works the same with JSFiddle examples you want to showcase. The parameter &lt;code&gt;id&lt;/code&gt; consists of the username and id of the example.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;p&gt;As descibed in the &lt;a href=&#34;http://doc.jsfiddle.net/use/embedding.html&#34;&gt;docs of JSFiddle&lt;/a&gt;, you can define which tabs will be shown. Enter the tabs you want to see separated by a comma in the &lt;code&gt;tabs&lt;/code&gt; parameter.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;{{&amp;lt; jsfiddle id=&amp;quot;zalun/NmudS&amp;quot; tabs=&amp;quot;html,result&amp;quot; &amp;gt;}}
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Do you see the difference?&lt;/p&gt;
-
-&lt;iframe
-  style=&#34;width: 100%; height: auto;&#34; frameBorder=&#34;0&#34; allowfullscreen=&#34;allowfullscreen&#34;
-  src=&#34;https://jsfiddle.net/zalun/NmudS/embedded/html,result/&#34;&gt;
-&lt;/iframe&gt;
-&lt;br&gt;&lt;br&gt;
-
-
-&lt;h2 id=&#34;nearly-finished&#34;&gt;Nearly finished&lt;/h2&gt;
-
-&lt;p&gt;In order to see your site in action, run Hugo&amp;rsquo;s built-in local server.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;$ hugo server
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;Now enter &lt;a href=&#34;http://localhost:1313&#34;&gt;&lt;code&gt;localhost:1313&lt;/code&gt;&lt;/a&gt; in the address bar of your browser.&lt;/p&gt;
-
-&lt;h2 id=&#34;contributing&#34;&gt;Contributing&lt;/h2&gt;
-
-&lt;p&gt;Have you found a bug or got an idea for a new feature? Feel free to use the &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/issues&#34;&gt;issue tracker&lt;/a&gt; to let me know. Or make directly a &lt;a href=&#34;//github.com/digitalcraftsman/hugo-icarus-theme/pulls&#34;&gt;pull request&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;license&#34;&gt;License&lt;/h2&gt;
-
-&lt;p&gt;This theme is released under the MIT license. For more information read the &lt;a href=&#34;https://github.com/digitalcraftsman/hugo-icarus-theme/blob/master/LICENSE.md&#34;&gt;License&lt;/a&gt;.&lt;/p&gt;
-
-&lt;h2 id=&#34;annotations&#34;&gt;Annotations&lt;/h2&gt;
-
-&lt;p&gt;Thanks to &lt;a href=&#34;//github.com/spf13&#34;&gt;Steve Francia&lt;/a&gt; for creating Hugo and the awesome community around the project.&lt;/p&gt;
 </description>
     </item>
     
