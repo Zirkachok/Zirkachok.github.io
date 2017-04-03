@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>Linux a 25 ans, il est temps de se certifier! - Zirka</title>
-    <meta property='og:title' content="Linux a 25 ans, il est temps de se certifier! - Zirka">
+    <title>LFCS : Quelques commandes essentielles - Zirka</title>
+    <meta property='og:title' content="LFCS : Quelques commandes essentielles - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/04/03/lfcs--quelques-commandes-essentielles">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  20 Jan 2017
+                  3 Apr 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">Linux a 25 ans, il est temps de se certifier!</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Quelques commandes essentielles</h1>
           </header>
         </div>
       </div>
@@ -396,49 +396,53 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<p>Linux fête cette année ses 25 ans, autant d&rsquo;années pendant lesquelles nous l&rsquo;avons vu prendre du poids. Son influence s&rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&rsquo;importantes transformations, tels que l&rsquo;embarqué, le Cloud ou les smartphones, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>, tout un symbole.</p>
+<p>Avant de s&rsquo;atteler à des sujets précis pour notre préparation à la LFCS, je vais vous présenter en vrac quelques commandes essentielles qui nous seront utiles par la suite pour bricoler sur notre système. Pas d&rsquo;exemples concrets ici, à vous de vous essayer à ces nouveautés pour mieux les découvrir.</p>
 
-<p>Avec cet essor, Linux a aussi beaucoup gagné en reconnaissance et en ouverture au public. Les livres et tutoriels à son sujet sont maintenant légion, et de nombreuses entreprises sont demandeuses de profils experts en développement ou administration de tels systèmes. Linux est donc devenu un incontournable pour la plupars des ingénieurs informatique, mais il reste malgré tout pour beaucoup assez méconnu.</p>
+<div class="warning">Il s'agit ici d'une introduction destinée aux débutants. Pour ceux d'entre vous déjà familiers avec la ligne de commande, vous n'apprendrez probablement rien de nouveau dans cet article.</div>
 
-<h1 id="mettre-en-avant-son-expertise">Mettre en avant son expertise</h1>
+<h1 id="manipuler-les-fichiers">Manipuler les fichiers</h1>
 
-<p>Utilisateur quotidien d&rsquo;environnements Linux allant de sytèmes embarqués minimalistes et serveurs dans le cadre de mon travail, aux distributions graphiques &ldquo;classiques&rdquo; sur mon ordinateur personnel, j&rsquo;ai depuis mes débuts été versé dans ce domaine. Pourtant, il m&rsquo;a aussi souvent été difficile de mettre en avant cette expertise et me différencier. La faute au fait que souvent, il est nécessaire de convaincre ses interlocuteurs rapidement, sans engager une conversation technique de haute volée<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup>. Et à ce niveau, seuls deux critères comptent : l&rsquo;expérience et les diplômes/certifications.</p>
+<h2 id="visualiser-du-contenu">Visualiser du contenu</h2>
 
-<p>Depuis 2014, la Fondation Linux<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup> a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp; LFCE (Linux Foundation Certified Sysadmin &amp; Engineer)<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>. Ces certifications rejoignent ainsi celles proposées par Red-Hat, qui ont peinent à gagner en reconnaissance du fait de leur spécificité, et offrent une sorte d&rsquo;équivalent à celles proposées par Microsoft pour son système Windows.</p>
+<p>Je vous ai présenté dans mon précédent article comment créer, lister et détruire des fichiers, l&rsquo;étape suivante est donc d&rsquo;apprendre à visualiser leur contenu. Pour cela, il existe de nombreuses commandes, chacune ayant ses spécificités. En voici les principales :</p>
 
-<p>D&rsquo;un point de vue pratique, les examens de certification se font à distance, contrôlés par la fondation Linux. Une évaluation est donnée suivant un barème précis, en suivant un programme public, offrant un certain gage de qualité et de transparence. Cette évaluation permet d&rsquo;ailleurs aussi de se faire une idée assez précise du niveau de la personne. Le <a href="https://training.linuxfoundation.org/certification/lfce">programme</a> est complet, et couvre la majorité des situations auxquelles peuvent être confronté un ingénieur dans son travail avec Linux. Une bonne nouvelle en somme, qui pourra permettre de mettre en avant de manière claire et transparente ses compétences.</p>
+<ul>
+<li><strong>file</strong> : retourne le type d&rsquo;un &ldquo;fichier&rdquo; (répertoire, exécutable, données, etc.)</li>
+<li><strong>cat</strong> (pour &ldquo;<em>ConcATenate</em>&rdquo;) : concatène et affiche le contenu du/des fichier(s) texte donné(s) en argument(s). Idéal pour lire les petits fichiers</li>
+<li><strong>less</strong> : affiche le contenu d&rsquo;un fichier texte de manière paginée, en entrant dans une interface dédiée. Cette interface réagit à des commandes clavier spécifiques :
 
-<h1 id="construire-ses-compétences">Construire ses compétences</h1>
+<ul>
+<li><strong>q</strong> : permet de quitter l&rsquo;interface de <em>less</em></li>
+<li><strong>g</strong> ou <strong>&lt;</strong> : se déplace à la première ligne du fichier</li>
+<li><strong>G</strong> ou <strong>&gt;</strong> : se déplace à la dernière ligne du fichier</li>
+<li><strong>/XYZ</strong> : cherche la chaîne de caractères <em>XYZ</em> dans le fichier. <strong>n</strong> permet d&rsquo;afficher la prochaine occurrence</li>
+<li><strong>h</strong> : affiche l&rsquo;aide de <em>less</em> et résume les commandes les plus importantes</li>
+</ul></li>
+</ul>
 
-<p>Mais revenons-en à moi quelques instants. J&rsquo;avais accueilli avec beaucoup d&rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&rsquo;ai décidé de m&rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.</p>
+<p>Pour éditer ces fichiers, il nous faudra utiliser une application spécifique, ma préférence allant pour <strong>vim</strong>, mais cela fera l&rsquo;objet d&rsquo;un autre article. Nous verrons aussi plus tard quelques méthodes de manipulation avancée sur ces fichiers (trier et filtrer les données, etc.).</p>
 
-<p>Chaque article sera composé de trois parties. Tout d&rsquo;abord, je parlerai du système lui-même, des choix qui l&rsquo;ont guidé et des grandes figures qui l&rsquo;ont influencé, pour ensuite présenter une ou plusieurs fonctionnalités, et enfin je vous proposerai quelques exercices pour approfondir ces nouvelles connaissances. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&rsquo;est le système Linux.</p>
+<h2 id="chercher-dans-l-arborescence">Chercher dans l&rsquo;arborescence</h2>
 
-<!-- La fondation Linux propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l'administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+<p>À ce stade là, nous savons déjà faire beaucoup de choses pour manipuler l&rsquo;arborescence. Reste que lorsqu&rsquo;on cherche un fichier précis sans savoir où il se trouve exactement, les choses se compliquent. C&rsquo;est là que la commande <strong>find</strong> intervient. Elle prends en argument le chemin du dossier à partir duquel la recherche sera effectuée, et listera les fichiers présents dans le dossier et ses sous-dossiers. Il est aussi possible de spécifier des recherches particulières avec les options. Il en existe beaucoup, je vous laisserai donc les découvrir en lisant le manuel (voir plus bas) et en testant : <strong>-name</strong>, <strong>-type</strong>, <strong>-perm</strong>, <strong>-user</strong>, <strong>-ctime</strong>, <strong>-mtime</strong>, <strong>-atime</strong>, <strong>-size</strong>, etc.</p>
 
-Les "Infrastructure as a service" ou IaaS, comme [Scaleway](http://scaleway.com/) par exemple.
--->
+<p>Au passage, il est possible avec find et bien d&rsquo;autres commandes (ls, file, etc.) de donner des &ldquo; <em>motifs</em> &ldquo; plutôt qu&rsquo;un nom précis, grâce à ce que l&rsquo;on appelle des &rdquo; expressions régulières &ldquo; (plus à ce sujet dans un prochain article). Sans entrer dans les détails, il est possible d&rsquo;utiliser le caractère <strong>*</strong> pour désigner &ldquo;tout&rdquo;. Par exemple, la commande &ldquo; <em>ls *.bin</em> &ldquo; listera tous les fichiers dont le nom finit par <em>.bin</em> .</p>
 
-<!-- # Et les certifications dans tout ça?
-Pour mettre en avant ses compétences, les certifications restent un instrument de choix. Cependant, autant Microsoft propose des certifications claires et reconnues pour ses systèmes Windows, Autant pour Linux les choses sont moins claires.
+<h1 id="maîtriser-la-ligne-de-commande">Maîtriser la ligne de commande</h1>
 
-La fondation Linux a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS & LFCE (Linux Foundation Certified Sysadmin & Engineer).
- -->
-<div class="footnotes">
+<h2 id="afficher-l-aide">Afficher l&rsquo;aide</h2>
 
-<hr />
+<p>Il est juste impossible de mémoriser toutes les commandes, et il n&rsquo;est pas rare que l&rsquo;on ait besoin d&rsquo;une aide pour en connaitre le fonctionnement et les options. Pour cela, il existe le manuel, accessible par la commande <strong>man</strong> suivie de la commande cherchée. On entre alors dans une interface identique à celle de <em>less</em>, avec une explication complète de la commande en question. N&rsquo;hésitez pas à chercher la page de manuel des commandes que nous avons vu jusque là, pour vous familiariser avec cet outil.</p>
 
-<ol>
-<li id="fn:1">En témoignent des initiatives comme l&rsquo;<a href="https://www.openmainframeproject.org/">Open Mainframe</a>, soutenue par IBM et Hitachi entre autres.
- <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:2">Surtout lorsque Linux n&rsquo;est pas bien connu par l&rsquo;interlocuteur en question. On retrouve la plupart du temps en face de soi des responsables n&rsquo;ayant que peu pied dans le technique, ou des &ldquo;experts&rdquo; pas nécessairement à jour avec la technologie.
- <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:3">Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux.
- <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:4">Outre les deux citées ici, la Fondation Linux propose un catalogue assez vaste de <a href="https://training.linuxfoundation.org/">formations</a> en ligne sur des sujets aussi variés que l&rsquo;administration des systèmes ou les infrastructures Cloud.
- <a class="footnote-return" href="#fnref:4">↩</a></li>
-</ol>
-</div>
+<p>De manière générale, ayez le réflèxe de lire le manuel pour toute nouvelle commande. Vous pourrez constater certaines similitudes (fonctionnement, arguments, etc.), et elles deviendront vite plus facile à retenir.</p>
+
+<h2 id="historique-et-auto-complétion">Historique et auto-complétion</h2>
+
+<p>Sous Linux, les dernières commandes entrées sont mémorisées, et peuvent être parcourues à l&rsquo;aide des flèches <em>haut</em> et <em>bas</em>. Il est aussi possible de parcourir l&rsquo;historique, via la commande <strong>history</strong>. Encore plus pratique, appuyer sur <strong>Ctrl-r</strong> nous fait entrer dans un mode spécifique, qui lorsque l&rsquo;on tape une commande parcours cet historique et propose la dernière commande entrée similaire. Ce mode est particulièrement pratique lorsque l&rsquo;on répète régulièrement les mêmes commandes.</p>
+
+<p>Une autre fonctionnalité intéressante est l&rsquo;auto-complétion. Lorsque l&rsquo;on entre une commande, il est possible d&rsquo;appuyer sur la touche <strong>Tab</strong> pour que celle-ci soit automatiquement complétée. En appuyant deux fois sur <em>Tab</em>, la liste des complétions possibles est retournée.</p>
+
+<p>Pour finir, on pourrait citer la commande <strong>clear</strong>, qui nettoie le terminal en mettant la ligne courante tout en haut. Il est aussi possible d&rsquo;utiliser le raccourci <strong>ctrl-L</strong> pour cette action. Bien pratique pour y voir plus clair.</p>
 </div>
         </div>
       </div>
@@ -533,7 +537,7 @@ La fondation Linux a même lancé un programme destiné à former des ingénieur
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/03/lfcs--quelques-commandes-essentielles" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>

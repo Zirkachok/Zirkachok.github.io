@@ -955,6 +955,7 @@ textarea {
   p,
   h2,
   h3 {
+    font-size: 1em;
     orphans: 3;
     widows: 3;
   }
@@ -2268,13 +2269,19 @@ hr {
 .article .blog-tag:first-child {
   margin-left: 0;
 }
-.article-content h1,
+.article-content h1 {
+  font-weight: 800;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+
 .article-content h2,
 .article-content h3,
 .article-content h4,
 .article-content h5,
 .article-content h6 {
-  font-weight: 500;
+  font-weight: 300;
   margin-top: 25px;
   margin-bottom: 25px;
 }
@@ -2442,7 +2449,7 @@ hr {
   font-size: 16px;
   font-size: 1rem;
   text-align: center;
-  color: #e04c4c;
+  color: #a48c8c;
   margin-bottom: 25px;
 }
 .article-category {
@@ -2852,6 +2859,9 @@ hr {
 .share__link:hover .share__icon--github {
   fill: #02bfff;
 }
+.share__link:hover .share__icon--cv {
+  fill: #02bfff;
+}
 .share__link:hover .share__icon--facebook {
   fill: #034685;
 }
@@ -2868,6 +2878,9 @@ hr {
   fill: #35ccff;
 }
 .share__icon--github {
+  fill: #35ccff;
+}
+.share__icon--cv {
   fill: #35ccff;
 }
 .share__icon--facebook {
@@ -3161,6 +3174,9 @@ hr {
   fill: #35ccff;
 }
 .social__icon--github {
+  fill: #333333;
+}
+.social__icon--cv {
   fill: #333333;
 }
 .social__icon--linkedin {

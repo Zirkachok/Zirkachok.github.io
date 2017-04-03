@@ -10,6 +10,280 @@
     <atom:link href="https://zirkachok.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>LFCS : Quelques commandes essentielles</title>
+      <link>https://zirkachok.github.io/2017/04/03/lfcs--quelques-commandes-essentielles</link>
+      <pubDate>Mon, 03 Apr 2017 08:37:02 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/04/03/lfcs--quelques-commandes-essentielles</guid>
+      <description>
+
+&lt;p&gt;Avant de s&amp;rsquo;atteler à des sujets précis pour notre préparation à la LFCS, je vais vous présenter en vrac quelques commandes essentielles qui nous seront utiles par la suite pour bricoler sur notre système. Pas d&amp;rsquo;exemples concrets ici, à vous de vous essayer à ces nouveautés pour mieux les découvrir.&lt;/p&gt;
+
+&lt;div class=&#34;warning&#34;&gt;Il s&#39;agit ici d&#39;une introduction destinée aux débutants. Pour ceux d&#39;entre vous déjà familiers avec la ligne de commande, vous n&#39;apprendrez probablement rien de nouveau dans cet article.&lt;/div&gt;
+
+&lt;h1 id=&#34;manipuler-les-fichiers&#34;&gt;Manipuler les fichiers&lt;/h1&gt;
+
+&lt;h2 id=&#34;visualiser-du-contenu&#34;&gt;Visualiser du contenu&lt;/h2&gt;
+
+&lt;p&gt;Je vous ai présenté dans mon précédent article comment créer, lister et détruire des fichiers, l&amp;rsquo;étape suivante est donc d&amp;rsquo;apprendre à visualiser leur contenu. Pour cela, il existe de nombreuses commandes, chacune ayant ses spécificités. En voici les principales :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;file&lt;/strong&gt; : retourne le type d&amp;rsquo;un &amp;ldquo;fichier&amp;rdquo; (répertoire, exécutable, données, etc.)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;cat&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;ConcATenate&lt;/em&gt;&amp;rdquo;) : concatène et affiche le contenu du/des fichier(s) texte donné(s) en argument(s). Idéal pour lire les petits fichiers&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;less&lt;/strong&gt; : affiche le contenu d&amp;rsquo;un fichier texte de manière paginée, en entrant dans une interface dédiée. Cette interface réagit à des commandes clavier spécifiques :
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;q&lt;/strong&gt; : permet de quitter l&amp;rsquo;interface de &lt;em&gt;less&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;g&lt;/strong&gt; ou &lt;strong&gt;&amp;lt;&lt;/strong&gt; : se déplace à la première ligne du fichier&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;G&lt;/strong&gt; ou &lt;strong&gt;&amp;gt;&lt;/strong&gt; : se déplace à la dernière ligne du fichier&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/XYZ&lt;/strong&gt; : cherche la chaîne de caractères &lt;em&gt;XYZ&lt;/em&gt; dans le fichier. &lt;strong&gt;n&lt;/strong&gt; permet d&amp;rsquo;afficher la prochaine occurrence&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;h&lt;/strong&gt; : affiche l&amp;rsquo;aide de &lt;em&gt;less&lt;/em&gt; et résume les commandes les plus importantes&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Pour éditer ces fichiers, il nous faudra utiliser une application spécifique, ma préférence allant pour &lt;strong&gt;vim&lt;/strong&gt;, mais cela fera l&amp;rsquo;objet d&amp;rsquo;un autre article. Nous verrons aussi plus tard quelques méthodes de manipulation avancée sur ces fichiers (trier et filtrer les données, etc.).&lt;/p&gt;
+
+&lt;h2 id=&#34;chercher-dans-l-arborescence&#34;&gt;Chercher dans l&amp;rsquo;arborescence&lt;/h2&gt;
+
+&lt;p&gt;À ce stade là, nous savons déjà faire beaucoup de choses pour manipuler l&amp;rsquo;arborescence. Reste que lorsqu&amp;rsquo;on cherche un fichier précis sans savoir où il se trouve exactement, les choses se compliquent. C&amp;rsquo;est là que la commande &lt;strong&gt;find&lt;/strong&gt; intervient. Elle prends en argument le chemin du dossier à partir duquel la recherche sera effectuée, et listera les fichiers présents dans le dossier et ses sous-dossiers. Il est aussi possible de spécifier des recherches particulières avec les options. Il en existe beaucoup, je vous laisserai donc les découvrir en lisant le manuel (voir plus bas) et en testant : &lt;strong&gt;-name&lt;/strong&gt;, &lt;strong&gt;-type&lt;/strong&gt;, &lt;strong&gt;-perm&lt;/strong&gt;, &lt;strong&gt;-user&lt;/strong&gt;, &lt;strong&gt;-ctime&lt;/strong&gt;, &lt;strong&gt;-mtime&lt;/strong&gt;, &lt;strong&gt;-atime&lt;/strong&gt;, &lt;strong&gt;-size&lt;/strong&gt;, etc.&lt;/p&gt;
+
+&lt;p&gt;Au passage, il est possible avec find et bien d&amp;rsquo;autres commandes (ls, file, etc.) de donner des &amp;ldquo; &lt;em&gt;motifs&lt;/em&gt; &amp;ldquo; plutôt qu&amp;rsquo;un nom précis, grâce à ce que l&amp;rsquo;on appelle des &amp;rdquo; expressions régulières &amp;ldquo; (plus à ce sujet dans un prochain article). Sans entrer dans les détails, il est possible d&amp;rsquo;utiliser le caractère &lt;strong&gt;*&lt;/strong&gt; pour désigner &amp;ldquo;tout&amp;rdquo;. Par exemple, la commande &amp;ldquo; &lt;em&gt;ls *.bin&lt;/em&gt; &amp;ldquo; listera tous les fichiers dont le nom finit par &lt;em&gt;.bin&lt;/em&gt; .&lt;/p&gt;
+
+&lt;h1 id=&#34;maîtriser-la-ligne-de-commande&#34;&gt;Maîtriser la ligne de commande&lt;/h1&gt;
+
+&lt;h2 id=&#34;afficher-l-aide&#34;&gt;Afficher l&amp;rsquo;aide&lt;/h2&gt;
+
+&lt;p&gt;Il est juste impossible de mémoriser toutes les commandes, et il n&amp;rsquo;est pas rare que l&amp;rsquo;on ait besoin d&amp;rsquo;une aide pour en connaitre le fonctionnement et les options. Pour cela, il existe le manuel, accessible par la commande &lt;strong&gt;man&lt;/strong&gt; suivie de la commande cherchée. On entre alors dans une interface identique à celle de &lt;em&gt;less&lt;/em&gt;, avec une explication complète de la commande en question. N&amp;rsquo;hésitez pas à chercher la page de manuel des commandes que nous avons vu jusque là, pour vous familiariser avec cet outil.&lt;/p&gt;
+
+&lt;p&gt;De manière générale, ayez le réflèxe de lire le manuel pour toute nouvelle commande. Vous pourrez constater certaines similitudes (fonctionnement, arguments, etc.), et elles deviendront vite plus facile à retenir.&lt;/p&gt;
+
+&lt;h2 id=&#34;historique-et-auto-complétion&#34;&gt;Historique et auto-complétion&lt;/h2&gt;
+
+&lt;p&gt;Sous Linux, les dernières commandes entrées sont mémorisées, et peuvent être parcourues à l&amp;rsquo;aide des flèches &lt;em&gt;haut&lt;/em&gt; et &lt;em&gt;bas&lt;/em&gt;. Il est aussi possible de parcourir l&amp;rsquo;historique, via la commande &lt;strong&gt;history&lt;/strong&gt;. Encore plus pratique, appuyer sur &lt;strong&gt;Ctrl-r&lt;/strong&gt; nous fait entrer dans un mode spécifique, qui lorsque l&amp;rsquo;on tape une commande parcours cet historique et propose la dernière commande entrée similaire. Ce mode est particulièrement pratique lorsque l&amp;rsquo;on répète régulièrement les mêmes commandes.&lt;/p&gt;
+
+&lt;p&gt;Une autre fonctionnalité intéressante est l&amp;rsquo;auto-complétion. Lorsque l&amp;rsquo;on entre une commande, il est possible d&amp;rsquo;appuyer sur la touche &lt;strong&gt;Tab&lt;/strong&gt; pour que celle-ci soit automatiquement complétée. En appuyant deux fois sur &lt;em&gt;Tab&lt;/em&gt;, la liste des complétions possibles est retournée.&lt;/p&gt;
+
+&lt;p&gt;Pour finir, on pourrait citer la commande &lt;strong&gt;clear&lt;/strong&gt;, qui nettoie le terminal en mettant la ligne courante tout en haut. Il est aussi possible d&amp;rsquo;utiliser le raccourci &lt;strong&gt;ctrl-L&lt;/strong&gt; pour cette action. Bien pratique pour y voir plus clair.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : Navigation dans un système Linux</title>
+      <link>https://zirkachok.github.io/2017/02/14/lfcs--navigation-dans-un-syst%C3%A8me-linux</link>
+      <pubDate>Tue, 14 Feb 2017 16:14:27 +0100</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/02/14/lfcs--navigation-dans-un-syst%C3%A8me-linux</guid>
+      <description>
+
+&lt;p&gt;Pour bien débuter ma série d&amp;rsquo;articles concernant Linux, son fonctionnement et son administration, je vais passer en revue les commandes de bases nécessaires pour s&amp;rsquo;orienter et naviguer au sein du système de fichiers. Je parle bien de &amp;ldquo;commandes&amp;rdquo;, car ici comme dans toute la suite, nous passerons par la ligne de commande.&lt;/p&gt;
+
+&lt;p&gt;Avant toute chose, je recommande d&amp;rsquo;utiliser une Sandbox (un espace de test dédié et isolé) pour réaliser les exercices et manipulations de cette série. Comme nous allons être amenés à réaliser des manipulations plus ou moins critiques et à altérer le fonctionnement du système, le faire depuis son environnement de tous les jours peut s&amp;rsquo;avérer risqué si vous ne savez pas exactement ce que vous faites.&lt;/p&gt;
+
+&lt;p&gt;Ceci étant dit, plongeons nous dans cette fameuse ligne de commande, et voyons commant nous repérer et naviguer dans un système Linux.&lt;/p&gt;
+
+&lt;div class=&#34;warning&#34;&gt;Il s&#39;agit ici d&#39;une introduction destinée aux débutants. Pour ceux d&#39;entre vous déjà familiers avec la ligne de commande, vous n&#39;apprendrez probablement rien de nouveau dans cet article.&lt;/div&gt;
+
+&lt;h1 id=&#34;l-interpréteur-de-commandes&#34;&gt;L&amp;rsquo;interpréteur de commandes&lt;/h1&gt;
+
+&lt;p&gt;L&amp;rsquo;interpréteur de commandes (aussi appelé &amp;ldquo;ligne de commande&amp;rdquo;) permet d&amp;rsquo;accéder aux fonctions propres aux système d&amp;rsquo;exploitation par le biais de commandes données en entrée (dans notre cas, tapées au clavier). Il existe de nombreux interpréteurs, les plus courant étant le Bourne Shell (&lt;em&gt;sh&lt;/em&gt;), le Bourne-Again Shell (&lt;em&gt;bash&lt;/em&gt;), le Z shell (&lt;em&gt;zsh&lt;/em&gt;), etc., le plus répendu actuellement (et par défaut sur de nombreuses distributions de Linux) étant bash.&lt;/p&gt;
+
+&lt;p&gt;En mode graphique, la ligne de commande est accessible sur les distributions Linux par défaut via les applications dédiées (&amp;ldquo;Console&amp;rdquo;, &amp;ldquo;Terminal&amp;rdquo;, etc.,). Avec l&amp;rsquo;expérience il est souvent bien plus simple et rapide de gérer son système Linux de cette manière que graphiquement. Dans le cas des serveurs, qui n&amp;rsquo;ont pas de mode graphique, il s&amp;rsquo;agit même d&amp;rsquo;un passage obligé, alors autant s&amp;rsquo;y mettre dès maintenant.&lt;/p&gt;
+
+&lt;h1 id=&#34;l-arborescence&#34;&gt;L&amp;rsquo;arborescence&lt;/h1&gt;
+
+&lt;p&gt;Linux repose sur une arborescence pour organiser les fichiers au sein du système&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Chaque fichier ou dossier se situe donc virtuellement dans une succession de répertoires, remontant jusqu&amp;rsquo;à la racine du système de fichiers (dénommée &amp;ldquo; / &amp;ldquo;): c&amp;rsquo;est ce qu&amp;rsquo;on appelle le &lt;strong&gt;chemin absolu&lt;/strong&gt;. Par simplicité, cette arborescence est souvent représentée comme un arbre inversé, avec la racine au sommet. Le dossier dans lequel vous vous trouvez est quand à lui appelé &lt;strong&gt;dossier courant&lt;/strong&gt; (ou &amp;ldquo;Working directory&amp;rdquo;), et il est aussi possible de représenter un chemin à partir de cet endroit: c&amp;rsquo;est alors un &lt;strong&gt;chemin relatif&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;Dans cet exemple, le &lt;span style=&#34;color:blue&#34;&gt;chemin absolu vers le dossier &amp;ldquo;rainbow&amp;rdquo;&lt;/span&gt; est &amp;ldquo; &lt;em&gt;/home/zirka/somewhere/over/rainbow&lt;/em&gt; &amp;ldquo; . Comme le &lt;span style=&#34;color:magenta&#34;&gt;dossier courant&lt;/span&gt; est &amp;ldquo;zirka&amp;rdquo; (dont le chemin absolu est &amp;ldquo; &lt;em&gt;/home/zirka&lt;/em&gt; &amp;ldquo;), le &lt;span style=&#34;color:red&#34;&gt;chemin relatif vers le dossier &amp;ldquo;&lt;em&gt;rainbow&lt;/em&gt;&amp;ldquo;&lt;/span&gt; est &amp;ldquo; &lt;em&gt;somewhere/over/rainbow&lt;/em&gt; &amp;ldquo; .&lt;/p&gt;
+
+&lt;h1 id=&#34;s-orienter-et-se-déplacer&#34;&gt;S&amp;rsquo;orienter et se déplacer&lt;/h1&gt;
+
+&lt;p&gt;Dans la pratique, un certain nombre de commandes nous permettent de nous orienter et nous déplacer dans le système de fichier, en ligne de commande. Commençons par découvrir l&amp;rsquo;arborescence :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;pwd&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Print Working Directory&lt;/em&gt;&amp;rdquo;) : retourne le chemin absolu du dossier courant&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ls&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;LiSt directory content&lt;/em&gt;&amp;rdquo;) : liste les fichiers &amp;amp; dossiers situés dans le dossier courant&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;tree&lt;/strong&gt; : retourne une vue graphique de l&amp;rsquo;arborescence à partir du chemin courant&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Pour toutes ces commandes, il est aussi possible de passer en argument un chemin donné, pour que l&amp;rsquo;opération soit effectuée à partir de ce dossier.&lt;/p&gt;
+
+&lt;p&gt;Enfin, c&amp;rsquo;est la commande &lt;strong&gt;cd&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Change Directory&lt;/em&gt;&amp;rdquo;) qui nous permet de nous déplacer. Si elle n&amp;rsquo;est pas complétée d&amp;rsquo;un argument, elle nous amènera directement au répertoire par défaut. Le plus souvent, il s&amp;rsquo;agit du répertoire personnel de l&amp;rsquo;utilisateur courant, dont le chemin par défaut est &amp;ldquo; &lt;em&gt;/home/username&lt;/em&gt; &amp;ldquo; avec &lt;em&gt;username&lt;/em&gt; l&amp;rsquo;identifiant de l&amp;rsquo;utilisateur. Il est aussi possible de donner à &lt;em&gt;cd&lt;/em&gt; un chemin absolu ou relatif au dossier courant pour s&amp;rsquo;y déplacer.&lt;/p&gt;
+
+&lt;p&gt;À noter qu&amp;rsquo;il existe aussi certains raccourcis, comme :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;rdquo; &lt;em&gt;~&lt;/em&gt; &amp;ldquo; pour le répertoire personnel de l&amp;rsquo;utilisateur courant&lt;/li&gt;
+&lt;li&gt;&amp;rdquo; &lt;em&gt;.&lt;/em&gt; &amp;ldquo; pour le répertoire courant&lt;/li&gt;
+&lt;li&gt;&amp;rdquo; &lt;em&gt;..&lt;/em&gt; &amp;ldquo; pour le répertoire parent (celui qui contient le dossier courant)&lt;/li&gt;
+&lt;li&gt;&amp;rdquo; &lt;em&gt;-&lt;/em&gt; &amp;ldquo; pour le répertoire précédent (celui où vous étiez avant le dernier déplacement)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Cela nous donne donc via le terminal (les commandes que nous entrons sont ici précédées du symbole &amp;ldquo;$&amp;rdquo;) :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ pwd
+/home/zirka
+
+$ tree 
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+
+$ ls
+somewhere
+
+$ ls somewhere/over/rainbow
+high  up  way
+
+$ ls ~/somewhere/over/rainbow
+high  up  way
+
+$ cd /home/zirka/somewhere/over/rainbow
+$ ls
+high  up  way
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- &lt;span style=&#34;color:red&#34;&gt;!!! **Important !!!**&lt;/span&gt; Lorsque vous avez un doute sur l&#39;utilisation d&#39;une commande, la commande **man** suivie du nom de celle recherchée (e.g. *man pwd* ) vous affichera une page d&#39;aide, avec son utilisation, ses options, etc. --&gt;
+
+&lt;h1 id=&#34;créer-et-détruire&#34;&gt;Créer et détruire&lt;/h1&gt;
+
+&lt;p&gt;Nous avons vu comment naviguer dans l&amp;rsquo;arborescence, reste maintenant à créer, déplacer, éditer et détruire des fichiers. Commencons par la création et le déplacement. Cela se passe avec les commandes suivantes :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;mkdir&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Make Directory&lt;/em&gt;&amp;rdquo;) : permet de créer un répertoire avec pour chemin celui donné en argument&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;touch&lt;/strong&gt; : crée un fichier avec pour chemin celui donné en argument &lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;cp&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Copy&lt;/em&gt;&amp;rdquo;) : permet de copier un fichier d&amp;rsquo;un chemin vers un autre.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;-r&lt;/em&gt; : avec l&amp;rsquo;option &amp;ldquo; &lt;em&gt;-r&lt;/em&gt; &amp;ldquo; (pour recursive), copie un dossier et tout son contenu.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;mv&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Move&lt;/em&gt;&amp;rdquo;) : déplace un fichier d&amp;rsquo;un chemin vers un autre. À noter que mv peut aussi être utilisé pour renommer un fichier/dossier.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;-r&lt;/em&gt; : avec l&amp;rsquo;option &amp;ldquo; &lt;em&gt;-r&lt;/em&gt; &amp;ldquo;, permet de déplacer un dossier et tout son contenu.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Cela nous donne donc via le terminal :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tree
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+
+$ mkdir highway
+$ mkdir highway/to
+$ touch highway/to/hell.txt
+$ cp highway/to/hell.txt somewhere/over/rainbow
+$ mv somewhere/over/rainbow/up.mk highway/to/hell.txt
+
+$ tree
+.
+├── config.xml
+├── highway
+│   └── to
+│       ├── hell.txt
+│       └── up.mk
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── hell.txt
+│           ├── high.c
+│           └── way.c
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Voyons maintenant comment détruire des fichiers ou dossiers. Pour cela rien de plus simple, avec les commandes suivantes :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;rm&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Remove&lt;/em&gt;&amp;rdquo;) : supprime définitivement un fichier via le chemin passé en argument.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;-r&lt;/em&gt; : avec l&amp;rsquo;option &lt;em&gt;-r&lt;/em&gt;, efface un dossier et tout son contenu&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;rmdir&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Remove Directory&lt;/em&gt;&amp;rdquo;) : efface définitivement un dossier via le chemin passé en argument.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;En pratique, cela nous donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tree
+.
+├── config.xml
+├── highway
+│   └── to
+│       ├── hell.txt
+│       └── up.mk
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── hell.txt
+│           ├── high.c
+│           └── way.c
+
+$ rm highway/to/hell.txt
+$ rm highway/to/up.mk
+$ rmdir highway/to
+$ rm -r somewhere/over
+$ touch highway/to/hell.txt
+$ cp highway/to/hell.txt somewhere/over/rainbow
+$ mv somewhere/over/rainbow/up.mk highway/to/hell.txt
+
+$ tree
+.
+├── config.xml
+└── somewhere
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;conclusion&#34;&gt;Conclusion&lt;/h1&gt;
+
+&lt;p&gt;Nous arrivons maintenant à la fin de notre premier acticle d&amp;rsquo;une longue série dédiée aux certifications de la fondation Linux. Nous avons abordé une première partie des commandes essentielles à connaître pour utiliser le terminal, en passant en revue les moyens de se repérer, créer et détruire dans l&amp;rsquo;arborescence Linux. Le prochain article complètera ce thème en abordant la question des liens, de la manipulation de fichiers, du manuel, et bien plus encore.&lt;/p&gt;
+
+&lt;!--     Command Line
+
+x   1. The Shell
+x   2. pwd (Print Working Directory)
+x   3. cd (Change Directory)
+x   4. ls (List Directories)
+x   5. touch
+    6. file
+    7. cat
+    8. less
+    9. history
+x   10. cp (Copy)
+x   11. mv (Move)
+x   12. mkdir (Make Directory)
+x   13. rm (Remove)
+    14. find
+    15. help
+    16. man
+    17. whatis
+    18. alias
+    19. exit
+
+ --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Cette arborescence suit elle même une norme (le &amp;ldquo;Filesystems Hierarchy Standard&amp;rdquo;, FHS), que nous verrons plus en détail dans un article dédié.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;En fait, &amp;ldquo; &lt;em&gt;touch&lt;/em&gt; &amp;ldquo; permet de changer les dates d&amp;rsquo;un fichier (création, modification, etc.). Mais si ce fichier n&amp;rsquo;existe pas, il va le créer. À ma connaissance, il n&amp;rsquo;existe pas de commande dédiée pour créer un fichier.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Linux a 25 ans, il est temps de se certifier!</title>
       <link>https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier</link>
       <pubDate>Fri, 20 Jan 2017 16:01:18 +0100</pubDate>
