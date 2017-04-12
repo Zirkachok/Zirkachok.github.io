@@ -83,17 +83,18 @@
           
             <li class="article__item">
   <div class="article__meta"><span class="article__meta-item article__date">
-  	4 Apr 2017, par 
+  	11 Apr 2017, par 
 
+ Julien Beaudaux
 
 
   	<span></div>
-    <a href="https://zirkachok.github.io/2017/04/04/r%C3%A9sum%C3%A9--outliers" class="clearfix">
-        <h3 class="article__title">Résumé : Outliers</h3>
+    <a href="https://zirkachok.github.io/2017/04/11/lfcs--syst%C3%A8me-de-fichiers-et-liens" class="clearfix">
+        <h3 class="article__title">LFCS : Système de fichiers et liens</h3>
         <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
     </a>
-    <p class="article__summary">On voit ces derniers temps fleurir sur les étals des librairies (normal me direz-vous, c&rsquo;est le printemps) les biographies d&rsquo;Hommes &ldquo;à succès&rdquo; prodiguant des conseils et analysant les raisons de leur réussite. On est alors tenté de se dire, si cela a si bien fonctionné pour eux, il doit bien y avoir quelque chose à en tirer pour nous-autres, pour améliorer notre quotidien, notre productivité, etc., non?
-Sur le fond, &ldquo;Outliers&rdquo; a le même objectif : identifier les facteurs qui conduisent au &ldquo;succès&rdquo;.</p>
+    <p class="article__summary">On dit souvent que sous Unix et Linux1, &ldquo;tout est fichier&rdquo;, car les répertoires, fichiers réguliers, etc. y sont représentés par des fichiers dont seul le type et le contenu changent. Dans cet article, nous allons vois plus en détail ce qu&rsquo;il en est vraiment, et découvrir un autre type de fichier, les liens.
+Pour illustrer ces concepts pas toujours évidents à appréhender, je vous ai aussi préparé une analogie simple et facile à retenir : la bibliothèque.</p>
 </li>
 
           
@@ -101,18 +102,18 @@ Sur le fond, &ldquo;Outliers&rdquo; a le même objectif : identifier les facteur
           
             <li class="article__item">
   <div class="article__meta"><span class="article__meta-item article__date">
-  	3 Apr 2017, par 
+  	10 Apr 2017, par 
 
  Julien Beaudaux
 
 
   	<span></div>
-    <a href="https://zirkachok.github.io/2017/04/03/lfcs--quelques-commandes-essentielles" class="clearfix">
-        <h3 class="article__title">LFCS : Quelques commandes essentielles</h3>
+    <a href="https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence" class="clearfix">
+        <h3 class="article__title">LFCS : Effectuer des recherches dans l&#39;arborescence</h3>
         <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
     </a>
-    <p class="article__summary">Avant de s&rsquo;atteler à des sujets précis pour notre préparation à la LFCS, je vais vous présenter en vrac quelques commandes essentielles qui nous seront utiles par la suite pour bricoler sur notre système. Pas d&rsquo;exemples concrets ici, à vous de vous essayer à ces nouveautés pour mieux les découvrir.
-Il s'agit ici d'une introduction destinée aux débutants. Pour ceux d'entre vous déjà familiers avec la ligne de commande, vous n'apprendrez probablement rien de nouveau dans cet article.</p>
+    <p class="article__summary">À ce stade là, nous savons déjà faire beaucoup de choses pour manipuler l&rsquo;arborescence. Reste que lorsqu&rsquo;on cherche un fichier précis sans savoir où il se trouve exactement, les choses se compliquent. C&rsquo;est là que la commande locate entre en jeu. Avec en argument un ou plusieurs motif(s), elle permet de lister tous les chemins contenant un des motifs en question. Quelques options permettent d&rsquo;affiner ces recherches :
+ -i ou --ignore-case : De base, locate est sensible à la casse.</p>
 </li>
 
           
@@ -126,12 +127,31 @@ Il s'agit ici d'une introduction destinée aux débutants. Pour ceux d'entre vou
 
 
   	<span></div>
-    <a href="https://zirkachok.github.io/2017/02/14/lfcs--navigation-dans-un-syst%C3%A8me-linux" class="clearfix">
-        <h3 class="article__title">LFCS : Navigation dans un système Linux</h3>
+    <a href="https://zirkachok.github.io/2017/02/14/lfcs--naviguer-dans-un-syst%C3%A8me-linux" class="clearfix">
+        <h3 class="article__title">LFCS : Naviguer dans un système Linux</h3>
         <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
     </a>
-    <p class="article__summary">Pour bien débuter ma série d&rsquo;articles concernant Linux, son fonctionnement et son administration, je vais passer en revue les commandes de bases nécessaires pour s&rsquo;orienter et naviguer au sein du système de fichiers. Je parle bien de &ldquo;commandes&rdquo;, car ici comme dans toute la suite, nous passerons par la ligne de commande.
-Avant toute chose, je recommande d&rsquo;utiliser une Sandbox (un espace de test dédié et isolé) pour réaliser les exercices et manipulations de cette série.</p>
+    <p class="article__summary">Maintenant que l&rsquo;utilisation de la ligne de commande n&rsquo;a plus de secret pour nous, il est temps de découvrir l&rsquo;arborescence d&rsquo;un système Linux et apprendre comment s&rsquo;y orienter et naviguer dedans.
+Il s'agit ici d'une introduction destinée aux débutants. Pour ceux d'entre vous déjà familiers avec la ligne de commande, vous y apprendrez peut-être quelque chose, ou peut-être pas, mais dans tous les cas vous pouvez passer sans scrupules à un article plus avancé.</p>
+</li>
+
+          
+          
+          
+            <li class="article__item">
+  <div class="article__meta"><span class="article__meta-item article__date">
+  	12 Feb 2017, par 
+
+ Julien Beaudaux
+
+
+  	<span></div>
+    <a href="https://zirkachok.github.io/2017/02/12/lfcs--dompter-la-ligne-de-commande" class="clearfix">
+        <h3 class="article__title">LFCS : Dompter la ligne de commande</h3>
+        <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
+    </a>
+    <p class="article__summary">Pour bien débuter ma série d&rsquo;articles concernant Linux, son fonctionnement et son administration, je vous propose de nous plonger dans la fameuse ligne de commande pour en découvrir l&rsquo;intérêt et le fonctionnement. Et en bonus, je vous livrerai quelques conseils pour y être plus rapide et efficace!
+Il s'agit ici d'une introduction destinée aux débutants. Pour ceux d'entre vous déjà familiers avec la ligne de commande, vous y apprendrez peut-être quelque chose, ou peut-être pas, mais dans tous les cas vous pouvez passer sans scrupules à un article plus avancé.</p>
 </li>
 
           

@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>Quelques impressions sur le Go - Zirka</title>
-    <meta property='og:title' content="Quelques impressions sur le Go - Zirka">
+    <title>LFCS : Naviguer dans un système Linux - Zirka</title>
+    <meta property='og:title' content="LFCS : Naviguer dans un système Linux - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/02/14/lfcs--naviguer-dans-un-syst%C3%A8me-linux">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  18 Jan 2017
+                  14 Feb 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">Quelques impressions sur le Go</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Naviguer dans un système Linux</h1>
           </header>
         </div>
       </div>
@@ -396,96 +396,204 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<p>Il y a de cela des années, j&rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&rsquo;étais à l&rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&rsquo;étendue de ses librairies. Autant d&rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&rsquo;ont amené à me détourner petit à petit de ce langage<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. J&rsquo;ai donc commencé à chercher si ce n&rsquo;est un successeur au moins un complément.</p>
+<p>Maintenant que l&rsquo;utilisation de la ligne de commande n&rsquo;a plus de secret pour nous, il est temps de découvrir l&rsquo;arborescence d&rsquo;un système Linux et apprendre comment s&rsquo;y orienter et naviguer dedans.</p>
 
-<p><a href="https://golang.org/">Go</a> fait partie de ces langages &ldquo;à la mode&rdquo; ces dernières années (avec <a href="https://www.scala-lang.org/">Scala</a>, <a href="https://www.rust-lang.org">Rust</a>, <a href="http://dlang.org/">D</a>, etc.), mais il se démarque par sa croissance<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup> et ses origines<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup>. Je me suis donc laissé tenter, et vous fait part de mes impressions après quelques semaines d&rsquo;utilisation.</p>
+<!-- Avant toute chose, je recommande d'utiliser une Sandbox (un espace de test dédié et isolé) pour réaliser les exercices et manipulations de cette série. Comme nous allons être amenés à réaliser des manipulations plus ou moins critiques et à altérer le fonctionnement du système, le faire depuis son environnement de tous les jours peut s'avérer risqué si vous ne savez pas exactement ce que vous faites. -->
 
-<h1 id="une-philosophie-nouvelle">Une philosophie nouvelle</h1>
+<div class="warning">Il s'agit ici d'une introduction destinée aux débutants. Pour ceux d'entre vous déjà familiers avec la ligne de commande, vous y apprendrez peut-être quelque chose, ou peut-être pas, mais dans tous les cas vous pouvez passer sans scrupules à un article plus avancé.</div>
 
-<p>Comme le jeu du même nom, Le langage Go a été conçu pour être simple à apprendre, mais profond dans ses possibilités. Celà se traduit par de nombreux aspects, assez novateurs dans le monde du développement.</p>
+<h1 id="l-arborescence">L&rsquo;arborescence</h1>
 
-<h2 id="un-langage-rigide">Un langage rigide&hellip;</h2>
+<p>Linux repose sur une arborescence pour organiser les fichiers au sein du système<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. Chaque fichier ou dossier se situe donc virtuellement dans une succession de répertoires, remontant jusqu&rsquo;à la racine du système de fichiers (dénommée &ldquo; / &ldquo;): c&rsquo;est ce qu&rsquo;on appelle le <strong>chemin absolu</strong>. Par simplicité, cette arborescence est souvent représentée comme un arbre inversé, avec la racine au sommet. Le dossier dans lequel vous vous trouvez est quand à lui appelé <strong>dossier courant</strong> (ou &ldquo;Working directory&rdquo;), et il est aussi possible de représenter un chemin à partir de cet endroit: c&rsquo;est alors un <strong>chemin relatif</strong>.</p>
 
-<p>Au premier regard, avec un typage fort et une syntaxe stricte, le Go semble assez rigide. Pas question ici de faire les choses à sa sauce. Les crochets suivent la déclaration des méthodes/fonctions/conditions/boucles sur la même ligne, il est interdit d&rsquo;importer une bibliothèque sans l&rsquo;appeler dans le code, toute variable a un type fixe, etc. Il existe même <a href="https://blog.golang.org/go-fmt-your-code">un outil</a> fourni par défaut pour rendre conforme la syntaxe d&rsquo;un code source en suivant les pratiques préconisées ou imposées.</p>
+<p>Dans cet exemple, le <span style="color:blue">chemin absolu vers le dossier &ldquo;rainbow&rdquo;</span> est &ldquo; <em>/home/zirka/somewhere/over/rainbow</em> &ldquo; . Comme le <span style="color:magenta">dossier courant</span> est &ldquo;zirka&rdquo; (dont le chemin absolu est &ldquo; <em>/home/zirka</em> &ldquo;), le <span style="color:red">chemin relatif vers le dossier &ldquo;<em>rainbow</em>&ldquo;</span> est &ldquo; <em>somewhere/over/rainbow</em> &ldquo; .</p>
 
-<p>Un exemple de code en Go :</p>
+<h2 id="s-orienter-et-se-déplacer">S&rsquo;orienter et se déplacer</h2>
 
-<pre><code>package main
+<p>Dans la pratique, un certain nombre de commandes nous permettent de nous orienter et nous déplacer dans le système de fichier, en ligne de commande. Commençons par découvrir l&rsquo;arborescence :</p>
 
-import (
-    &quot;fmt&quot;
-    &quot;flag&quot;
-)
+<ul>
+<li><strong>pwd</strong> (pour &ldquo;<em>Print Working Directory</em>&rdquo;) : retourne le chemin absolu du dossier courant</li>
+<li><strong>ls</strong> (pour &ldquo;<em>LiSt directory content</em>&rdquo;) : liste les fichiers &amp; dossiers situés dans le dossier courant</li>
+<li><strong>tree</strong> : retourne une vue graphique de l&rsquo;arborescence à partir du chemin courant</li>
+</ul>
 
-func main() {
-    var svar string
-    wordPtr := flag.String(&quot;file&quot;, &quot;foo&quot;, &quot;a string&quot;)
+<p>Pour toutes ces commandes, il est aussi possible de passer en argument un chemin donné, pour que l&rsquo;opération soit effectuée à partir de ce dossier.</p>
 
-    flag.StringVar(&amp;svar, &quot;svar&quot;, &quot;bar&quot;, &quot;a string var&quot;)
-    flag.Parse()
+<p>Au passage, il est possible avec ls et bien d&rsquo;autres commandes (find, file, etc.) de donner des <strong>motifs &ldquo;abstraits&rdquo;</strong> plutôt qu&rsquo;un nom précis. Sans entrer dans les détails, il est possible d&rsquo;utiliser le caractère <strong>*</strong> pour désigner &ldquo;tout&rdquo;. Par exemple, la commande &ldquo; <em>ls *.bin</em> &ldquo; listera tous les fichiers dont le nom finit par <em>.bin</em> .</p>
 
-    if fileExists(*filePtr) {
-        fmt.Println(&quot;Valid file provided&quot;)
-    } else {
-        fmt.Println(&quot;File &quot; + *filePtr + &quot; not found&quot;)
-    }
-}
+<p>Enfin, c&rsquo;est la commande <strong>cd</strong> (pour &ldquo;<em>Change Directory</em>&rdquo;) qui nous permet de nous déplacer. Si elle n&rsquo;est pas complétée d&rsquo;un argument, elle nous amènera directement au répertoire par défaut. Le plus souvent, il s&rsquo;agit du répertoire personnel de l&rsquo;utilisateur courant, dont le chemin par défaut est &ldquo; <em>/home/username</em> &ldquo; avec <em>username</em> l&rsquo;identifiant de l&rsquo;utilisateur. Il est aussi possible de donner à <em>cd</em> un chemin absolu ou relatif au dossier courant pour s&rsquo;y déplacer.</p>
+
+<p>À noter qu&rsquo;il existe aussi certains raccourcis, comme :</p>
+
+<ul>
+<li>&rdquo; <em>~</em> &ldquo; pour le répertoire personnel de l&rsquo;utilisateur courant</li>
+<li>&rdquo; <em>.</em> &ldquo; pour le répertoire courant</li>
+<li>&rdquo; <em>..</em> &ldquo; pour le répertoire parent (celui qui contient le dossier courant)</li>
+<li>&rdquo; <em>-</em> &ldquo; pour le répertoire précédent (celui où vous étiez avant le dernier déplacement)</li>
+</ul>
+
+<p>Cela nous donne donc via le terminal (les commandes que nous entrons sont ici précédées du symbole &ldquo;$&rdquo;) :</p>
+
+<pre><code>$ pwd
+/home/zirka
+
+$ tree 
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+
+$ ls
+somewhere
+
+$ ls somewhere/over/rainbow
+high.c  up.mk  way.c
+
+$ ls ~/somewhere/over/rainbow
+high.c  up.mk  way.c
+
+$ cd /home/zirka/somewhere/over/rainbow
+$ ls
+high.c  up.mk  way.c
+
+$ ls *.c
+high.c  way.c
 </code></pre>
 
-<p>Cela peut sembler désagréable, surtout lorsque l&rsquo;on est habitué à des langages plus permissifs (la plupart des langages en fait&hellip;). Cependant, cette rigidité a pour avantage de forcer une uniformisation du code, et donc de faciliter grandement son inter-compréhension et son maintien. À ce niveau, le Go est particulièrement adapté aux projets de grande taille impliquant des développeurs d&rsquo;expériences différentes (comme dans la communauté Open-Source, par exemple).</p>
+<!-- <span style="color:red">!!! **Important !!!**</span> Lorsque vous avez un doute sur l'utilisation d'une commande, la commande **man** suivie du nom de celle recherchée (e.g. *man pwd* ) vous affichera une page d'aide, avec son utilisation, ses options, etc. -->
 
-<p>Pour contrebalancer, La syntaxe du Go emprunte beaucoup au C/C++<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>, en y mêlant des éléments issus de langages plus récents. Elle se veut donc rassurante tout en étant moderne et puissante. Reste qu&rsquo;une telle rigueur est un parti-pris qui ne plaira pas à tout le monde.</p>
+<h2 id="créer-et-détruire">Créer et détruire</h2>
 
-<h2 id="et-flexible-à-la-fois">&hellip;Et flexible à la fois</h2>
-
-<p>Passée cette première impression, le Go fait preuve de nombreuses avantages. Comme citer ses qualités et inconvénients demanderait un article à lui seul (qui viendra peut-être, qui sait), je ne m&rsquo;attarderai que sur ceux qui m&rsquo;ont semblé les plus marquants :</p>
+<p>Nous avons vu comment naviguer dans l&rsquo;arborescence, reste maintenant à créer, déplacer, éditer et détruire des fichiers. Commencons par la création et le déplacement. Cela se passe avec les commandes suivantes :</p>
 
 <ul>
-<li><p><strong>Optimisé et optimisable</strong> : Le langage Go, suivant le cas d&rsquo;utilisation, n&rsquo;est pas forcément le plus rapide ni le moins gourmand, comme le montrent les <a href="https://days2011.scala-lang.org/sites/days2011/files/ws3-1-Hundt.pdf">études</a> sur le sujet. Par contre, outre la la présence d&rsquo;un ramasse-miettes efficace, son utilisation du paradigme de programmation <a href="https://blog.golang.org/concurrency-is-not-parallelism">concurrente</a> fait qu&rsquo;il peut tirer le meilleur parti d&rsquo;une architecture muti-coeurs sans perdre en qualité et propreté de code.</p></li>
-
-<li><p><strong>Intuitif</strong> : Comme je l&rsquo;ai mentionné plus avant, pour qui est versé dans le C, C++ ou Java, le Go s&rsquo;apprend de manière intuitive. Sa syntaxe proche de ces langages, la <a href="https://blog.golang.org/error-handling-and-go">gestion des erreurs</a> simple et élégente, l&rsquo;import des packages (notamment possible <a href="https://golang.org/doc/code.html#ImportPaths">via leur URL</a>) largement simplifié, rendent sa prise en main rapide et facile. Comparé à aux langages fonctionnels tels que <a href="https://www.scala-lang.org/">Scala</a> ou à des syntaxes plus originales comme <a href="https://www.rust-lang.org">Rust</a>, Go permet une transition rapide et efficace. Un atout de poids lorsque l&rsquo;on travaille en équipe.</p></li>
-
-<li><p><strong>Des outils pour tout</strong> : Go propose une large panoplie d&rsquo;outils intégrés qui apportent un réel plus au langage en tant que tel. On y trouve entre autres <a href="https://blog.golang.org/godoc-documenting-go-code">Go doc</a> pour la documentation automatique de code, <a href="https://blog.golang.org/introducing-gofix">Gofix</a> pour la mise à niveau de code source au fil des versions, <a href="https://golang.org/cmd/go/#hdr-List_packages">Go list</a> pour la génération des graphes de dépendances du package, <a href="https://blog.golang.org/profiling-go-programs">Go pprof</a> pour le profilage, <a href="https://blog.golang.org/debugging-go-code-status-report">GDB</a> pour le déboguage, et bien d&rsquo;autres encore&hellip; Enfin, il jouis d&rsquo;une communauté très active proposant des packages variés et puissants<sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">5</a></sup>, le tout en plus de ceux proposés officiellement.</p></li>
-
-<li><p><strong>Orienté Back-End</strong> : La gestion native et optimisée protocoles et standards de l&rsquo;Internet (<a href="https://golang.org/pkg/net/http/">HTTP</a>, <a href="https://godoc.org/golang.org/x/crypto/ssh">SSH</a>, <a href="https://golang.org/pkg/encoding/json/">JSON</a>, <a href="https://golang.org/pkg/encoding/xml/">XML</a>, <a href="https://golang.org/pkg/database/sql/">SQL</a>, <a href="https://golang.org/pkg/crypto/">cryptographie</a>, etc.) et sa gestion de la concurrence font du Go un langage de choix pour le développement Cloud et Back-end. Ce n&rsquo;est pas pour rien que des fournisseur de services comme SendGrid, Docker ou encore Dropbox s&rsquo;y sont lancés.</p></li>
-
-<li><p><strong>Multi-plateformes</strong> : Go intègre aussi nativement la <a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5">compilation croisée</a>, permettant ainsi de compiler un executable pour une autre architecture que la sienne. Il offre la possibilité de réaliser des <a href="https://blog.golang.org/c-go-cgo">appels à du code C</a>, et ainsi d&rsquo;intégrer des bibliothèques héritées (ou Legacy code) plus facilement.</p></li>
-</ul>
-
-<!-- Built with concurrency in mind -->
-
-<h2 id="puissant-mais-perfectible">Puissant, mais perfectible</h2>
-
-<p>Malgré tous ses apports, il reste au Go bien des défauts. Certains tiennent plus de choix clivants et d&rsquo;une volonté de rester proche du C/C++, comme son typage fort et le manque d&rsquo;<a href="https://fr.wikipedia.org/wiki/Inf%C3%A9rence_de_types">inférence de types</a>, l&rsquo;absence de paradigme orienté objet, ou encore l&rsquo;usage de pointeurs que nous avons mentionnés plus haut, mais d&rsquo;autres rentrent moins dans cette logique.</p>
+<li><strong>mkdir</strong> (pour &ldquo;<em>Make Directory</em>&rdquo;) : permet de créer un répertoire avec pour chemin celui donné en argument</li>
+<li><strong>touch</strong> : crée un fichier avec pour chemin celui donné en argument <sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup></li>
+<li><strong>cp</strong> (pour &ldquo;<em>Copy</em>&rdquo;) : permet de copier un fichier d&rsquo;un chemin vers un autre.
 
 <ul>
-<li><p><strong>Pas de généricité</strong> : Le défaut le plus évident est le manque de support pour la programmation générique et tout ce qu&rsquo;elle apporte (dont le polymorphisme). Même si les <a href="http://golangtutorials.blogspot.fr/2011/06/polymorphism-in-go.html">interfaces</a> peuvent remplir ce rôle et donc contourner le problème, on y perd grandement en transparence et en propreté du code.</p></li>
+<li><em>-r</em> : avec l&rsquo;option &ldquo; <em>-r</em> &ldquo; (pour recursive), copie un dossier et tout son contenu.</li>
+</ul></li>
+<li><strong>mv</strong> (pour &ldquo;<em>Move</em>&rdquo;) : déplace un fichier d&rsquo;un chemin vers un autre. À noter que mv peut aussi être utilisé pour renommer un fichier/dossier.
 
-<li><p><strong>Mutable ou immutable?</strong> : Pour des &ldquo;objets&rdquo; complexes (structures, etc.), il n&rsquo;est pas toujours évident de savoir si il sera copié ou modifié. Un objet peut etre passé par adresse et ainsi lever le doute, mais une gestion explicite de l&rsquo;<a href="https://fr.wikipedia.org/wiki/Objet_immuable">immutabilité</a> aurait été un plus bienvenu.</p></li>
-
-<li><p><strong>Pas le plus performant</strong> : Comme mentionné plus haut, le langage Go n&rsquo;est pas toujours le plus performant. Son empreinte mémoire est supérieure à celle de langages tels que C++ ou Scala, et il en va de même pour le temps d&rsquo;exécution ou la taille du binaire généré. Malgré tout, Go reste un langage performant, tout est une question de priorités.</p></li>
+<ul>
+<li><em>-r</em> : avec l&rsquo;option &ldquo; <em>-r</em> &ldquo;, permet de déplacer un dossier et tout son contenu.</li>
+</ul></li>
 </ul>
 
-<h1 id="au-final-ça-en-vaut-la-peine">Au final, ça en vaut la peine?</h1>
+<p>Cela nous donne donc via le terminal :</p>
 
-<p>Le Go peut en rebuter certains par ses choix clivants, mais ses inspirations font de lui un langage simple à apprendre mais profond, et qui apporte de nombreuses récompenses à qui fait l&rsquo;effort de s&rsquo;y investir. Il n&rsquo;a certes pas les performances du C/C++ ou des langages fonctionnels modernes, mais il a pour lui la flexibilité du Python tout en étant plus maintenable et plus strict.</p>
+<pre><code>$ tree
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
 
-<p>En tout cas, il semble promis à un bel avenir, en témoigne <a href="http://www.tiobe.com/tiobe-index/go/">sa progression</a>, sa communauté grandissante et son adoption par des grandes companies et services de l&rsquo;Internet, tels que <a href="http://fr.slideshare.net/jpetazzo/docker-and-go-why-did-we-decide-to-write-docker-in-go">Docker</a>, <a href="https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/">Dropbox</a>, <a href="https://developers.soundcloud.com/blog/go-at-soundcloud">Soundcloud</a> ou encore <a href="https://sendgrid.com/blog/convince-company-go-golang/">SendGrid</a>, <a href="https://github.com/Netflix/rend">Netflix</a> et bien d&rsquo;autres.</p>
+$ mkdir highway
+$ mkdir highway/to
+$ touch highway/to/hell.txt
+$ cp highway/to/hell.txt somewhere/over/rainbow
+$ mv somewhere/over/rainbow/up.mk highway/to/hell.txt
+
+$ tree
+.
+├── config.xml
+├── highway
+│   └── to
+│       ├── hell.txt
+│       └── up.mk
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── hell.txt
+│           ├── high.c
+│           └── way.c
+</code></pre>
+
+<p>Voyons maintenant comment détruire des fichiers ou dossiers. Pour cela rien de plus simple, avec les commandes suivantes :</p>
+
+<ul>
+<li><strong>rm</strong> (pour &ldquo;<em>Remove</em>&rdquo;) : supprime définitivement un fichier via le chemin passé en argument.
+
+<ul>
+<li><em>-r</em> : avec l&rsquo;option <em>-r</em>, efface un dossier et tout son contenu</li>
+</ul></li>
+<li><strong>rmdir</strong> (pour &ldquo;<em>Remove Directory</em>&rdquo;) : efface définitivement un dossier via le chemin passé en argument.</li>
+</ul>
+
+<p>En pratique, cela nous donne :</p>
+
+<pre><code>$ tree
+.
+├── config.xml
+├── highway
+│   └── to
+│       ├── hell.txt
+│       └── up.mk
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── hell.txt
+│           ├── high.c
+│           └── way.c
+
+$ rm highway/to/hell.txt
+$ rm highway/to/up.mk
+$ rmdir highway/to
+$ rm -r somewhere/over
+$ touch highway/to/hell.txt
+$ cp highway/to/hell.txt somewhere/over/rainbow
+$ mv somewhere/over/rainbow/up.mk highway/to/hell.txt
+
+$ tree
+.
+├── config.xml
+└── somewhere
+</code></pre>
+
+<p>Nous arrivons maintenant à la fin de notre premier acticle d&rsquo;une longue série dédiée aux certifications de la fondation Linux. Nous avons abordé une première partie des commandes essentielles à connaître pour utiliser le terminal, en passant en revue les moyens de se repérer, créer et détruire dans l&rsquo;arborescence Linux. Le prochain article complètera ce thème en abordant la question des liens, de la manipulation de fichiers, du manuel, et bien plus encore.</p>
+
+<!--     Command Line
+
+x   1. The Shell
+x   2. pwd (Print Working Directory)
+x   3. cd (Change Directory)
+x   4. ls (List Directories)
+x   5. touch
+    6. file
+    7. cat
+    8. less
+    9. history
+x   10. cp (Copy)
+x   11. mv (Move)
+x   12. mkdir (Make Directory)
+x   13. rm (Remove)
+    14. find
+    15. help
+    16. man
+    17. whatis
+    18. alias
+    19. exit
+
+ -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">Pour n&rsquo;en citer qu&rsquo;une, rendre disponible et maintenir un outil pour des cibles n&rsquo;ayant pas d&rsquo;interpréteur python et/ou l&rsquo;ensemble des librairies installées, est un parcours du combattant (pas de cross-compilation possible, nécessité d&rsquo;utiliser des packets spécifiques, exécutables ainsi générés souvent lents et gourmands, etc.).
+<li id="fn:1">Cette arborescence suit elle même une norme (le &ldquo;Filesystems Hierarchy Standard&rdquo;, FHS), que nous passerons au crible dans un article dédié.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:2">Le langage Go se situait en 2016 à la 13ème place au <a href="http://www.tiobe.com/tiobe-index/">classement Tiobe</a> des langages les plus utilisés, contre la 54ème en 2015.
+<li id="fn:2">En fait, &ldquo; <em>touch</em> &ldquo; permet de changer les dates d&rsquo;un fichier (création, modification, etc.). Mais si ce fichier n&rsquo;existe pas, il va le créer. À ma connaissance, il n&rsquo;existe pas de commande dédiée pour créer un fichier.
  <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:3">Le langage Go est issu des laboratoires de Google et de l&rsquo;esprit de <a href="https://en.wikipedia.org/wiki/Rob_Pike">Rob Pike</a>
- <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:4">La syntaxe elle-même, proche du style <a href="https://fr.wikipedia.org/wiki/Style_d'indentation#Style_K.26R">K&amp;R</a>, l&rsquo;usage des <a href="https://blog.golang.org/gos-declaration-syntax">pointeurs</a>, etc.
- <a class="footnote-return" href="#fnref:4">↩</a></li>
-<li id="fn:5">Pour une liste non exhaustive, on peut se référer <a href="https://github.com/golang/go/wiki/Projects">ici</a>, <a href="https://github.com/avelino/awesome-go">là</a> et <a href="http://www.mjhall.org/golang-data-science-libraries/">là-bas</a>.
- <a class="footnote-return" href="#fnref:5">↩</a></li>
 </ol>
 </div>
 </div>
@@ -582,7 +690,7 @@ func main() {
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/02/14/lfcs--naviguer-dans-un-syst%C3%A8me-linux" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>

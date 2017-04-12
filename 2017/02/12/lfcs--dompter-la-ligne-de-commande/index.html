@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>Quelques impressions sur le Go - Zirka</title>
-    <meta property='og:title' content="Quelques impressions sur le Go - Zirka">
+    <title>LFCS : Dompter la ligne de commande - Zirka</title>
+    <meta property='og:title' content="LFCS : Dompter la ligne de commande - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/02/12/lfcs--dompter-la-ligne-de-commande">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  18 Jan 2017
+                  12 Feb 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">Quelques impressions sur le Go</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Dompter la ligne de commande</h1>
           </header>
         </div>
       </div>
@@ -396,96 +396,75 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<p>Il y a de cela des années, j&rsquo;avais opté pour python comme language de prédilection pour mes développements débarqués. J&rsquo;étais à l&rsquo;époque tombé sous le charme de sa syntaxe minimaliste, de son efficacité (dans le traitement des chaines de caractères notamment) et de l&rsquo;étendue de ses librairies. Autant d&rsquo;avantages qui me permettaient de réaliser rapidement et efficacement des outils là où mes langages de script ne suffisaient plus. Cependant, au fil des années, de nouvelles problématiques m&rsquo;ont amené à me détourner petit à petit de ce langage<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. J&rsquo;ai donc commencé à chercher si ce n&rsquo;est un successeur au moins un complément.</p>
+<!-- ê î ô -->
 
-<p><a href="https://golang.org/">Go</a> fait partie de ces langages &ldquo;à la mode&rdquo; ces dernières années (avec <a href="https://www.scala-lang.org/">Scala</a>, <a href="https://www.rust-lang.org">Rust</a>, <a href="http://dlang.org/">D</a>, etc.), mais il se démarque par sa croissance<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup> et ses origines<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup>. Je me suis donc laissé tenter, et vous fait part de mes impressions après quelques semaines d&rsquo;utilisation.</p>
+<p>Pour bien débuter ma série d&rsquo;articles concernant Linux, son fonctionnement et son administration, je vous propose de nous plonger dans la fameuse ligne de commande pour en découvrir l&rsquo;intérêt et le fonctionnement. Et en bonus, je vous livrerai quelques conseils pour y être plus rapide et efficace!</p>
 
-<h1 id="une-philosophie-nouvelle">Une philosophie nouvelle</h1>
+<!-- je vais passer en revue les commandes et rde bases nécessaires pour s'orienter et naviguer au sein du système de fichiers. Je parle bien de "commandes", car ici comme dans toute la suite, nous passerons par la ligne de commande. -->
 
-<p>Comme le jeu du même nom, Le langage Go a été conçu pour être simple à apprendre, mais profond dans ses possibilités. Celà se traduit par de nombreux aspects, assez novateurs dans le monde du développement.</p>
+<!-- Avant toute chose, je recommande d'utiliser une Sandbox (un espace de test dédié et isolé) pour réaliser les exercices et manipulations de cette série. Comme nous allons être amenés à réaliser des manipulations plus ou moins critiques et à altérer le fonctionnement du système, le faire depuis son environnement de tous les jours peut s'avérer risqué si vous ne savez pas exactement ce que vous faites. -->
 
-<h2 id="un-langage-rigide">Un langage rigide&hellip;</h2>
+<!-- Ceci étant dit, plongeons nous dans cette fameuse ligne de commande, et voyons commant nous repérer et naviguer dans un système Linux.  -->
 
-<p>Au premier regard, avec un typage fort et une syntaxe stricte, le Go semble assez rigide. Pas question ici de faire les choses à sa sauce. Les crochets suivent la déclaration des méthodes/fonctions/conditions/boucles sur la même ligne, il est interdit d&rsquo;importer une bibliothèque sans l&rsquo;appeler dans le code, toute variable a un type fixe, etc. Il existe même <a href="https://blog.golang.org/go-fmt-your-code">un outil</a> fourni par défaut pour rendre conforme la syntaxe d&rsquo;un code source en suivant les pratiques préconisées ou imposées.</p>
+<div class="warning">Il s'agit ici d'une introduction destinée aux débutants. Pour ceux d'entre vous déjà familiers avec la ligne de commande, vous y apprendrez peut-être quelque chose, ou peut-être pas, mais dans tous les cas vous pouvez passer sans scrupules à un article plus avancé.</div>
 
-<p>Un exemple de code en Go :</p>
+<h1 id="la-ligne-de-commande-c-est-quoi">La ligne de commande, c&rsquo;est quoi?</h1>
 
-<pre><code>package main
+<p>L&rsquo;interpréteur de commandes (aussi appelé &ldquo;ligne de commande&rdquo;) permet d&rsquo;accéder aux fonctions essentielles du système d&rsquo;exploitation, par le biais de <strong>commandes</strong> données en entrée (dans notre cas, tapées au clavier). Parmi ces fonctions, on retrouve par exemple la manipulation de fichiers, le déplacement dans l&rsquo;arborescence, la lecture du manuel et de l&rsquo;aide, et bien d&rsquo;autres fonctionnalités.</p>
 
-import (
-    &quot;fmt&quot;
-    &quot;flag&quot;
-)
+<h2 id="à-quoi-bon">À quoi bon?</h2>
 
-func main() {
-    var svar string
-    wordPtr := flag.String(&quot;file&quot;, &quot;foo&quot;, &quot;a string&quot;)
+<p>À première vue, l&rsquo;intérêt de la ligne de commande n&rsquo;est pas forcément évident, et les applications graphiques peuvent sembler tout aussi efficaces bien plus abordables<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. Mais avec l&rsquo;expérience, il est souvent bien plus rapide et efficace de gérer son système Linux de cette manière que graphiquement. La ligne de commande permet de réaliser dans les moindres détails <strong>toutes</strong> les opérations permises par le système, alors que les outils graphiques ne peuvent réaliser que les opérations usuelles. Pour enfoncer le clou, dans le cas des serveurs entre autres il s&rsquo;agit même d&rsquo;un passage obligé (ils n&rsquo;ont généralement pas de mode graphique). Alors pour un administrateur, un professionnel, ou un utilisateur averti et curieux, impossible d&rsquo;y échapper, alors autant s&rsquo;y mettre dès maintenant.</p>
 
-    flag.StringVar(&amp;svar, &quot;svar&quot;, &quot;bar&quot;, &quot;a string var&quot;)
-    flag.Parse()
+<!-- ## sh, bash, zsh, ... -->
 
-    if fileExists(*filePtr) {
-        fmt.Println(&quot;Valid file provided&quot;)
-    } else {
-        fmt.Println(&quot;File &quot; + *filePtr + &quot; not found&quot;)
-    }
-}
-</code></pre>
+<p>Il existe de nombreux interpréteurs, les plus courant étant le Bourne Shell (<em>sh</em>), le Bourne-Again Shell (<em>bash</em>), le Z shell (<em>zsh</em>), etc. Chacun a ses particularités<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup>, mais inutiler pour le moment (sauf par curiosité) de les essayer tous. Utilisez le plus répendu actuellement (et par défaut sur de nombreuses distributions de Linux) : <strong>bash</strong>.</p>
 
-<p>Cela peut sembler désagréable, surtout lorsque l&rsquo;on est habitué à des langages plus permissifs (la plupart des langages en fait&hellip;). Cependant, cette rigidité a pour avantage de forcer une uniformisation du code, et donc de faciliter grandement son inter-compréhension et son maintien. À ce niveau, le Go est particulièrement adapté aux projets de grande taille impliquant des développeurs d&rsquo;expériences différentes (comme dans la communauté Open-Source, par exemple).</p>
+<h1 id="gagner-en-efficacité">Gagner en efficacité</h1>
 
-<p>Pour contrebalancer, La syntaxe du Go emprunte beaucoup au C/C++<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>, en y mêlant des éléments issus de langages plus récents. Elle se veut donc rassurante tout en étant moderne et puissante. Reste qu&rsquo;une telle rigueur est un parti-pris qui ne plaira pas à tout le monde.</p>
+<p>Aussi pratique soit-elle, la ligne de commande demande de l&rsquo;entraînement pour être &ldquo;domptée&rdquo;. Impossible de faire l&rsquo;impasse sur la dactylographie et la mémorisation de toutes les commandes et leurs options (pas de panique, ça rentre tout seul avec la pratique), mais il existe aussi de nombreuses commandes et raccourcis pour nous faciliter le travail (et gagner en efficacité et rapidité).</p>
 
-<h2 id="et-flexible-à-la-fois">&hellip;Et flexible à la fois</h2>
+<h2 id="se-déplacer-dans-les-commandes">Se déplacer dans les commandes</h2>
 
-<p>Passée cette première impression, le Go fait preuve de nombreuses avantages. Comme citer ses qualités et inconvénients demanderait un article à lui seul (qui viendra peut-être, qui sait), je ne m&rsquo;attarderai que sur ceux qui m&rsquo;ont semblé les plus marquants :</p>
+<p>Il arrive souvent de devoir se déplacer dans une commande que l&rsquo;on est en train de taper. Plutôt que d&rsquo;effacer ou tout recommencer, quelques raccourcis bien pratique permettent de s&rsquo;y déplacer en un clin d&rsquo;oeil :</p>
 
 <ul>
-<li><p><strong>Optimisé et optimisable</strong> : Le langage Go, suivant le cas d&rsquo;utilisation, n&rsquo;est pas forcément le plus rapide ni le moins gourmand, comme le montrent les <a href="https://days2011.scala-lang.org/sites/days2011/files/ws3-1-Hundt.pdf">études</a> sur le sujet. Par contre, outre la la présence d&rsquo;un ramasse-miettes efficace, son utilisation du paradigme de programmation <a href="https://blog.golang.org/concurrency-is-not-parallelism">concurrente</a> fait qu&rsquo;il peut tirer le meilleur parti d&rsquo;une architecture muti-coeurs sans perdre en qualité et propreté de code.</p></li>
-
-<li><p><strong>Intuitif</strong> : Comme je l&rsquo;ai mentionné plus avant, pour qui est versé dans le C, C++ ou Java, le Go s&rsquo;apprend de manière intuitive. Sa syntaxe proche de ces langages, la <a href="https://blog.golang.org/error-handling-and-go">gestion des erreurs</a> simple et élégente, l&rsquo;import des packages (notamment possible <a href="https://golang.org/doc/code.html#ImportPaths">via leur URL</a>) largement simplifié, rendent sa prise en main rapide et facile. Comparé à aux langages fonctionnels tels que <a href="https://www.scala-lang.org/">Scala</a> ou à des syntaxes plus originales comme <a href="https://www.rust-lang.org">Rust</a>, Go permet une transition rapide et efficace. Un atout de poids lorsque l&rsquo;on travaille en équipe.</p></li>
-
-<li><p><strong>Des outils pour tout</strong> : Go propose une large panoplie d&rsquo;outils intégrés qui apportent un réel plus au langage en tant que tel. On y trouve entre autres <a href="https://blog.golang.org/godoc-documenting-go-code">Go doc</a> pour la documentation automatique de code, <a href="https://blog.golang.org/introducing-gofix">Gofix</a> pour la mise à niveau de code source au fil des versions, <a href="https://golang.org/cmd/go/#hdr-List_packages">Go list</a> pour la génération des graphes de dépendances du package, <a href="https://blog.golang.org/profiling-go-programs">Go pprof</a> pour le profilage, <a href="https://blog.golang.org/debugging-go-code-status-report">GDB</a> pour le déboguage, et bien d&rsquo;autres encore&hellip; Enfin, il jouis d&rsquo;une communauté très active proposant des packages variés et puissants<sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">5</a></sup>, le tout en plus de ceux proposés officiellement.</p></li>
-
-<li><p><strong>Orienté Back-End</strong> : La gestion native et optimisée protocoles et standards de l&rsquo;Internet (<a href="https://golang.org/pkg/net/http/">HTTP</a>, <a href="https://godoc.org/golang.org/x/crypto/ssh">SSH</a>, <a href="https://golang.org/pkg/encoding/json/">JSON</a>, <a href="https://golang.org/pkg/encoding/xml/">XML</a>, <a href="https://golang.org/pkg/database/sql/">SQL</a>, <a href="https://golang.org/pkg/crypto/">cryptographie</a>, etc.) et sa gestion de la concurrence font du Go un langage de choix pour le développement Cloud et Back-end. Ce n&rsquo;est pas pour rien que des fournisseur de services comme SendGrid, Docker ou encore Dropbox s&rsquo;y sont lancés.</p></li>
-
-<li><p><strong>Multi-plateformes</strong> : Go intègre aussi nativement la <a href="https://dave.cheney.net/2015/08/22/cross-compilation-with-go-1-5">compilation croisée</a>, permettant ainsi de compiler un executable pour une autre architecture que la sienne. Il offre la possibilité de réaliser des <a href="https://blog.golang.org/c-go-cgo">appels à du code C</a>, et ainsi d&rsquo;intégrer des bibliothèques héritées (ou Legacy code) plus facilement.</p></li>
+<li><strong>Ctrl-a</strong> et <strong>Ctrl-e</strong> permettent respectivement de se rendre au début ou à la fin de la ligne courante.</li>
+<li><strong>Alt-b</strong> et <strong>Alt-f</strong> permettent de se déplacer vers la gauche ou la droite mot par mot. Il est aussi possible d&rsquo;utiliser à la place <strong>Ctrl-&larr;</strong> et <strong>Ctrl-&rarr;</strong>.</li>
+<li><strong>Ctrl-c</strong> permet d&rsquo;effacer la ligne courante. <strong>Ctrl-l</strong> ou la commande <strong>clear</strong> permettent d&rsquo;effacer complètement le terminal courant. Bien pratique pour y voir plus clair!</li>
+<li><strong>Ctrl-Shift-c/x/v</strong> remplacent les raccourcis habituels pour copier, couper et coller.</li>
+<li><strong>Ctrl-u</strong> efface tout ce qui se trouve à gauche du curseur, et <strong>Ctrl-y</strong> le colle à nouveau à son emplacement courant.</li>
 </ul>
 
-<!-- Built with concurrency in mind -->
+<!-- Ctrl+Alt+F1 entrer en mode ligne de commande seule (non-graphique) -->
 
-<h2 id="puissant-mais-perfectible">Puissant, mais perfectible</h2>
+<p>Une autre fonctionnalité intéressante est l&rsquo;auto-complétion. Lorsque l&rsquo;on entre une commande, il est possible d&rsquo;appuyer sur la touche <strong>Tab</strong> pour que celle-ci soit automatiquement complétée. En appuyant deux fois sur <em>Tab</em>, la liste des complétions possibles est retournée.</p>
 
-<p>Malgré tous ses apports, il reste au Go bien des défauts. Certains tiennent plus de choix clivants et d&rsquo;une volonté de rester proche du C/C++, comme son typage fort et le manque d&rsquo;<a href="https://fr.wikipedia.org/wiki/Inf%C3%A9rence_de_types">inférence de types</a>, l&rsquo;absence de paradigme orienté objet, ou encore l&rsquo;usage de pointeurs que nous avons mentionnés plus haut, mais d&rsquo;autres rentrent moins dans cette logique.</p>
+<h2 id="parcourir-l-historique">Parcourir l&rsquo;historique</h2>
 
-<ul>
-<li><p><strong>Pas de généricité</strong> : Le défaut le plus évident est le manque de support pour la programmation générique et tout ce qu&rsquo;elle apporte (dont le polymorphisme). Même si les <a href="http://golangtutorials.blogspot.fr/2011/06/polymorphism-in-go.html">interfaces</a> peuvent remplir ce rôle et donc contourner le problème, on y perd grandement en transparence et en propreté du code.</p></li>
+<p>Sous Linux, les dernières commandes entrées sont mémorisées, et peuvent être parcourues à l&rsquo;aide des flèches <em>haut</em> et <em>bas</em>. Il est aussi possible de parcourir l&rsquo;historique, via la commande <strong>history</strong>. Encore plus pratique, appuyer sur <strong>Ctrl-r</strong> nous fait entrer dans un mode spécifique, qui parcours cet historique lorsque l&rsquo;on tape une commande, et propose la dernière commande entrée similaire. Ce mode est particulièrement pratique lorsque l&rsquo;on répète régulièrement les mêmes commandes.</p>
 
-<li><p><strong>Mutable ou immutable?</strong> : Pour des &ldquo;objets&rdquo; complexes (structures, etc.), il n&rsquo;est pas toujours évident de savoir si il sera copié ou modifié. Un objet peut etre passé par adresse et ainsi lever le doute, mais une gestion explicite de l&rsquo;<a href="https://fr.wikipedia.org/wiki/Objet_immuable">immutabilité</a> aurait été un plus bienvenu.</p></li>
+<h1 id="trouver-de-l-aide">Trouver de l&rsquo;aide</h1>
 
-<li><p><strong>Pas le plus performant</strong> : Comme mentionné plus haut, le langage Go n&rsquo;est pas toujours le plus performant. Son empreinte mémoire est supérieure à celle de langages tels que C++ ou Scala, et il en va de même pour le temps d&rsquo;exécution ou la taille du binaire généré. Malgré tout, Go reste un langage performant, tout est une question de priorités.</p></li>
-</ul>
+<p>Il est juste impossible de mémoriser toutes les commandes, et il n&rsquo;est pas rare que l&rsquo;on ait besoin d&rsquo;une aide pour en connaitre le fonctionnement et les options. Pour cela, il existe le manuel, accessible par la commande <strong>man</strong> suivie de la commande cherchée. On entre alors dans une interface identique à celle de <em>less</em>, avec une explication complète de la commande en question. N&rsquo;hésitez pas à chercher la page de manuel des commandes que nous avons vu jusque là, pour vous familiariser avec cet outil.</p>
 
-<h1 id="au-final-ça-en-vaut-la-peine">Au final, ça en vaut la peine?</h1>
+<p>De manière générale, ayez le réflèxe de lire le manuel pour toute nouvelle commande. Vous pourrez constater certaines similitudes (fonctionnement, arguments, etc.), et elles deviendront vite plus facile à retenir.</p>
 
-<p>Le Go peut en rebuter certains par ses choix clivants, mais ses inspirations font de lui un langage simple à apprendre mais profond, et qui apporte de nombreuses récompenses à qui fait l&rsquo;effort de s&rsquo;y investir. Il n&rsquo;a certes pas les performances du C/C++ ou des langages fonctionnels modernes, mais il a pour lui la flexibilité du Python tout en étant plus maintenable et plus strict.</p>
+<p>Essayez d&rsquo;utiliser ces commandes et raccourcis lors de vos tests, exercices, ou simplement sans raison particulière et vous verrez, vous ne pourrez plus vous en passer. D&rsquo;ailleurs, cela vaut aussi pour la ligne de commande elle-même, alors <a href="https://fr.wikipedia.org/wiki/Jetzt_geht's_los">Jetzt geht&rsquo;s los</a>!</p>
 
-<p>En tout cas, il semble promis à un bel avenir, en témoigne <a href="http://www.tiobe.com/tiobe-index/go/">sa progression</a>, sa communauté grandissante et son adoption par des grandes companies et services de l&rsquo;Internet, tels que <a href="http://fr.slideshare.net/jpetazzo/docker-and-go-why-did-we-decide-to-write-docker-in-go">Docker</a>, <a href="https://blogs.dropbox.com/tech/2014/07/open-sourcing-our-go-libraries/">Dropbox</a>, <a href="https://developers.soundcloud.com/blog/go-at-soundcloud">Soundcloud</a> ou encore <a href="https://sendgrid.com/blog/convince-company-go-golang/">SendGrid</a>, <a href="https://github.com/Netflix/rend">Netflix</a> et bien d&rsquo;autres.</p>
+<!-- 
+REFS :
+    https://www.linux.com/learn/intro-to-linux/2017/4/fabulous-bash-navigation-shortcuts
+ -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">Pour n&rsquo;en citer qu&rsquo;une, rendre disponible et maintenir un outil pour des cibles n&rsquo;ayant pas d&rsquo;interpréteur python et/ou l&rsquo;ensemble des librairies installées, est un parcours du combattant (pas de cross-compilation possible, nécessité d&rsquo;utiliser des packets spécifiques, exécutables ainsi générés souvent lents et gourmands, etc.).
+<li id="fn:1">Et dans une certaine mesure le sont, quand on ne cherche à réaliser que des opérations courantes)
  <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:2">Le langage Go se situait en 2016 à la 13ème place au <a href="http://www.tiobe.com/tiobe-index/">classement Tiobe</a> des langages les plus utilisés, contre la 54ème en 2015.
+<li id="fn:2">Les différences majeures étant la conformité au standard <a href="https://fr.wikipedia.org/wiki/POSIX">POSIX</a> et quelques fonctionnalités supplémentaires (e.g. le changement automatique de répertoire avec zsh). Je reviendrai sur ces différences dans un prochain article.
  <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:3">Le langage Go est issu des laboratoires de Google et de l&rsquo;esprit de <a href="https://en.wikipedia.org/wiki/Rob_Pike">Rob Pike</a>
- <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:4">La syntaxe elle-même, proche du style <a href="https://fr.wikipedia.org/wiki/Style_d'indentation#Style_K.26R">K&amp;R</a>, l&rsquo;usage des <a href="https://blog.golang.org/gos-declaration-syntax">pointeurs</a>, etc.
- <a class="footnote-return" href="#fnref:4">↩</a></li>
-<li id="fn:5">Pour une liste non exhaustive, on peut se référer <a href="https://github.com/golang/go/wiki/Projects">ici</a>, <a href="https://github.com/avelino/awesome-go">là</a> et <a href="http://www.mjhall.org/golang-data-science-libraries/">là-bas</a>.
- <a class="footnote-return" href="#fnref:5">↩</a></li>
 </ol>
 </div>
 </div>
@@ -582,7 +561,7 @@ func main() {
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/01/18/quelques-impressions-sur-le-go" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/02/12/lfcs--dompter-la-ligne-de-commande" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>
