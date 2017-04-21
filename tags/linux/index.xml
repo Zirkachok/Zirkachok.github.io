@@ -10,6 +10,694 @@
     <atom:link href="https://zirkachok.github.io/tags/linux/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Index des prérequis LFCS-LFCE</title>
+      <link>https://zirkachok.github.io/2017/04/18/index-des-pr%C3%A9requis-lfcs-lfce</link>
+      <pubDate>Tue, 18 Apr 2017 11:05:07 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/04/18/index-des-pr%C3%A9requis-lfcs-lfce</guid>
+      <description>
+
+&lt;!-- â ê î ô û --&gt;
+
+&lt;p&gt;Chose promise, chose due. Voici donc un index des compétences officiellement requises par la Fondation Linux pour les certifications &lt;a href=&#34;https://training.linuxfoundation.org/certification/lfcs&#34;&gt;LFCS&lt;/a&gt; et &lt;a href=&#34;https://training.linuxfoundation.org/certification/lfce&#34;&gt;LFCE&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&#34;warning&#34;&gt;Cette page sera mise à jour au fur et à mesure de l&#39;écriture des articles de blog. Elle est donc vouée à être constamment en chantier (du moins jusqu&#39;à la fin du tutoriel LFCS-LFCE.&lt;/div&gt;
+
+&lt;p&gt;Mais avant cela, voici ce qeu dit la Fondation Linux sur cette liste de compétences (en VF) :&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;La fondation Linux a travaillé de concert avec des experts de l&amp;rsquo;industrie et la communauté du noyau Linux pour identifier les principaux domaines et les compétences, connaissances et aptitudes essentielles pour chaque certification.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Vous trouverez ci-dessous un sous-ensemble de la liste complète des domaines et compétences couverts par l&amp;rsquo;examen du LFCS/LFCE. Ce sous-ensemble représente les sujets ayant le plus de chances d&amp;rsquo;apparaître en considérant les technologies employées, les questions et les contraintes de temps de l&amp;rsquo;examen.&lt;/em&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;linux-foundation-certified-sysadmin-lfcs&#34;&gt;Linux Foundation Certified Sysadmin (LFCS)&lt;/h1&gt;
+
+&lt;h2 id=&#34;commandes-essentielles-25&#34;&gt;Commandes essentielles (25%)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Se connecter en mode graphique et texte&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Effectuer des recherches sur des fichiers&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence&#34;&gt;[ici]&lt;/a&gt; et &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour&#34;&gt;[là]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Évaluer et comparer les fonctionnalités et options des systèmes de fichiers de base&lt;/li&gt;
+&lt;li&gt;Comparer, créer et éditer des fichiers texte&lt;/li&gt;
+&lt;li&gt;Comparer des fichiers binaires&lt;/li&gt;
+&lt;li&gt;Utiliser les redirections des flux d&amp;rsquo;entrée et de sortie (e.g. &amp;gt;, &amp;gt;&amp;gt;, |, 2&amp;gt;)&lt;/li&gt;
+&lt;li&gt;Analyser du texte en utilisant les expressions régulières de base&lt;/li&gt;
+&lt;li&gt;Archiver, sauvegarder, compresser et décompresser des fichiers&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Créer, supprimer, copier et déplacer des fichiers et répertoires&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/02/14/lfcs--naviguer-dans-un-syst%C3%A8me-linux&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Créer des liens physiques et symboliques&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/11/lfcs--syst%C3%A8me-de-fichiers-et-liens&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Lister, affecter et modifier les permissions standard de fichiers&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux&#34;&gt;[ici]&lt;/a&gt; et &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour&#34;&gt;[là]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Lire et utiliser la documentation système&lt;/li&gt;
+&lt;li&gt;Gérer les accès au compte superutilisateur (root)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;7%&lt;/span&gt; / 25%&lt;/p&gt;
+
+&lt;!-- 
+Essential Commands - 25%
+
+    Log into graphical and text mode consoles
+    Search for files
+    Evaluate and compare the basic file system features and options
+    Compare, create and edit text files
+    Compare binary files
+    Use input-output redirection (e.g. &gt;, &gt;&gt;, |, 2&gt;)
+    Analyze text using basic regular expressions
+    Archive, backup, compress, unpack, and uncompress files
+    Create, delete, copy, and move files and directories
+    Create hard and soft links
+    List, set, and change standard file permissions
+    Read, and use system documentation
+    Manage access to the root account
+--&gt;
+
+&lt;h2 id=&#34;fonctionnement-des-systèmes-20&#34;&gt;Fonctionnement des systèmes (20%)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Démarrer, redémarrer et éteindre le système en toute sécurité&lt;/li&gt;
+&lt;li&gt;Démarrer les systèmes manuellement sous différents niveaux de fonctionnement (runlevels)&lt;/li&gt;
+&lt;li&gt;Installer, configurer et dépanner le bootloader&lt;/li&gt;
+&lt;li&gt;Changer la priorité d&amp;rsquo;un processus&lt;/li&gt;
+&lt;li&gt;Identifier l&amp;rsquo;utilisation des ressources par processus&lt;/li&gt;
+&lt;li&gt;Localiser et analyser les fichiers de logs système&lt;/li&gt;
+&lt;li&gt;Programmer des tâches&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;0%&lt;/span&gt; / 20%&lt;/p&gt;
+
+&lt;!--
+Operation of Running Systems - 20%
+
+    Boot, reboot, and shut down a system safely
+    Boot systems into different runlevels manually
+    Install, configure and troubleshoot the bootloader
+    Change the priority of a process
+    Identify resource utilization by process
+    Locate and analyze system log files
+    Schedule tasks to run at a set date and time
+    Verify completion of scheduled jobs
+    Update software to provide required functionality and security
+    Verify the integrity and availability of resources
+    Verify the integrity and availability of key processes
+    Change kernel runtime parameters, persistent and non-persistent
+    Use scripting to automate system maintenance tasks
+    Manage the startup process and services
+    List and identify SELinux/AppArmor file and process contexts
+    Configure and modify SELinux/AppArmor policies
+    Install software from source
+--&gt;
+
+&lt;h2 id=&#34;gestion-des-utilisateurs-et-des-groupes-15&#34;&gt;Gestion des utilisateurs et des groupes (15%)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Créer, supprimer et modifier les comptes d&amp;rsquo;utilateurs locaux&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux&#34;&gt;[ici]&lt;/a&gt; et &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour&#34;&gt;[là]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Créer, supprimer et modifier les groupes locaux et leur appartenance&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux&#34;&gt;[ici]&lt;/a&gt; et &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour&#34;&gt;[là]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Manage system-wide environment profiles&lt;/li&gt;
+&lt;li&gt;Manage template user environment&lt;/li&gt;
+&lt;li&gt;Configuer les limites de ressources des utilisateurs&lt;/li&gt;
+&lt;li&gt;Gérer les processus utilisateurs&lt;/li&gt;
+&lt;li&gt;Configurer le système d&amp;rsquo;authentification PAM&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;4%&lt;/span&gt; / 15%&lt;/p&gt;
+
+&lt;!--
+User and Group Management - 15%
+
+    Create, delete, and modify local user accounts
+    Create, delete, and modify local groups and group memberships
+    Manage system-wide environment profiles
+    Manage template user environment
+    Configure user resource limits
+    Manage user processes
+    Configure PAM
+--&gt;
+
+&lt;h2 id=&#34;réseaux-15&#34;&gt;Réseaux (15%)&lt;/h2&gt;
+
+&lt;!-- Networking - 15%
+
+    Configure networking and hostname resolution statically or dynamically
+    Configure network services to start automatically at boot
+    Implement packet filtering
+    Configure firewall settings
+    Start, stop, and check the status of network services
+    Statically route IP traffic
+    Dynamically route IP traffic
+    Synchronize time using other network peers --&gt;
+
+&lt;h2 id=&#34;configuration-des-services-10&#34;&gt;Configuration des services (10%)&lt;/h2&gt;
+
+&lt;!-- Service Configuration - 10%
+
+    Configure a basic DNS server
+    Maintain a DNS zone
+    Configure an FTP server
+    Configure anonymous-only download on FTP servers
+    Provide/configure network shares via NFS
+    Provide/configure network shares via CIFS
+    Configure email aliases
+    Configure SSH servers and clients
+    Configure SSH-based remote access using public/private key pairs
+    Restrict access to the HTTP proxy server
+    Configure an IMAP and IMAPS service
+    Query and modify the behavior of system services at various run levels
+    Configure an HTTP server
+    Configure HTTP server log files
+    Restrict access to a web page
+    Diagnose routine SELinux/AppArmor policy violations
+    Configure database server --&gt;
+
+&lt;h2 id=&#34;virtualisation-5&#34;&gt;Virtualisation (5%)&lt;/h2&gt;
+
+&lt;!-- Virtualization - 5%
+
+    Configure a hypervisor to host virtual guests
+    Access a VM console
+    Configure systems to launch virtual machines at boot
+    Evaluate memory usage of virtual machines
+    Resize RAM or storage of VMs --&gt;
+
+&lt;h2 id=&#34;gestion-des-espaces-de-stockage-10&#34;&gt;Gestion des espaces de stockage (10%)&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Lister, créer, supprimer et modifier les partitions de stockage&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Storage Management - 10%
+
+    List, create, delete, and modify storage partitions
+    Create, modify and delete Logical Volumes
+    Extend existing Logical Volumes and filesystems
+    Create and configure encrypted partitions
+    Configure systems to mount file systems at or during boot
+    Configure and manage swap space
+    Add new partitions, and logical volumes
+    Assemble partitions as RAID devices
+    Configure systems to mount standard, encrypted, and network file systems on demand
+    Create and manage filesystem Access Control Lists (ACLs)
+    Diagnose and correct file permission problems
+    Setup user and group disk quotas for filesystems --&gt;
+
+&lt;h1 id=&#34;linux-foundation-certified-engineer-lfce&#34;&gt;Linux Foundation Certified Engineer (LFCE)&lt;/h1&gt;
+
+&lt;h2 id=&#34;administration-réseaux&#34;&gt;Administration réseaux&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configurer les services réseau pour les démarrer automatiquement au démarrage&lt;/li&gt;
+&lt;li&gt;Implémenter le filtrage de paquets&lt;/li&gt;
+&lt;li&gt;Surveiller les performances réseau&lt;/li&gt;
+&lt;li&gt;Générer et transmettre des rapports sur l&amp;rsquo;utilisation système, les interruptions et les requètes utilisateur&lt;/li&gt;
+&lt;li&gt;Router le trafic IP statiquement et dynamiquement&lt;/li&gt;
+&lt;li&gt;Dépanner les problèmes réseau&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 
+Network administration
+    Configure network services to start automatically at boot
+    Implement packet filtering
+    Monitor network performance
+    Produce and deliver reports on system use, outages and user requests
+    Route IP traffic statically and dynamically
+    Troubleshoot network issues
+ --&gt;
+
+&lt;h2 id=&#34;systèmes-de-fichiers&#34;&gt;Systèmes de fichiers&lt;/h2&gt;
+
+&lt;!-- 
+Network filesystems and file services
+    Configure systems to mount standard, encrypted and network file systems on demand
+    Create, mount and unmount standard Linux file systems
+    Provide/configure network shares via NFS
+    Transfer files securely via the network
+    Update packages from the network, a repository or the local file system
+--&gt;
+
+&lt;h2 id=&#34;sécurité-réseau&#34;&gt;Sécurité réseau&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configurer les fichiers de log Apache&lt;/li&gt;
+&lt;li&gt;Configurer le pare-feu avec iptables&lt;/li&gt;
+&lt;li&gt;Installer et configurer SSL avec Apache&lt;/li&gt;
+&lt;li&gt;Configurer un accès distant basé sur SSH en utilisant une paire de clés publique/privée&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--
+Network security
+    Configure Apache log files
+    Configure the firewall with iptables
+    Install and configure SSL with Apache
+    Configuring SSH-based remote access using public/private key pairs
+--&gt;
+
+&lt;h2 id=&#34;accès-distant&#34;&gt;Accès distant&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configurer le pare-feu avec iptables&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 
+Remote access
+    Configure the firewall with iptables
+ --&gt;
+
+&lt;h2 id=&#34;services-http&#34;&gt;Services HTTP&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configurer un client HTTP pour utiliser automatiquement un serveur proxy&lt;/li&gt;
+&lt;li&gt;Installer et configurer un serveur web Apache&lt;/li&gt;
+&lt;li&gt;Installer et configurer un serveur procy Squid&lt;/li&gt;
+&lt;li&gt;Mettre en place un hébergement virtuel&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 
+HTTP services
+    Configure an http client to automatically use a proxy server
+    Install and configure an Apache web server
+    Install and configure the Squid proxy server
+    Restrict access to a web page with Apache
+    Restrict access to the Squid proxy server
+    Setting up name-based virtual web hosts
+ --&gt;
+
+&lt;h2 id=&#34;services-email&#34;&gt;Services Email&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Configurer les alias mail&lt;/li&gt;
+&lt;li&gt;Installer et configurer IMAP et le service IMAPS&lt;/li&gt;
+&lt;li&gt;Installer et configurer le service SMTP&lt;/li&gt;
+&lt;li&gt;Restreindre les accès à un serveur SMTP&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 
+Email services
+Configure email aliases
+Install and configure an IMAP and IMAPS service
+Install and configure an smtp service
+Restrict access to an smtp server
+ --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : Utilisateurs et droits, le retour</title>
+      <link>https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour</link>
+      <pubDate>Tue, 18 Apr 2017 10:44:28 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour</guid>
+      <description>
+
+&lt;!-- ê î ô û --&gt;
+
+&lt;p&gt;Je vous ai présenté &lt;a href=&#34;https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux&#34;&gt;la fois précédente&lt;/a&gt; comment gérer les permissions et les utilisateurs au sein de votre système, mais le sujet est bien trop vaste pour être plié en un seul post de blog. Je vais donc revenir à la charge aujourd&amp;rsquo;hui avec de nouvelles commandes et quelques conseils appréciables pour optimiser leur gestion.&lt;/p&gt;
+
+&lt;h1 id=&#34;gestion-avancée-des-permissions&#34;&gt;Gestion avancée des permissions&lt;/h1&gt;
+
+&lt;h2 id=&#34;changer-de-propriétaire&#34;&gt;Changer de propriétaire&lt;/h2&gt;
+
+&lt;p&gt;En plus de pouvoir changer les permissions d&amp;rsquo;un fichier, il est aussi possible d&amp;rsquo;en modifier l&amp;rsquo;utilisateur et le groupe propriétaire, respectivement avec les commandes &lt;strong&gt;chown&lt;/strong&gt; et &lt;strong&gt;chgrp&lt;/strong&gt; (qui nécessitent les droits administrateur). Ces commandes prennent en premier paramètre l&amp;rsquo;utilisateur/le groupe, suivi du fichier concerné. Il est aussi possible de changer à la fois l&amp;rsquo;utilisateur et le groupe propriétaires du fichier avec &lt;em&gt;chown&lt;/em&gt;, en combinant les deux séparés par &amp;ldquo; &lt;em&gt;:&lt;/em&gt; &amp;ldquo;.&lt;/p&gt;
+
+&lt;p&gt;Par l&amp;rsquo;exemple, cela nous donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+-rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+
+$ sudo chown hobbes test.txt
+$ ls -l
+-rwxrwxr--   1   hobbes   humains   921   avril 10 15:47   test.txt
+
+$ sudo chgrp tigres test.txt
+$ ls -l
+-rwxrwxr--   1   hobbes   tigres    921   avril 10 15:47   test.txt
+
+$ sudo chown calvin:humains test.txt
+$ ls -l
+-rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;modifier-les-droits-par-défaut&#34;&gt;Modifier les droits par défaut&lt;/h2&gt;
+
+&lt;p&gt;Chaque fichier créé se voit attribuer à sa création un ensemble de permissions par défaut, mais il est possible de modifier ces droits via la commande &lt;strong&gt;umask&lt;/strong&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;!-- Par défaut, les permissions d&#39;un nouveau fichier sont 022 ou 002 --&gt;
+
+&lt;p&gt;&lt;em&gt;umask&lt;/em&gt; utilise la variante numérique de modification des droits (voir l&amp;rsquo;article précédent, avec 4 pour l&amp;rsquo;accès en lecture, 2 en écriture et 1 en exécution), mais part de permissions complètes (donc &lt;em&gt;777&lt;/em&gt;) et y retranche celles données en argument. Avec &lt;em&gt;umask 021&lt;/em&gt; par exemple, on obtiendra les droits rwxr-xrw- (777 - 021 = 756). Dans la plupart des distributions, &lt;em&gt;umask&lt;/em&gt; est mis à 022 par défaut (soit rwxr-xr-x ou 755).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ touch test.txt
+-rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--
+When you run the umask command it will give that default set of permissions on any new file you make. However, if you want it to persist you&#39;ll have to modify your startup file (.profile), but we&#39;ll discuss that in a later lesson. --&gt;
+
+&lt;h2 id=&#34;cas-spécifique-des-suid-et-sgid&#34;&gt;Cas spécifique des SUID et SGID&lt;/h2&gt;
+
+&lt;p&gt;Dans de nombreux cas, des utilisateurs &amp;ldquo;lambda&amp;rdquo; ont besoin de droits &amp;ldquo;privilégiés&amp;rdquo; pour certaines actions, mais les accès au compte administrateur ne peuvent pas être donnés à tous. Pour ces cas particuliers, il existe une permission spéciale, le &lt;strong&gt;Set User ID (SUID)&lt;/strong&gt;, qui permet de lancer une commande en étant considéré comme le propriétaire du fichier.&lt;/p&gt;
+
+&lt;p&gt;Prenons un exemple. Disons qu&amp;rsquo;un utilisateur souhaite changer son mot de passe. Pour cela, il utilisera la commande &lt;em&gt;passwd&lt;/em&gt;, qui elle même modifiera les fichiers système &lt;em&gt;/etc/passwd&lt;/em&gt;. Cependant, ce fichier est propriété de l&amp;rsquo;administrateur et n&amp;rsquo;es modifiable que par lui. Regardons maintenant les permissions de la commande &lt;em&gt;passwd&lt;/em&gt; (fichier exécutable situé dans &amp;ldquo; &lt;em&gt;/usr/bin/passwd&lt;/em&gt; &amp;ldquo;):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l /usr/bin/passwd
+-rwSr-xr-x 1 root root 54256 mars  29  2016 /usr/bin/passwd
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Vous remarquerez le nouveau caractère &lt;strong&gt;s&lt;/strong&gt; : il s&amp;rsquo;agit du SUID. Quand cette permission est mise sur un fichier, n&amp;rsquo;importe quel utilisateur exécutant ce fichier sera considéré comme son propriétaire, dans notre exemple l&amp;rsquo;administrateur (&lt;em&gt;root&lt;/em&gt;). Sans ce droit spécial, il serait impossible à un utilisateur de changer son mot de passe sans passer par le compte administrateur.&lt;/p&gt;
+
+&lt;p&gt;Ce champ peut être affecté de manière symbolique comme n&amp;rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&amp;rsquo;un &lt;em&gt;4&lt;/em&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod u+s test.txt
+-rwSrw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod u-s test.txt
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod 4755 test.txt 
+-rwsr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;De la même manière, il est possible d&amp;rsquo;autoriser l&amp;rsquo;exécution d&amp;rsquo;une commande en étant considéré comme appartenant au groupe propriétaire du fichier, et cela par l&amp;rsquo;intermédiaire de la permission &lt;strong&gt;Set Group ID (SGID)&lt;/strong&gt;. Ce champ peut être affecté de manière symbolique comme n&amp;rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&amp;rsquo;un &lt;em&gt;2&lt;/em&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod g+s test.txt
+-rw-rwSr--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod g-s test.txt
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod 2555 test.txt 
+-r-xr-sr-x  1 julien julien    0 avril 18 16:06 test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!-- 
+
+7. Process Permissions
+
+Let&#39;s segue into process permissions for a bit, remember how I told you that when you run the passwd command with the SUID permission bit enabled you will run the program as root? That is true, however does that mean since you are temporarily root you can modify other user&#39;s passwords? Nope fortunately not!
+
+This is because of the many UIDs that Linux implements. There are three UIDS associated with every process:
+
+When you launch a process, it runs with the same permissions as the user or group that ran it, this is known as an effective user ID. This UID is used to grant access rights to a process. So naturally if Bob ran the touch command, the process would run as him and any files he created would be under his ownership.
+
+There is another UID, called the real user ID this is the ID of the user that launched the process. These are used to track down who the user who launched the process is.
+
+One last UID is the saved user ID, this allows a process to switch between the effective UID and real UID, vice versa. This is useful because we don&#39;t want our process to run with elevated privileges all the time, it&#39;s just good practice to use special privileges at specific times.
+
+Now let&#39;s piece these all together by looking at the passwd command once more.
+
+When running the passwd command, your effective UID is your user ID, let&#39;s say its 500 for now. Oh but wait, remember the passwd command has the SUID permission enabled. So when you run it, your effective UID is now 0 (0 is the UID of root). Now this program can access files as root.
+
+Let&#39;s say you get a little taste of power and you want to modify Sally&#39;s password, Sally has a UID of 600. Well you&#39;ll be out of luck, fortunately the process also has your real UID in this case 500. It knows that your UID is 500 and therefore you can&#39;t modify the password of UID of 600. (This of course is always bypassed if you are a superuser on a machine and can control and change everything).
+
+Since you ran passwd, it will start the process off using your real UID, and it will save the UID of the owner of the file (effective UID), so you can switch between the two. No need to modify all files with root access if it&#39;s not required.
+
+Most of the time the real UID and the effective UID are the same, but in such cases as the passwd command they will change.
+
+ --&gt;
+
+&lt;h2 id=&#34;le-sticky-bit&#34;&gt;Le &amp;ldquo;Sticky bit&amp;rdquo;&lt;/h2&gt;
+
+&lt;p&gt;Parlons maintenant d&amp;rsquo;une dernière permissions spéciale: le &amp;ldquo;sticky bit&amp;rdquo;. Il est possible de rendre un fichier destructible seulement par son propriétaire et l&amp;rsquo;administrateur, et ce quelles que soient les permissions sur ce fichier. Prenons l&amp;rsquo;exemple du répertoire &amp;ldquo; &lt;em&gt;/tmp&lt;/em&gt; &amp;ldquo; (l&amp;rsquo;option &lt;em&gt;-d&lt;/em&gt; de &lt;em&gt;ls&lt;/em&gt; permet de lister les répertoires, et non leur contenu):&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -ld /tmp
+drwxrwxrwt 13 root root 135168 avril 19 14:19 /tmp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Vous remarquerez que le dernier caractère des droits est à &lt;strong&gt;t&lt;/strong&gt;. C&amp;rsquo;est le fameur &amp;ldquo;&lt;strong&gt;sticky bit&lt;/strong&gt;&amp;rdquo;. Ce dossier ne peut donc être supprimé que par l&amp;rsquo;administrateur, tout en étant modifiable par tous.&lt;/p&gt;
+
+&lt;p&gt;Comme pour les SUID et SGID, le &amp;ldquo;sticky bit&amp;rdquo; peut être affecté de manière symbolique avec &lt;strong&gt;t&lt;/strong&gt; ou de manière numérique en précédent les droits d&amp;rsquo;un &lt;strong&gt;1&lt;/strong&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+-rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod 1755 test.txt
+$ ls -l
+-rwxr-xr-t  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod -t test.txt
+$ ls -l
+-rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;recherches-par-utilisateurs-et-permissions&#34;&gt;Recherches par utilisateurs et permissions&lt;/h1&gt;
+
+&lt;p&gt;Je vous ai montré dans &lt;a href=&#34;https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence&#34;&gt;un précédent article&lt;/a&gt; comment lister et trouver les fichiers dans le système, en proposant quelques filtres possibles. En voici quelques autres permettent de filtrer en fonction des utilisateurs, groupes et permissions :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;find -user &lt;em&gt;u&lt;/em&gt;&lt;/strong&gt; : Liste les fichiers appartenant à l&amp;rsquo;utilisateur &lt;em&gt;u&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;find -group &lt;em&gt;g&lt;/em&gt;&lt;/strong&gt; : Liste les fichiers appartenant au groupe &lt;em&gt;g&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;find -perm&lt;/strong&gt; : Liste les fichiers selon leurs permissions:
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;-perm &lt;em&gt;p&lt;/em&gt;&lt;/strong&gt; : ne liste que les fichiers dont les permissions sont exactement &lt;em&gt;p&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-perm &lt;em&gt;-p&lt;/em&gt;&lt;/strong&gt; : liste les fichiers dont les permissions sont au moins &lt;em&gt;p&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-perm &lt;em&gt;/p&lt;/em&gt;&lt;/strong&gt; : liste les fichiers dont au moins un des droits de &lt;em&gt;p&lt;/em&gt; est setté.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Et en pratique, cela nous donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+-rw-r--r--  1 root    root     0 avril 18 16:11 supertest.txt
+-rw-r--rw-  1 calvin  humains  0 avril 18 16:07 testbis.txt
+-rw-rw-r--  1 hobbes  tigres   0 avril 18 16:14 testTer.txt
+-rw-rw-r--  1 hobbes  tigres   0 avril 18 16:06 test.txt
+
+$ find . -user hobbes
+./testTer.txt
+./test.txt
+
+$ find . -group humains
+./testbis.txt
+
+$ find . -perm 664
+./testTer.txt
+./test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;!--
+Ref : https://linuxjourney.com/lesson/file-permissions
+--&gt;
+
+&lt;!-- sudo --&gt;
+
+&lt;!-- uname -a --&gt;
+
+&lt;!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux --&gt;
+
+&lt;!--   A      B         C                                D                          E      F      G      H      --&gt;
+
+&lt;!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name --&gt;
+
+&lt;!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system --&gt;
+
+&lt;!-- shutdown --&gt;
+
+&lt;!-- logout --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;À noter que la modification des droits par défaut n&amp;rsquo;est pas persistante (elle ne sera plus valable après redémarrage de l&amp;rsquo;appareil par exemple). Pour l&amp;rsquo;affecter de manière permanente, il faudra modifier le profil de démarrage (fichier &lt;em&gt;.profile&lt;/em&gt;), mais j&amp;rsquo;aborderai ce point dans un autre article.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : Utilisateurs et droits dans un système Linux</title>
+      <link>https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux</link>
+      <pubDate>Thu, 13 Apr 2017 08:46:32 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux</guid>
+      <description>
+
+&lt;!-- ê î ô û --&gt;
+
+&lt;p&gt;Je vous ai déjà parlé en détails des fichiers et leur organisation sous Linux (&amp;ldquo;Tout est fichier&amp;rdquo; après tout), et aujourd&amp;rsquo;hui, je vais en ajouter une couche en abordant le thème des droits et permissions. Comme tout système d&amp;rsquo;exploitation (sauf rares exceptions, comme certains mainframe), Linux est capable de gérer plusieurs utilisateurs, et chacun d&amp;rsquo;entre eux n&amp;rsquo;a le droit d&amp;rsquo;accéder qu&amp;rsquo;à certains fichiers. Vous ne voudriez pas que votre famille et vos collègues puissent consulter et modifier &lt;em&gt;vos&lt;/em&gt; fichiers, n&amp;rsquo;est-ce pas?&lt;/p&gt;
+
+&lt;h1 id=&#34;utilisateurs-et-groupes&#34;&gt;Utilisateurs et groupes&lt;/h1&gt;
+
+&lt;p&gt;Plusieurs utilisateurs&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; cohabitent donc dans le système, chacun ayant un identifiant unique (&lt;strong&gt;UID&lt;/strong&gt; pour User ID) utilisé par le système, un nom (&lt;strong&gt;username&lt;/strong&gt;) qui est une représentation plus lisible associée à l&amp;rsquo;UID, un &lt;strong&gt;mot de passe&lt;/strong&gt;, et un répertoire personnel dans l&amp;rsquo;arborescence, qui contient les données propres à l&amp;rsquo;utilisateur (et dont le chemin par défaut est le plus souvent &amp;ldquo;&lt;em&gt;/home/username&lt;/em&gt;&amp;rdquo;).&lt;/p&gt;
+
+&lt;p&gt;Cependant, gérer les droits de chaque fichier indépendemment pour chaque utilisateur serait lourd et complexe. Sous Linux, une alternative a donc été trouvée via les groupes. Un groupe liste l&amp;rsquo;ensemble des utilisateurs qui lui appartiennent. Comme pour les utilisateurs, chaque groupe a un identifiant unique (le &lt;strong&gt;GID&lt;/strong&gt; ou Group ID), un nom, et des permissions propres. Chaque utilisateur faisant partie d&amp;rsquo;un groupe en partagera aussi les droits, en plus des siens. À noter qu&amp;rsquo;un utilisateur peut appartenir à plusieurs groupes, multipliant d&amp;rsquo;autant plus les possibilités de gestion.&lt;/p&gt;
+
+&lt;h2 id=&#34;le-cas-particulier-de-l-administrateur&#34;&gt;Le cas particulier de l&amp;rsquo;administrateur&lt;/h2&gt;
+
+&lt;p&gt;L&amp;rsquo;un des utilisateurs les plus importants est l&amp;rsquo;&lt;strong&gt;administrateur&lt;/strong&gt; (aussi appelé &lt;em&gt;superutilisateur&lt;/em&gt; ou &lt;strong&gt;root&lt;/strong&gt;, dont l&amp;rsquo;UID est 0). Grossièrement, l&amp;rsquo;administrateur a tous les droits, alors que ceux des utilisateurs lambda sont limités : il a plein accès a n&amp;rsquo;importe quel fichier, peut créer et détruire des utilisateurs, modifier leurs droits, etc.&lt;/p&gt;
+
+&lt;p&gt;Vous l&amp;rsquo;aurez compris, effectuer des actions en tant qu&amp;rsquo;administrateur peut s&amp;rsquo;avérer dangereux (détruire des fichiers système par exemple), mais est aussi bien souvent nécessaire, car les actions possibles pour un utilisateur lambda sont assez limitées. Deux approches sont possibles pour &amp;ldquo;devenir&amp;rdquo; administrateur :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Via la commande &lt;strong&gt;sudo&lt;/strong&gt; (pour SuperUser DO), qui permet d&amp;rsquo;exécuter une autre commande donnée après elle comme administrateur.&lt;/li&gt;
+&lt;li&gt;Via la commande &lt;strong&gt;su&lt;/strong&gt; (pour SuperUser), qui permet de changer l&amp;rsquo;utilisateur courant pour l&amp;rsquo;administrateur&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;À noter que la commande &lt;strong&gt;id&lt;/strong&gt; permet d&amp;rsquo;obtenir les informations (UID, GID, groupes auquel il appartient) de l&amp;rsquo;utilsateur courant (ou un autre donné en argument).&lt;/p&gt;
+
+&lt;h2 id=&#34;gérer-les-utilisateurs-et-groupes&#34;&gt;Gérer les utilisateurs et groupes&lt;/h2&gt;
+
+&lt;p&gt;En pratique, la création d&amp;rsquo;un nouvel utilisateur passe par la commande &lt;strong&gt;adduser&lt;/strong&gt; suivie du nom de l&amp;rsquo;utilisateur. Cela effectuera les actions configurées dans &amp;ldquo; &lt;em&gt;/etc/adduser.conf&lt;/em&gt; &amp;ldquo;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:5&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:5&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, notamment (en général):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;générer un mot de passe (demandé par la commande lors de son exécution)&lt;/li&gt;
+&lt;li&gt;créer un répertoire personnel associé à l&amp;rsquo;utilisateur (/home/&lt;em&gt;user&lt;/em&gt; par défaut)&lt;/li&gt;
+&lt;li&gt;créer un groupe portant le même nom que cet utilisateur&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;De manière similaire, la commande &lt;strong&gt;deluser&lt;/strong&gt; permettra de supprimer un utilisateur, et fera les actions listées dans &amp;ldquo; &lt;em&gt;/etc/deluser.conf&lt;/em&gt; &amp;ldquo;. La commande &lt;strong&gt;passwd&lt;/strong&gt; peut aussi s&amp;rsquo;avérer utile: elle permet de changer le mot de passe de l&amp;rsquo;utilisateur courant (ou un autre donné en argument).&lt;/p&gt;
+
+&lt;p&gt;Les groupes fonctionnent de manière identique, du moins dans leur gestion. Les commandes &lt;strong&gt;groupadd&lt;/strong&gt;, &lt;strong&gt;groupdel&lt;/strong&gt; permettent ainsi respectivement de créer et supprimer un groupe. La commande &lt;strong&gt;groups&lt;/strong&gt; permet elle de lister les groupes existants.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls /home
+zirka
+
+$ id testusr
+id: «testusr» : utilisateur inexistant
+
+$ sudo adduser testusr
+$ ls /home
+zirka  testusr
+
+$ id testusr
+uid=1001(testusr) gid=1001(testusr) groupes=1001(testusr)
+
+$ sudo deluser testusr
+
+$ id testusr
+id: «testusr» : utilisateur inexistant
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;fichiers-systèmes&#34;&gt;Fichiers systèmes&lt;/h2&gt;
+
+&lt;p&gt;La gestion des utilisateurs et groupes passe (encore) par des fichiers, qui sont automatiquement modifiés par les commandes que nous venont de voir. Il n&amp;rsquo;est pas recommandé de les modifier soi-même (comme pour tous les fichiers système), mais on peut en lire le contenu pour obtenir des informations :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;/etc/passwd&lt;/strong&gt; contient la liste des utilisateurs et leurs informations. Chaque ligne contient :
+
+&lt;ul&gt;
+&lt;li&gt;le nom d&amp;rsquo;utilisateur, suivi d&amp;rsquo;un &lt;em&gt;x&lt;/em&gt; indiquant si le compte est protégé par un mot de passe&lt;/li&gt;
+&lt;li&gt;l&amp;rsquo;UID et GID associés à l&amp;rsquo;utilisateur&lt;/li&gt;
+&lt;li&gt;des commentaires sur l&amp;rsquo;utilisateur (nom et coordonnées)&lt;/li&gt;
+&lt;li&gt;le répertoire personnel et l&amp;rsquo;interpréteur par défaut (voir &lt;a href=&#34;https://zirkachok.github.io/2017/02/12/lfcs--dompter-la-ligne-de-commande&#34;&gt;mon article sur le shell&lt;/a&gt;)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/etc/shadow&lt;/strong&gt; contient les mots de passe des utilisateurs, et ne sont pas disponibles en clair (le fichier n&amp;rsquo;est d&amp;rsquo;ailleurs lisible que par l&amp;rsquo;administrateur)&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;/etc/group&lt;/strong&gt; contient toutes les informations sur les groupes. Chaque ligne contient :
+
+&lt;ul&gt;
+&lt;li&gt;le nom du groupe, suivi d&amp;rsquo;un &lt;em&gt;x&lt;/em&gt; indiquant si le groupe est protégé par un mot de passe&lt;/li&gt;
+&lt;li&gt;le GID et les membres du groupe&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;les-permissions&#34;&gt;Les permissions&lt;/h1&gt;
+
+&lt;p&gt;Nous l&amp;rsquo;avons jusque-là sous-entendu, les fichiers sous Linux sont dotés de permissions (que nous appellerons aussi &amp;ldquo;&lt;em&gt;droits&lt;/em&gt;&amp;rdquo;). Entrons à présent dans les détails pour découvrir ce que cela implique.&lt;/p&gt;
+
+&lt;p&gt;3 opérations seulement sont permises sur les fichiers, &lt;strong&gt;la lecture, l&amp;rsquo;écriture, et l&amp;rsquo;exécution&lt;/strong&gt;, chacune de ces opérations disposant de droits indépendants. La commande &lt;strong&gt;ls&lt;/strong&gt; avec l&amp;rsquo;option &lt;strong&gt;-l&lt;/strong&gt; nous listera les fichiers avec certaines de leurs principales propriétés.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+drwxr-xr-x   2   zirka   admin    4096   mars   1 11:45   annexes
+-r--r--r--   1   mary    mary     5769   mars  24 14:26   lfce-lfcs.md
+-rwxrw-r--   1   zirka   admin    7201   avril 10 15:51   lfcs-commandline.md
+-rw-rw-r--   1   jul     author   8710   avril 10 15:47   lfcs-navigate.md
+-rwxrw-r--   1   zirka   admin    1236   avril 10 15:49   lfcs-rights.md
+-rw-rw-r--   1   jul     author   3647   avril 10 14:45   lfcs-search.md
+-rwxrw-r--   1   zirka   admin   10384   mars  24 09:49   pourquoi-golang.md
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On y retrouve dans la dernière colonne le nom de nos fichiers, précédé de sa date de dernière modification et de sa taille. En seconde position, un chiffre indique son nombre de liens, et est suivi de son &lt;strong&gt;groupe propriétaire&lt;/strong&gt; et de son &lt;strong&gt;utilisateur propriétaire&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;En première position, on trouve une chaine de caractères particulière. Le premier caractère désigne le &lt;strong&gt;type de fichier&lt;/strong&gt; (&lt;em&gt;-&lt;/em&gt; pour les fichiers réguliers, &lt;em&gt;d&lt;/em&gt; pour les répertoires, &lt;em&gt;l&lt;/em&gt; pour les liens symboliques). Les 9 autres caractères représentent les droit d&amp;rsquo;accès, avec &lt;strong&gt;r&lt;/strong&gt; signifiant &amp;ldquo;accesible en lecture&amp;rdquo; (readable), &lt;strong&gt;w&lt;/strong&gt; pour &amp;ldquo;accessible en écriture&amp;rdquo; (writable) et &lt;strong&gt;x&lt;/strong&gt; pour &amp;ldquo;accessible en exécution&amp;rdquo; (executable). Chaque groupe de 3 caractères représente les droits pour certains utilisateurs :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Les &lt;strong&gt;trois premiers&lt;/strong&gt; indiquent les droits pour &lt;strong&gt;l&amp;rsquo;utilisateur propriétaire&lt;/strong&gt; (user, colonne 3 avec &amp;ldquo;&lt;em&gt;ls -l&lt;/em&gt;&amp;rdquo;).&lt;/li&gt;
+&lt;li&gt;Les &lt;strong&gt;trois suivants&lt;/strong&gt; indiquent les droits pour les membres du &lt;strong&gt;groupe propriétaire&lt;/strong&gt; (group, colonne 4 avec &amp;ldquo;&lt;em&gt;ls -l&lt;/em&gt;&amp;rdquo;).&lt;/li&gt;
+&lt;li&gt;Les &lt;strong&gt;trois derniers&lt;/strong&gt; indiquent les droits pour les &lt;strong&gt;autres utilisateurs&lt;/strong&gt; (others).&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Ainsi, dans notre exemple précédent, le fichier &amp;ldquo;lfcs-navigate.md&amp;rdquo; sera totalement accessible pour l&amp;rsquo;utilisateur &amp;ldquo;zirka&amp;rdquo;, mais seulement en lercture/écriture pour les membres du groupe &amp;ldquo;admin&amp;rdquo; et seulement en lecture pour les autres. N&amp;rsquo;oublions pas que le superutilisateur a les droits d&amp;rsquo;accès complets (rwx) sur tous les fichiers de son système.&lt;/p&gt;
+
+&lt;h2 id=&#34;gérer-les-droits&#34;&gt;Gérer les droits&lt;/h2&gt;
+
+&lt;p&gt;Bien sûr, les permissions et propriétaires d&amp;rsquo;un fichier peuvent être changées. La commande &lt;strong&gt;chmod &lt;em&gt;p&lt;/em&gt; &lt;em&gt;f&lt;/em&gt;&lt;/strong&gt; permet de modifier les droits au fichier &lt;em&gt;f&lt;/em&gt;. &lt;em&gt;p&lt;/em&gt; prends alors la forme d&amp;rsquo;
+une chaine de cactère avec un premier caractère &lt;strong&gt;u&lt;/strong&gt;, &lt;strong&gt;g&lt;/strong&gt; ou &lt;strong&gt;o&lt;/strong&gt; pour désigner la cible de ces droits (user, group ou others), un second caractère &lt;strong&gt;+&lt;/strong&gt; ou &lt;strong&gt;-&lt;/strong&gt; signifiant &amp;ldquo;ajouter&amp;rdquo; ou &amp;ldquo;retirer&amp;rdquo; les droits à la cible, et une suite de caractères &lt;strong&gt;r&lt;/strong&gt; et/ou &lt;strong&gt;w&lt;/strong&gt; et/ou &lt;strong&gt;x&lt;/strong&gt; pour désigner les droits concernés.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+-rwxrwxr--   1   moi   mongroupe   921   avril 10 15:47   test.txt
+
+$ sudo chmod o+w test.txt
+$ ls -l
+-rwxrwxrw-   1   moi   mongroupe   921   avril 10 15:47   test.txt
+
+$ sudo chmod g-wx test.txt
+$ ls -l
+-rwxr--rw-   1   moi   mongroupe   921   avril 10 15:47   test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Une autre méthode&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:6&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:6&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;, dite numérique, consiste à fournir la liste complète des droits à affecter par une suite de trois chiffres les représentants. Chaque chiffre est alors la somme des droits voulus, avec :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;4 : accès en lecture&lt;/li&gt;
+&lt;li&gt;2 : accès en écriture&lt;/li&gt;
+&lt;li&gt;1 : accès en exécution&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Par l&amp;rsquo;exemple cela donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ls -l
+-rwxr--rw-   1   moi   mongroupe   921   avril 10 15:47   test.txt
+
+$ sudo chmod 754 test.txt
+$ ls -l
+-rwxr-xr--   1   moi   mongroupe   921   avril 10 15:47   test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Nous avons vu aujourd&amp;rsquo;hui les aspects fondamentaux de la gestion des droits dans un système Linux. Cependant, il reste bien des aspects et des commandes importantes que nous avons passé sous silence. Notre prochain article reviendra donc sur la question, avec de nouvelles commandes et quelques conseils sur la question.&lt;/p&gt;
+
+&lt;!--
+Ref : https://linuxjourney.com/lesson/file-permissions
+--&gt;
+
+&lt;!-- sudo --&gt;
+
+&lt;!-- uname -a --&gt;
+
+&lt;!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux --&gt;
+
+&lt;!--   A      B         C                                D                          E      F      G      H      --&gt;
+
+&lt;!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name --&gt;
+
+&lt;!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system --&gt;
+
+&lt;!-- shutdown --&gt;
+
+&lt;!-- logout --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;À noter que sous Linux, il existe des utilisateurs autres que les personnes physiques utilisant le système. Il peut s&amp;rsquo;agit de &lt;a href=&#34;https://fr.wikipedia.org/wiki/Daemon_(informatique)&#34;&gt;démons&lt;/a&gt;, de processus fonctionnant en arrière-plan, etc.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;&lt;em&gt;sudo&lt;/em&gt; et &lt;em&gt;su&lt;/em&gt; sont en fait plus générales, et permettent de réaliser des actions pour n&amp;rsquo;importe quel utilisateur, l&amp;rsquo;administrateur étant celui choisi par défaut.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;Il est aussi possible d&amp;rsquo;utiliser la commande &lt;strong&gt;useradd&lt;/strong&gt;/&lt;strong&gt;userdel&lt;/strong&gt;/&lt;strong&gt;usermod&lt;/strong&gt;, qui créera/détruira/modifiera (on dossier personnel par exemple) elle aussi un utilisateur, mais sans effectuer cette liste d&amp;rsquo;actions.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:5&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;Il s&amp;rsquo;agit en fait d&amp;rsquo;un &lt;a href=&#34;https://www.aychedee.com/2012/03/14/etc_shadow-password-hash-formats/&#34;&gt;hash du mot de passe&lt;/a&gt;. Cette opération est irréversible (il n&amp;rsquo;est pas possible d&amp;rsquo;obtenir le mot de passe à partir du hash).
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:6&#34;&gt;Une troisième méthode consiste à remplacer la liste complète des droits à affecter par &lt;a href=&#34;https://linuxjourney.com/lesson/modifying-permissions&#34;&gt;une suite de nombres les représentants&lt;/a&gt;.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:6&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>LFCS : Système de fichiers et liens</title>
       <link>https://zirkachok.github.io/2017/04/11/lfcs--syst%C3%A8me-de-fichiers-et-liens</link>
       <pubDate>Tue, 11 Apr 2017 15:59:20 +0200</pubDate>
@@ -339,7 +1027,7 @@ find . -name *golang.md
 
 &lt;p&gt;Au passage, il est possible avec ls et bien d&amp;rsquo;autres commandes (find, file, etc.) de donner des &lt;strong&gt;motifs &amp;ldquo;abstraits&amp;rdquo;&lt;/strong&gt; plutôt qu&amp;rsquo;un nom précis. Sans entrer dans les détails, il est possible d&amp;rsquo;utiliser le caractère &lt;strong&gt;*&lt;/strong&gt; pour désigner &amp;ldquo;tout&amp;rdquo;. Par exemple, la commande &amp;ldquo; &lt;em&gt;ls *.bin&lt;/em&gt; &amp;ldquo; listera tous les fichiers dont le nom finit par &lt;em&gt;.bin&lt;/em&gt; .&lt;/p&gt;
 
-&lt;p&gt;Enfin, c&amp;rsquo;est la commande &lt;strong&gt;cd&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Change Directory&lt;/em&gt;&amp;rdquo;) qui nous permet de nous déplacer. Si elle n&amp;rsquo;est pas complétée d&amp;rsquo;un argument, elle nous amènera directement au répertoire par défaut. Le plus souvent, il s&amp;rsquo;agit du répertoire personnel de l&amp;rsquo;utilisateur courant, dont le chemin par défaut est &amp;ldquo; &lt;em&gt;/home/username&lt;/em&gt; &amp;ldquo; avec &lt;em&gt;username&lt;/em&gt; l&amp;rsquo;identifiant de l&amp;rsquo;utilisateur. Il est aussi possible de donner à &lt;em&gt;cd&lt;/em&gt; un chemin absolu ou relatif au dossier courant pour s&amp;rsquo;y déplacer.&lt;/p&gt;
+&lt;p&gt;Enfin, c&amp;rsquo;est la commande &lt;strong&gt;cd&lt;/strong&gt; (pour &amp;ldquo;&lt;em&gt;Change Directory&lt;/em&gt;&amp;rdquo;) qui nous permet de nous déplacer. Si elle n&amp;rsquo;est pas complétée d&amp;rsquo;un argument, elle nous amènera directement au répertoire par défaut. Le plus souvent, il s&amp;rsquo;agit du répertoire personnel de l&amp;rsquo;utilisateur courant, dont le chemin par défaut est &amp;ldquo; &lt;em&gt;/home/username&lt;/em&gt; &amp;ldquo; avec &lt;em&gt;username&lt;/em&gt; le nom de l&amp;rsquo;utilisateur. Il est aussi possible de donner à &lt;em&gt;cd&lt;/em&gt; un chemin absolu ou relatif au dossier courant pour s&amp;rsquo;y déplacer.&lt;/p&gt;
 
 &lt;p&gt;À noter qu&amp;rsquo;il existe aussi certains raccourcis, comme :&lt;/p&gt;
 
@@ -614,7 +1302,7 @@ REFS :
 
 &lt;p&gt;Utilisateur quotidien d&amp;rsquo;environnements Linux allant de sytèmes embarqués minimalistes et serveurs dans le cadre de mon travail, aux distributions graphiques &amp;ldquo;classiques&amp;rdquo; sur mon ordinateur personnel, j&amp;rsquo;ai depuis mes débuts été versé dans ce domaine. Pourtant, il m&amp;rsquo;a aussi souvent été difficile de mettre en avant cette expertise et me différencier. La faute au fait que souvent, il est nécessaire de convaincre ses interlocuteurs rapidement, sans engager une conversation technique de haute volée&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. Et à ce niveau, seuls deux critères comptent : l&amp;rsquo;expérience et les diplômes/certifications.&lt;/p&gt;
 
-&lt;p&gt;Depuis 2014, la Fondation Linux&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS &amp;amp; LFCE (Linux Foundation Certified Sysadmin &amp;amp; Engineer)&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;. Ces certifications rejoignent ainsi celles proposées par Red-Hat, qui ont peinent à gagner en reconnaissance du fait de leur spécificité, et offrent une sorte d&amp;rsquo;équivalent à celles proposées par Microsoft pour son système Windows.&lt;/p&gt;
+&lt;p&gt;Depuis 2014, la Fondation Linux&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les &lt;a href=&#34;https://training.linuxfoundation.org/certification/lfcs&#34;&gt;LFCS&lt;/a&gt; &amp;amp; &lt;a href=&#34;https://training.linuxfoundation.org/certification/lfce&#34;&gt;LFCE&lt;/a&gt; (Linux Foundation Certified Sysadmin &amp;amp; Engineer)&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;. Ces certifications rejoignent ainsi celles proposées par Red-Hat, qui ont peinent à gagner en reconnaissance du fait de leur spécificité, et offrent une sorte d&amp;rsquo;équivalent à celles proposées par Microsoft pour son système Windows.&lt;/p&gt;
 
 &lt;p&gt;D&amp;rsquo;un point de vue pratique, les examens de certification se font à distance, contrôlés par la fondation Linux. Une évaluation est donnée suivant un barème précis, en suivant un programme public, offrant un certain gage de qualité et de transparence. Cette évaluation permet d&amp;rsquo;ailleurs aussi de se faire une idée assez précise du niveau de la personne. Le &lt;a href=&#34;https://training.linuxfoundation.org/certification/lfce&#34;&gt;programme&lt;/a&gt; est complet, et couvre la majorité des situations auxquelles peuvent être confronté un ingénieur dans son travail avec Linux. Une bonne nouvelle en somme, qui pourra permettre de mettre en avant de manière claire et transparente ses compétences.&lt;/p&gt;
 
@@ -622,7 +1310,7 @@ REFS :
 
 &lt;p&gt;Mais revenons-en à moi quelques instants. J&amp;rsquo;avais accueilli avec beaucoup d&amp;rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&amp;rsquo;ai décidé de m&amp;rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&amp;rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.&lt;/p&gt;
 
-&lt;p&gt;Chaque article sera composé de trois parties. Tout d&amp;rsquo;abord, je parlerai du système lui-même, des choix qui l&amp;rsquo;ont guidé et des grandes figures qui l&amp;rsquo;ont influencé, pour ensuite présenter une ou plusieurs fonctionnalités, et enfin je vous proposerai quelques exercices pour approfondir ces nouvelles connaissances. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&amp;rsquo;est le système Linux.&lt;/p&gt;
+&lt;p&gt;Chaque article sera composé de trois parties. Tout d&amp;rsquo;abord, je parlerai du système lui-même, des choix qui l&amp;rsquo;ont guidé et des grandes figures qui l&amp;rsquo;ont influencé, pour ensuite présenter une ou plusieurs fonctionnalités, et enfin je vous proposerai quelques exercices pour approfondir ces nouvelles connaissances. Je mettrai aussi à jour un &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/index-des-pr%C3%A9requis-lfcs-lfce&#34;&gt;index basé sur les compétences officiellement requises par la Fondation Linux&lt;/a&gt;, pour s&amp;rsquo;y retrouver plus facilement. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&amp;rsquo;est le système Linux.&lt;/p&gt;
 
 &lt;!-- La fondation Linux propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l&#39;administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
 

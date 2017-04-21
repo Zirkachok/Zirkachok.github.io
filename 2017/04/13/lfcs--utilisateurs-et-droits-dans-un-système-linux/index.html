@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>Linux a 25 ans, il est temps de se certifier! - Zirka</title>
-    <meta property='og:title' content="Linux a 25 ans, il est temps de se certifier! - Zirka">
+    <title>LFCS : Utilisateurs et droits dans un système Linux - Zirka</title>
+    <meta property='og:title' content="LFCS : Utilisateurs et droits dans un système Linux - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  20 Jan 2017
+                  13 Apr 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">Linux a 25 ans, il est temps de se certifier!</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Utilisateurs et droits dans un système Linux</h1>
           </header>
         </div>
       </div>
@@ -396,47 +396,183 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<p>Linux fête cette année ses 25 ans, autant d&rsquo;années pendant lesquelles nous l&rsquo;avons vu prendre du poids. Son influence s&rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&rsquo;importantes transformations, tels que l&rsquo;embarqué, le Cloud ou les smartphones, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>, tout un symbole.</p>
+<!-- ê î ô û -->
 
-<p>Avec cet essor, Linux a aussi beaucoup gagné en reconnaissance et en ouverture au public. Les livres et tutoriels à son sujet sont maintenant légion, et de nombreuses entreprises sont demandeuses de profils experts en développement ou administration de tels systèmes. Linux est donc devenu un incontournable pour la plupars des ingénieurs informatique, mais il reste malgré tout pour beaucoup assez méconnu.</p>
+<p>Je vous ai déjà parlé en détails des fichiers et leur organisation sous Linux (&ldquo;Tout est fichier&rdquo; après tout), et aujourd&rsquo;hui, je vais en ajouter une couche en abordant le thème des droits et permissions. Comme tout système d&rsquo;exploitation (sauf rares exceptions, comme certains mainframe), Linux est capable de gérer plusieurs utilisateurs, et chacun d&rsquo;entre eux n&rsquo;a le droit d&rsquo;accéder qu&rsquo;à certains fichiers. Vous ne voudriez pas que votre famille et vos collègues puissent consulter et modifier <em>vos</em> fichiers, n&rsquo;est-ce pas?</p>
 
-<h1 id="mettre-en-avant-son-expertise">Mettre en avant son expertise</h1>
+<h1 id="utilisateurs-et-groupes">Utilisateurs et groupes</h1>
 
-<p>Utilisateur quotidien d&rsquo;environnements Linux allant de sytèmes embarqués minimalistes et serveurs dans le cadre de mon travail, aux distributions graphiques &ldquo;classiques&rdquo; sur mon ordinateur personnel, j&rsquo;ai depuis mes débuts été versé dans ce domaine. Pourtant, il m&rsquo;a aussi souvent été difficile de mettre en avant cette expertise et me différencier. La faute au fait que souvent, il est nécessaire de convaincre ses interlocuteurs rapidement, sans engager une conversation technique de haute volée<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup>. Et à ce niveau, seuls deux critères comptent : l&rsquo;expérience et les diplômes/certifications.</p>
+<p>Plusieurs utilisateurs<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup> cohabitent donc dans le système, chacun ayant un identifiant unique (<strong>UID</strong> pour User ID) utilisé par le système, un nom (<strong>username</strong>) qui est une représentation plus lisible associée à l&rsquo;UID, un <strong>mot de passe</strong>, et un répertoire personnel dans l&rsquo;arborescence, qui contient les données propres à l&rsquo;utilisateur (et dont le chemin par défaut est le plus souvent &ldquo;<em>/home/username</em>&rdquo;).</p>
 
-<p>Depuis 2014, la Fondation Linux<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup> a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les <a href="https://training.linuxfoundation.org/certification/lfcs">LFCS</a> &amp; <a href="https://training.linuxfoundation.org/certification/lfce">LFCE</a> (Linux Foundation Certified Sysadmin &amp; Engineer)<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>. Ces certifications rejoignent ainsi celles proposées par Red-Hat, qui ont peinent à gagner en reconnaissance du fait de leur spécificité, et offrent une sorte d&rsquo;équivalent à celles proposées par Microsoft pour son système Windows.</p>
+<p>Cependant, gérer les droits de chaque fichier indépendemment pour chaque utilisateur serait lourd et complexe. Sous Linux, une alternative a donc été trouvée via les groupes. Un groupe liste l&rsquo;ensemble des utilisateurs qui lui appartiennent. Comme pour les utilisateurs, chaque groupe a un identifiant unique (le <strong>GID</strong> ou Group ID), un nom, et des permissions propres. Chaque utilisateur faisant partie d&rsquo;un groupe en partagera aussi les droits, en plus des siens. À noter qu&rsquo;un utilisateur peut appartenir à plusieurs groupes, multipliant d&rsquo;autant plus les possibilités de gestion.</p>
 
-<p>D&rsquo;un point de vue pratique, les examens de certification se font à distance, contrôlés par la fondation Linux. Une évaluation est donnée suivant un barème précis, en suivant un programme public, offrant un certain gage de qualité et de transparence. Cette évaluation permet d&rsquo;ailleurs aussi de se faire une idée assez précise du niveau de la personne. Le <a href="https://training.linuxfoundation.org/certification/lfce">programme</a> est complet, et couvre la majorité des situations auxquelles peuvent être confronté un ingénieur dans son travail avec Linux. Une bonne nouvelle en somme, qui pourra permettre de mettre en avant de manière claire et transparente ses compétences.</p>
+<h2 id="le-cas-particulier-de-l-administrateur">Le cas particulier de l&rsquo;administrateur</h2>
 
-<h1 id="construire-ses-compétences">Construire ses compétences</h1>
+<p>L&rsquo;un des utilisateurs les plus importants est l&rsquo;<strong>administrateur</strong> (aussi appelé <em>superutilisateur</em> ou <strong>root</strong>, dont l&rsquo;UID est 0). Grossièrement, l&rsquo;administrateur a tous les droits, alors que ceux des utilisateurs lambda sont limités : il a plein accès a n&rsquo;importe quel fichier, peut créer et détruire des utilisateurs, modifier leurs droits, etc.</p>
 
-<p>Mais revenons-en à moi quelques instants. J&rsquo;avais accueilli avec beaucoup d&rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&rsquo;ai décidé de m&rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.</p>
+<p>Vous l&rsquo;aurez compris, effectuer des actions en tant qu&rsquo;administrateur peut s&rsquo;avérer dangereux (détruire des fichiers système par exemple), mais est aussi bien souvent nécessaire, car les actions possibles pour un utilisateur lambda sont assez limitées. Deux approches sont possibles pour &ldquo;devenir&rdquo; administrateur :</p>
 
-<p>Chaque article sera composé de trois parties. Tout d&rsquo;abord, je parlerai du système lui-même, des choix qui l&rsquo;ont guidé et des grandes figures qui l&rsquo;ont influencé, pour ensuite présenter une ou plusieurs fonctionnalités, et enfin je vous proposerai quelques exercices pour approfondir ces nouvelles connaissances. Je mettrai aussi à jour un <a href="https://zirkachok.github.io/2017/04/18/index-des-pr%C3%A9requis-lfcs-lfce">index basé sur les compétences officiellement requises par la Fondation Linux</a>, pour s&rsquo;y retrouver plus facilement. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&rsquo;est le système Linux.</p>
+<ul>
+<li>Via la commande <strong>sudo</strong> (pour SuperUser DO), qui permet d&rsquo;exécuter une autre commande donnée après elle comme administrateur.</li>
+<li>Via la commande <strong>su</strong> (pour SuperUser), qui permet de changer l&rsquo;utilisateur courant pour l&rsquo;administrateur<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup>.</li>
+</ul>
 
-<!-- La fondation Linux propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l'administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+<p>À noter que la commande <strong>id</strong> permet d&rsquo;obtenir les informations (UID, GID, groupes auquel il appartient) de l&rsquo;utilsateur courant (ou un autre donné en argument).</p>
 
-Les "Infrastructure as a service" ou IaaS, comme [Scaleway](http://scaleway.com/) par exemple.
+<h2 id="gérer-les-utilisateurs-et-groupes">Gérer les utilisateurs et groupes</h2>
+
+<p>En pratique, la création d&rsquo;un nouvel utilisateur passe par la commande <strong>adduser</strong> suivie du nom de l&rsquo;utilisateur. Cela effectuera les actions configurées dans &ldquo; <em>/etc/adduser.conf</em> &ldquo;<sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">3</a></sup>, notamment (en général):</p>
+
+<ul>
+<li>générer un mot de passe (demandé par la commande lors de son exécution)</li>
+<li>créer un répertoire personnel associé à l&rsquo;utilisateur (/home/<em>user</em> par défaut)</li>
+<li>créer un groupe portant le même nom que cet utilisateur</li>
+</ul>
+
+<p>De manière similaire, la commande <strong>deluser</strong> permettra de supprimer un utilisateur, et fera les actions listées dans &ldquo; <em>/etc/deluser.conf</em> &ldquo;. La commande <strong>passwd</strong> peut aussi s&rsquo;avérer utile: elle permet de changer le mot de passe de l&rsquo;utilisateur courant (ou un autre donné en argument).</p>
+
+<p>Les groupes fonctionnent de manière identique, du moins dans leur gestion. Les commandes <strong>groupadd</strong>, <strong>groupdel</strong> permettent ainsi respectivement de créer et supprimer un groupe. La commande <strong>groups</strong> permet elle de lister les groupes existants.</p>
+
+<pre><code>$ ls /home
+zirka
+
+$ id testusr
+id: «testusr» : utilisateur inexistant
+
+$ sudo adduser testusr
+$ ls /home
+zirka  testusr
+
+$ id testusr
+uid=1001(testusr) gid=1001(testusr) groupes=1001(testusr)
+
+$ sudo deluser testusr
+
+$ id testusr
+id: «testusr» : utilisateur inexistant
+</code></pre>
+
+<h2 id="fichiers-systèmes">Fichiers systèmes</h2>
+
+<p>La gestion des utilisateurs et groupes passe (encore) par des fichiers, qui sont automatiquement modifiés par les commandes que nous venont de voir. Il n&rsquo;est pas recommandé de les modifier soi-même (comme pour tous les fichiers système), mais on peut en lire le contenu pour obtenir des informations :</p>
+
+<ul>
+<li><strong>/etc/passwd</strong> contient la liste des utilisateurs et leurs informations. Chaque ligne contient :
+
+<ul>
+<li>le nom d&rsquo;utilisateur, suivi d&rsquo;un <em>x</em> indiquant si le compte est protégé par un mot de passe</li>
+<li>l&rsquo;UID et GID associés à l&rsquo;utilisateur</li>
+<li>des commentaires sur l&rsquo;utilisateur (nom et coordonnées)</li>
+<li>le répertoire personnel et l&rsquo;interpréteur par défaut (voir <a href="https://zirkachok.github.io/2017/02/12/lfcs--dompter-la-ligne-de-commande">mon article sur le shell</a>)</li>
+</ul></li>
+<li><strong>/etc/shadow</strong> contient les mots de passe des utilisateurs, et ne sont pas disponibles en clair (le fichier n&rsquo;est d&rsquo;ailleurs lisible que par l&rsquo;administrateur)<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup></li>
+<li><strong>/etc/group</strong> contient toutes les informations sur les groupes. Chaque ligne contient :
+
+<ul>
+<li>le nom du groupe, suivi d&rsquo;un <em>x</em> indiquant si le groupe est protégé par un mot de passe</li>
+<li>le GID et les membres du groupe</li>
+</ul></li>
+</ul>
+
+<h1 id="les-permissions">Les permissions</h1>
+
+<p>Nous l&rsquo;avons jusque-là sous-entendu, les fichiers sous Linux sont dotés de permissions (que nous appellerons aussi &ldquo;<em>droits</em>&rdquo;). Entrons à présent dans les détails pour découvrir ce que cela implique.</p>
+
+<p>3 opérations seulement sont permises sur les fichiers, <strong>la lecture, l&rsquo;écriture, et l&rsquo;exécution</strong>, chacune de ces opérations disposant de droits indépendants. La commande <strong>ls</strong> avec l&rsquo;option <strong>-l</strong> nous listera les fichiers avec certaines de leurs principales propriétés.</p>
+
+<pre><code>$ ls -l
+drwxr-xr-x   2   zirka   admin    4096   mars   1 11:45   annexes
+-r--r--r--   1   mary    mary     5769   mars  24 14:26   lfce-lfcs.md
+-rwxrw-r--   1   zirka   admin    7201   avril 10 15:51   lfcs-commandline.md
+-rw-rw-r--   1   jul     author   8710   avril 10 15:47   lfcs-navigate.md
+-rwxrw-r--   1   zirka   admin    1236   avril 10 15:49   lfcs-rights.md
+-rw-rw-r--   1   jul     author   3647   avril 10 14:45   lfcs-search.md
+-rwxrw-r--   1   zirka   admin   10384   mars  24 09:49   pourquoi-golang.md
+</code></pre>
+
+<p>On y retrouve dans la dernière colonne le nom de nos fichiers, précédé de sa date de dernière modification et de sa taille. En seconde position, un chiffre indique son nombre de liens, et est suivi de son <strong>groupe propriétaire</strong> et de son <strong>utilisateur propriétaire</strong>.</p>
+
+<p>En première position, on trouve une chaine de caractères particulière. Le premier caractère désigne le <strong>type de fichier</strong> (<em>-</em> pour les fichiers réguliers, <em>d</em> pour les répertoires, <em>l</em> pour les liens symboliques). Les 9 autres caractères représentent les droit d&rsquo;accès, avec <strong>r</strong> signifiant &ldquo;accesible en lecture&rdquo; (readable), <strong>w</strong> pour &ldquo;accessible en écriture&rdquo; (writable) et <strong>x</strong> pour &ldquo;accessible en exécution&rdquo; (executable). Chaque groupe de 3 caractères représente les droits pour certains utilisateurs :</p>
+
+<ul>
+<li>Les <strong>trois premiers</strong> indiquent les droits pour <strong>l&rsquo;utilisateur propriétaire</strong> (user, colonne 3 avec &ldquo;<em>ls -l</em>&rdquo;).</li>
+<li>Les <strong>trois suivants</strong> indiquent les droits pour les membres du <strong>groupe propriétaire</strong> (group, colonne 4 avec &ldquo;<em>ls -l</em>&rdquo;).</li>
+<li>Les <strong>trois derniers</strong> indiquent les droits pour les <strong>autres utilisateurs</strong> (others).</li>
+</ul>
+
+<p>Ainsi, dans notre exemple précédent, le fichier &ldquo;lfcs-navigate.md&rdquo; sera totalement accessible pour l&rsquo;utilisateur &ldquo;zirka&rdquo;, mais seulement en lercture/écriture pour les membres du groupe &ldquo;admin&rdquo; et seulement en lecture pour les autres. N&rsquo;oublions pas que le superutilisateur a les droits d&rsquo;accès complets (rwx) sur tous les fichiers de son système.</p>
+
+<h2 id="gérer-les-droits">Gérer les droits</h2>
+
+<p>Bien sûr, les permissions et propriétaires d&rsquo;un fichier peuvent être changées. La commande <strong>chmod <em>p</em> <em>f</em></strong> permet de modifier les droits au fichier <em>f</em>. <em>p</em> prends alors la forme d&rsquo;
+une chaine de cactère avec un premier caractère <strong>u</strong>, <strong>g</strong> ou <strong>o</strong> pour désigner la cible de ces droits (user, group ou others), un second caractère <strong>+</strong> ou <strong>-</strong> signifiant &ldquo;ajouter&rdquo; ou &ldquo;retirer&rdquo; les droits à la cible, et une suite de caractères <strong>r</strong> et/ou <strong>w</strong> et/ou <strong>x</strong> pour désigner les droits concernés.</p>
+
+<pre><code>$ ls -l
+-rwxrwxr--   1   moi   mongroupe   921   avril 10 15:47   test.txt
+
+$ sudo chmod o+w test.txt
+$ ls -l
+-rwxrwxrw-   1   moi   mongroupe   921   avril 10 15:47   test.txt
+
+$ sudo chmod g-wx test.txt
+$ ls -l
+-rwxr--rw-   1   moi   mongroupe   921   avril 10 15:47   test.txt
+</code></pre>
+
+<p>Une autre méthode<sup class="footnote-ref" id="fnref:6"><a rel="footnote" href="#fn:6">5</a></sup>, dite numérique, consiste à fournir la liste complète des droits à affecter par une suite de trois chiffres les représentants. Chaque chiffre est alors la somme des droits voulus, avec :</p>
+
+<ul>
+<li>4 : accès en lecture</li>
+<li>2 : accès en écriture</li>
+<li>1 : accès en exécution</li>
+</ul>
+
+<p>Par l&rsquo;exemple cela donne :</p>
+
+<pre><code>$ ls -l
+-rwxr--rw-   1   moi   mongroupe   921   avril 10 15:47   test.txt
+
+$ sudo chmod 754 test.txt
+$ ls -l
+-rwxr-xr--   1   moi   mongroupe   921   avril 10 15:47   test.txt
+</code></pre>
+
+<p>Nous avons vu aujourd&rsquo;hui les aspects fondamentaux de la gestion des droits dans un système Linux. Cependant, il reste bien des aspects et des commandes importantes que nous avons passé sous silence. Notre prochain article reviendra donc sur la question, avec de nouvelles commandes et quelques conseils sur la question.</p>
+
+<!--
+Ref : https://linuxjourney.com/lesson/file-permissions
 -->
 
-<!-- # Et les certifications dans tout ça?
-Pour mettre en avant ses compétences, les certifications restent un instrument de choix. Cependant, autant Microsoft propose des certifications claires et reconnues pour ses systèmes Windows, Autant pour Linux les choses sont moins claires.
+<!-- sudo -->
 
-La fondation Linux a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS & LFCE (Linux Foundation Certified Sysadmin & Engineer).
- -->
+<!-- uname -a -->
+
+<!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux -->
+
+<!--   A      B         C                                D                          E      F      G      H      -->
+
+<!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name -->
+
+<!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system -->
+
+<!-- shutdown -->
+
+<!-- logout -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">En témoignent des initiatives comme l&rsquo;<a href="https://www.openmainframeproject.org/">Open Mainframe</a>, soutenue par IBM et Hitachi entre autres.
+<li id="fn:1">À noter que sous Linux, il existe des utilisateurs autres que les personnes physiques utilisant le système. Il peut s&rsquo;agit de <a href="https://fr.wikipedia.org/wiki/Daemon_(informatique)">démons</a>, de processus fonctionnant en arrière-plan, etc.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:2">Surtout lorsque Linux n&rsquo;est pas bien connu par l&rsquo;interlocuteur en question. On retrouve la plupart du temps en face de soi des responsables n&rsquo;ayant que peu pied dans le technique, ou des &ldquo;experts&rdquo; pas nécessairement à jour avec la technologie.
+<li id="fn:2"><em>sudo</em> et <em>su</em> sont en fait plus générales, et permettent de réaliser des actions pour n&rsquo;importe quel utilisateur, l&rsquo;administrateur étant celui choisi par défaut.
  <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:3">Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux.
- <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:4">Outre les deux citées ici, la Fondation Linux propose un catalogue assez vaste de <a href="https://training.linuxfoundation.org/">formations</a> en ligne sur des sujets aussi variés que l&rsquo;administration des systèmes ou les infrastructures Cloud.
+<li id="fn:5">Il est aussi possible d&rsquo;utiliser la commande <strong>useradd</strong>/<strong>userdel</strong>/<strong>usermod</strong>, qui créera/détruira/modifiera (on dossier personnel par exemple) elle aussi un utilisateur, mais sans effectuer cette liste d&rsquo;actions.
+ <a class="footnote-return" href="#fnref:5">↩</a></li>
+<li id="fn:4">Il s&rsquo;agit en fait d&rsquo;un <a href="https://www.aychedee.com/2012/03/14/etc_shadow-password-hash-formats/">hash du mot de passe</a>. Cette opération est irréversible (il n&rsquo;est pas possible d&rsquo;obtenir le mot de passe à partir du hash).
  <a class="footnote-return" href="#fnref:4">↩</a></li>
+<li id="fn:6">Une troisième méthode consiste à remplacer la liste complète des droits à affecter par <a href="https://linuxjourney.com/lesson/modifying-permissions">une suite de nombres les représentants</a>.
+ <a class="footnote-return" href="#fnref:6">↩</a></li>
 </ol>
 </div>
 </div>
@@ -533,7 +669,7 @@ La fondation Linux a même lancé un programme destiné à former des ingénieur
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>

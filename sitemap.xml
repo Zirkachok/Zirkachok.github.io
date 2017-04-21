@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zirkachok.github.io/2017/04/18/index-des-pr%C3%A9requis-lfcs-lfce</loc>
+    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour</loc>
+    <lastmod>2017-04-18T10:44:28+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux</loc>
+    <lastmod>2017-04-13T08:46:32+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://zirkachok.github.io/2017/04/11/lfcs--syst%C3%A8me-de-fichiers-et-liens</loc>
     <lastmod>2017-04-11T15:59:20+02:00</lastmod>
   </url>
@@ -50,25 +65,25 @@
   
   <url>
     <loc>https://zirkachok.github.io/categories/informatique/</loc>
-    <lastmod>2017-04-11T15:59:20+02:00</lastmod>
+    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zirkachok.github.io/tags/lfce-lfcs/</loc>
-    <lastmod>2017-04-11T15:59:20+02:00</lastmod>
+    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zirkachok.github.io/tags/linux/</loc>
-    <lastmod>2017-04-11T15:59:20+02:00</lastmod>
+    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zirkachok.github.io/post/</loc>
-    <lastmod>2017-04-11T15:59:20+02:00</lastmod>
+    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -79,7 +94,7 @@
   
   <url>
     <loc>https://zirkachok.github.io/</loc>
-    <lastmod>2017-04-11T15:59:20+02:00</lastmod>
+    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
     <priority>0</priority>
   </url>
   

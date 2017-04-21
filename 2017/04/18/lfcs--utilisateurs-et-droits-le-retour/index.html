@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>Linux a 25 ans, il est temps de se certifier! - Zirka</title>
-    <meta property='og:title' content="Linux a 25 ans, il est temps de se certifier! - Zirka">
+    <title>LFCS : Utilisateurs et droits, le retour - Zirka</title>
+    <meta property='og:title' content="LFCS : Utilisateurs et droits, le retour - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  20 Jan 2017
+                  18 Apr 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">Linux a 25 ans, il est temps de se certifier!</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Utilisateurs et droits, le retour</h1>
           </header>
         </div>
       </div>
@@ -396,47 +396,203 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<p>Linux fête cette année ses 25 ans, autant d&rsquo;années pendant lesquelles nous l&rsquo;avons vu prendre du poids. Son influence s&rsquo;est tout particulièrement faite remarquer dans les secteurs ayant subi d&rsquo;importantes transformations, tels que l&rsquo;embarqué, le Cloud ou les smartphones, où il est devenu un acteur essentiel. Même les architectures mainframe commencent à lorgner de son côté<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>, tout un symbole.</p>
+<!-- ê î ô û -->
 
-<p>Avec cet essor, Linux a aussi beaucoup gagné en reconnaissance et en ouverture au public. Les livres et tutoriels à son sujet sont maintenant légion, et de nombreuses entreprises sont demandeuses de profils experts en développement ou administration de tels systèmes. Linux est donc devenu un incontournable pour la plupars des ingénieurs informatique, mais il reste malgré tout pour beaucoup assez méconnu.</p>
+<p>Je vous ai présenté <a href="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux">la fois précédente</a> comment gérer les permissions et les utilisateurs au sein de votre système, mais le sujet est bien trop vaste pour être plié en un seul post de blog. Je vais donc revenir à la charge aujourd&rsquo;hui avec de nouvelles commandes et quelques conseils appréciables pour optimiser leur gestion.</p>
 
-<h1 id="mettre-en-avant-son-expertise">Mettre en avant son expertise</h1>
+<h1 id="gestion-avancée-des-permissions">Gestion avancée des permissions</h1>
 
-<p>Utilisateur quotidien d&rsquo;environnements Linux allant de sytèmes embarqués minimalistes et serveurs dans le cadre de mon travail, aux distributions graphiques &ldquo;classiques&rdquo; sur mon ordinateur personnel, j&rsquo;ai depuis mes débuts été versé dans ce domaine. Pourtant, il m&rsquo;a aussi souvent été difficile de mettre en avant cette expertise et me différencier. La faute au fait que souvent, il est nécessaire de convaincre ses interlocuteurs rapidement, sans engager une conversation technique de haute volée<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup>. Et à ce niveau, seuls deux critères comptent : l&rsquo;expérience et les diplômes/certifications.</p>
+<h2 id="changer-de-propriétaire">Changer de propriétaire</h2>
 
-<p>Depuis 2014, la Fondation Linux<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup> a lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les <a href="https://training.linuxfoundation.org/certification/lfcs">LFCS</a> &amp; <a href="https://training.linuxfoundation.org/certification/lfce">LFCE</a> (Linux Foundation Certified Sysadmin &amp; Engineer)<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>. Ces certifications rejoignent ainsi celles proposées par Red-Hat, qui ont peinent à gagner en reconnaissance du fait de leur spécificité, et offrent une sorte d&rsquo;équivalent à celles proposées par Microsoft pour son système Windows.</p>
+<p>En plus de pouvoir changer les permissions d&rsquo;un fichier, il est aussi possible d&rsquo;en modifier l&rsquo;utilisateur et le groupe propriétaire, respectivement avec les commandes <strong>chown</strong> et <strong>chgrp</strong> (qui nécessitent les droits administrateur). Ces commandes prennent en premier paramètre l&rsquo;utilisateur/le groupe, suivi du fichier concerné. Il est aussi possible de changer à la fois l&rsquo;utilisateur et le groupe propriétaires du fichier avec <em>chown</em>, en combinant les deux séparés par &ldquo; <em>:</em> &ldquo;.</p>
 
-<p>D&rsquo;un point de vue pratique, les examens de certification se font à distance, contrôlés par la fondation Linux. Une évaluation est donnée suivant un barème précis, en suivant un programme public, offrant un certain gage de qualité et de transparence. Cette évaluation permet d&rsquo;ailleurs aussi de se faire une idée assez précise du niveau de la personne. Le <a href="https://training.linuxfoundation.org/certification/lfce">programme</a> est complet, et couvre la majorité des situations auxquelles peuvent être confronté un ingénieur dans son travail avec Linux. Une bonne nouvelle en somme, qui pourra permettre de mettre en avant de manière claire et transparente ses compétences.</p>
+<p>Par l&rsquo;exemple, cela nous donne :</p>
 
-<h1 id="construire-ses-compétences">Construire ses compétences</h1>
+<pre><code>$ ls -l
+-rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
 
-<p>Mais revenons-en à moi quelques instants. J&rsquo;avais accueilli avec beaucoup d&rsquo;enthousiasme la naissance de ces certifications, et après avoir attendu les premiers retours à leur sujet, j&rsquo;ai décidé de m&rsquo;y plonger cette année. Et pour ne pas faire les choses à moitié, je vais proposer dans ces colonnes chaque semaine un article-tutoriel sur un sujet particulier touchant à Linux. Cela aura pour avantage de m&rsquo;inciter à faire des recherches à ce sujet et à les mettre en forme, une bonne résolution en plus formel en quelque sorte.</p>
+$ sudo chown hobbes test.txt
+$ ls -l
+-rwxrwxr--   1   hobbes   humains   921   avril 10 15:47   test.txt
 
-<p>Chaque article sera composé de trois parties. Tout d&rsquo;abord, je parlerai du système lui-même, des choix qui l&rsquo;ont guidé et des grandes figures qui l&rsquo;ont influencé, pour ensuite présenter une ou plusieurs fonctionnalités, et enfin je vous proposerai quelques exercices pour approfondir ces nouvelles connaissances. Je mettrai aussi à jour un <a href="https://zirkachok.github.io/2017/04/18/index-des-pr%C3%A9requis-lfcs-lfce">index basé sur les compétences officiellement requises par la Fondation Linux</a>, pour s&rsquo;y retrouver plus facilement. Alors rendez-vous ces prochaines semaines pour en découvrir un peu plus sur ce formidable projet qu&rsquo;est le système Linux.</p>
+$ sudo chgrp tigres test.txt
+$ ls -l
+-rwxrwxr--   1   hobbes   tigres    921   avril 10 15:47   test.txt
 
-<!-- La fondation Linux propose même un grand choix de [formations](https://training.linuxfoundation.org/) en ligne sur des sujets aussi variés que l'administration des systèmes ou les infrastructures Cloud. Enfin, la virtualisation et les services Cloud permettent de tester une distribution facilement et à moindre frais. Ainsi, toutes les conditions sont réunies pour apprendre Linux dans les meilleures conditions.
+$ sudo chown calvin:humains test.txt
+$ ls -l
+-rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+</code></pre>
 
-Les "Infrastructure as a service" ou IaaS, comme [Scaleway](http://scaleway.com/) par exemple.
+<h2 id="modifier-les-droits-par-défaut">Modifier les droits par défaut</h2>
+
+<p>Chaque fichier créé se voit attribuer à sa création un ensemble de permissions par défaut, mais il est possible de modifier ces droits via la commande <strong>umask</strong><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
+
+<!-- Par défaut, les permissions d'un nouveau fichier sont 022 ou 002 -->
+
+<p><em>umask</em> utilise la variante numérique de modification des droits (voir l&rsquo;article précédent, avec 4 pour l&rsquo;accès en lecture, 2 en écriture et 1 en exécution), mais part de permissions complètes (donc <em>777</em>) et y retranche celles données en argument. Avec <em>umask 021</em> par exemple, on obtiendra les droits rwxr-xrw- (777 - 021 = 756). Dans la plupart des distributions, <em>umask</em> est mis à 022 par défaut (soit rwxr-xr-x ou 755).</p>
+
+<pre><code>$ touch test.txt
+-rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+</code></pre>
+
+<!--
+When you run the umask command it will give that default set of permissions on any new file you make. However, if you want it to persist you'll have to modify your startup file (.profile), but we'll discuss that in a later lesson. -->
+
+<h2 id="cas-spécifique-des-suid-et-sgid">Cas spécifique des SUID et SGID</h2>
+
+<p>Dans de nombreux cas, des utilisateurs &ldquo;lambda&rdquo; ont besoin de droits &ldquo;privilégiés&rdquo; pour certaines actions, mais les accès au compte administrateur ne peuvent pas être donnés à tous. Pour ces cas particuliers, il existe une permission spéciale, le <strong>Set User ID (SUID)</strong>, qui permet de lancer une commande en étant considéré comme le propriétaire du fichier.</p>
+
+<p>Prenons un exemple. Disons qu&rsquo;un utilisateur souhaite changer son mot de passe. Pour cela, il utilisera la commande <em>passwd</em>, qui elle même modifiera les fichiers système <em>/etc/passwd</em>. Cependant, ce fichier est propriété de l&rsquo;administrateur et n&rsquo;es modifiable que par lui. Regardons maintenant les permissions de la commande <em>passwd</em> (fichier exécutable situé dans &ldquo; <em>/usr/bin/passwd</em> &ldquo;):</p>
+
+<pre><code>$ ls -l /usr/bin/passwd
+-rwSr-xr-x 1 root root 54256 mars  29  2016 /usr/bin/passwd
+</code></pre>
+
+<p>Vous remarquerez le nouveau caractère <strong>s</strong> : il s&rsquo;agit du SUID. Quand cette permission est mise sur un fichier, n&rsquo;importe quel utilisateur exécutant ce fichier sera considéré comme son propriétaire, dans notre exemple l&rsquo;administrateur (<em>root</em>). Sans ce droit spécial, il serait impossible à un utilisateur de changer son mot de passe sans passer par le compte administrateur.</p>
+
+<p>Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>4</em> :</p>
+
+<pre><code>$ ls -l
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod u+s test.txt
+-rwSrw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod u-s test.txt
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod 4755 test.txt 
+-rwsr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
+</code></pre>
+
+<p>De la même manière, il est possible d&rsquo;autoriser l&rsquo;exécution d&rsquo;une commande en étant considéré comme appartenant au groupe propriétaire du fichier, et cela par l&rsquo;intermédiaire de la permission <strong>Set Group ID (SGID)</strong>. Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>2</em> :</p>
+
+<pre><code>$ ls -l
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod g+s test.txt
+-rw-rwSr--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod g-s test.txt
+-rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod 2555 test.txt 
+-r-xr-sr-x  1 julien julien    0 avril 18 16:06 test.txt
+</code></pre>
+
+<!-- 
+
+7. Process Permissions
+
+Let's segue into process permissions for a bit, remember how I told you that when you run the passwd command with the SUID permission bit enabled you will run the program as root? That is true, however does that mean since you are temporarily root you can modify other user's passwords? Nope fortunately not!
+
+This is because of the many UIDs that Linux implements. There are three UIDS associated with every process:
+
+When you launch a process, it runs with the same permissions as the user or group that ran it, this is known as an effective user ID. This UID is used to grant access rights to a process. So naturally if Bob ran the touch command, the process would run as him and any files he created would be under his ownership.
+
+There is another UID, called the real user ID this is the ID of the user that launched the process. These are used to track down who the user who launched the process is.
+
+One last UID is the saved user ID, this allows a process to switch between the effective UID and real UID, vice versa. This is useful because we don't want our process to run with elevated privileges all the time, it's just good practice to use special privileges at specific times.
+
+Now let's piece these all together by looking at the passwd command once more.
+
+When running the passwd command, your effective UID is your user ID, let's say its 500 for now. Oh but wait, remember the passwd command has the SUID permission enabled. So when you run it, your effective UID is now 0 (0 is the UID of root). Now this program can access files as root.
+
+Let's say you get a little taste of power and you want to modify Sally's password, Sally has a UID of 600. Well you'll be out of luck, fortunately the process also has your real UID in this case 500. It knows that your UID is 500 and therefore you can't modify the password of UID of 600. (This of course is always bypassed if you are a superuser on a machine and can control and change everything).
+
+Since you ran passwd, it will start the process off using your real UID, and it will save the UID of the owner of the file (effective UID), so you can switch between the two. No need to modify all files with root access if it's not required.
+
+Most of the time the real UID and the effective UID are the same, but in such cases as the passwd command they will change.
+
+ -->
+
+<h2 id="le-sticky-bit">Le &ldquo;Sticky bit&rdquo;</h2>
+
+<p>Parlons maintenant d&rsquo;une dernière permissions spéciale: le &ldquo;sticky bit&rdquo;. Il est possible de rendre un fichier destructible seulement par son propriétaire et l&rsquo;administrateur, et ce quelles que soient les permissions sur ce fichier. Prenons l&rsquo;exemple du répertoire &ldquo; <em>/tmp</em> &ldquo; (l&rsquo;option <em>-d</em> de <em>ls</em> permet de lister les répertoires, et non leur contenu):</p>
+
+<pre><code>$ ls -ld /tmp
+drwxrwxrwt 13 root root 135168 avril 19 14:19 /tmp
+</code></pre>
+
+<p>Vous remarquerez que le dernier caractère des droits est à <strong>t</strong>. C&rsquo;est le fameur &ldquo;<strong>sticky bit</strong>&rdquo;. Ce dossier ne peut donc être supprimé que par l&rsquo;administrateur, tout en étant modifiable par tous.</p>
+
+<p>Comme pour les SUID et SGID, le &ldquo;sticky bit&rdquo; peut être affecté de manière symbolique avec <strong>t</strong> ou de manière numérique en précédent les droits d&rsquo;un <strong>1</strong> :</p>
+
+<pre><code>$ ls -l
+-rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod 1755 test.txt
+$ ls -l
+-rwxr-xr-t  1 julien julien    0 avril 18 16:06 test.txt
+
+$ sudo chmod -t test.txt
+$ ls -l
+-rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
+</code></pre>
+
+<h1 id="recherches-par-utilisateurs-et-permissions">Recherches par utilisateurs et permissions</h1>
+
+<p>Je vous ai montré dans <a href="https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence">un précédent article</a> comment lister et trouver les fichiers dans le système, en proposant quelques filtres possibles. En voici quelques autres permettent de filtrer en fonction des utilisateurs, groupes et permissions :</p>
+
+<ul>
+<li><strong>find -user <em>u</em></strong> : Liste les fichiers appartenant à l&rsquo;utilisateur <em>u</em>.</li>
+<li><strong>find -group <em>g</em></strong> : Liste les fichiers appartenant au groupe <em>g</em>.</li>
+<li><strong>find -perm</strong> : Liste les fichiers selon leurs permissions:
+
+<ul>
+<li><strong>-perm <em>p</em></strong> : ne liste que les fichiers dont les permissions sont exactement <em>p</em>.</li>
+<li><strong>-perm <em>-p</em></strong> : liste les fichiers dont les permissions sont au moins <em>p</em>.</li>
+<li><strong>-perm <em>/p</em></strong> : liste les fichiers dont au moins un des droits de <em>p</em> est setté.</li>
+</ul></li>
+</ul>
+
+<p>Et en pratique, cela nous donne :</p>
+
+<pre><code>$ ls -l
+-rw-r--r--  1 root    root     0 avril 18 16:11 supertest.txt
+-rw-r--rw-  1 calvin  humains  0 avril 18 16:07 testbis.txt
+-rw-rw-r--  1 hobbes  tigres   0 avril 18 16:14 testTer.txt
+-rw-rw-r--  1 hobbes  tigres   0 avril 18 16:06 test.txt
+
+$ find . -user hobbes
+./testTer.txt
+./test.txt
+
+$ find . -group humains
+./testbis.txt
+
+$ find . -perm 664
+./testTer.txt
+./test.txt
+</code></pre>
+
+<!--
+Ref : https://linuxjourney.com/lesson/file-permissions
 -->
 
-<!-- # Et les certifications dans tout ça?
-Pour mettre en avant ses compétences, les certifications restent un instrument de choix. Cependant, autant Microsoft propose des certifications claires et reconnues pour ses systèmes Windows, Autant pour Linux les choses sont moins claires.
+<!-- sudo -->
 
-La fondation Linux a même lancé un programme destiné à former des ingénieurs et administrateurs système sur le système Linux, ainsi que des certifications reconnues dans ce domaine, les LFCS & LFCE (Linux Foundation Certified Sysadmin & Engineer).
- -->
+<!-- uname -a -->
+
+<!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux -->
+
+<!--   A      B         C                                D                          E      F      G      H      -->
+
+<!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name -->
+
+<!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system -->
+
+<!-- shutdown -->
+
+<!-- logout -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">En témoignent des initiatives comme l&rsquo;<a href="https://www.openmainframeproject.org/">Open Mainframe</a>, soutenue par IBM et Hitachi entre autres.
+<li id="fn:1">À noter que la modification des droits par défaut n&rsquo;est pas persistante (elle ne sera plus valable après redémarrage de l&rsquo;appareil par exemple). Pour l&rsquo;affecter de manière permanente, il faudra modifier le profil de démarrage (fichier <em>.profile</em>), mais j&rsquo;aborderai ce point dans un autre article.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
-<li id="fn:2">Surtout lorsque Linux n&rsquo;est pas bien connu par l&rsquo;interlocuteur en question. On retrouve la plupart du temps en face de soi des responsables n&rsquo;ayant que peu pied dans le technique, ou des &ldquo;experts&rdquo; pas nécessairement à jour avec la technologie.
- <a class="footnote-return" href="#fnref:2">↩</a></li>
-<li id="fn:3">Un consortium à but non lucratif dédié à promouvoir, protéger et standardiser Linux.
- <a class="footnote-return" href="#fnref:3">↩</a></li>
-<li id="fn:4">Outre les deux citées ici, la Fondation Linux propose un catalogue assez vaste de <a href="https://training.linuxfoundation.org/">formations</a> en ligne sur des sujets aussi variés que l&rsquo;administration des systèmes ou les infrastructures Cloud.
- <a class="footnote-return" href="#fnref:4">↩</a></li>
 </ol>
 </div>
 </div>
@@ -533,7 +689,7 @@ La fondation Linux a même lancé un programme destiné à former des ingénieur
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/01/20/linux-a-25-ans-il-est-temps-de-se-certifier" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>
