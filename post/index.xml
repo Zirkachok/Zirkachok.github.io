@@ -7,8 +7,693 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>fr-fr</language>
     <copyright>Julien Beaudaux. Written in [Go](https://golang.org/), powered by [Hugo](//gohugo.io).</copyright>
-    <lastBuildDate>Tue, 18 Apr 2017 11:05:07 +0200</lastBuildDate>
+    <lastBuildDate>Fri, 16 Jun 2017 14:59:06 +0200</lastBuildDate>
     <atom:link href="https://zirkachok.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>LFCS : Tâches et gestion des ressources</title>
+      <link>https://zirkachok.github.io/2017/06/16/lfcs--t%C3%A2ches-et-gestion-des-ressources</link>
+      <pubDate>Fri, 16 Jun 2017 14:59:06 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/06/16/lfcs--t%C3%A2ches-et-gestion-des-ressources</guid>
+      <description>
+
+&lt;!-- â ê î ô û --&gt;
+
+&lt;p&gt;Aujourd&amp;rsquo;hui, nous allons aborder la question des &lt;em&gt;tâches&lt;/em&gt; dans un environnement Linux, leur rôle et fonctionnement, ainsi que la manière dont il est possible de les gérer. De manière générale, plusieurs termes sont utilisés pour désigner une &lt;em&gt;tâche&lt;/em&gt; réalisée par le système d&amp;rsquo;exploitation. On parler parfois de &lt;em&gt;tâche&lt;/em&gt;, de &lt;em&gt;job&lt;/em&gt;, de &lt;em&gt;processus&lt;/em&gt;, ou encore de &lt;em&gt;thread&lt;/em&gt;, mais la différence entre ces désignations n&amp;rsquo;est pas toujours évidente. Essayons d&amp;rsquo;y voir plus clair, en les passant en revue une à une.&lt;/p&gt;
+
+&lt;h1 id=&#34;quel-est-le-rôle-du-noyau-linux&#34;&gt;Quel est le rôle du noyau Linux ?&lt;/h1&gt;
+
+&lt;p&gt;Commencons par expliquer comment fonctionne un système d&amp;rsquo;exploitation. Un &lt;strong&gt;système d&amp;rsquo;exploitation&lt;/strong&gt; (ou &lt;strong&gt;OS&lt;/strong&gt; pour &lt;em&gt;Operating System&lt;/em&gt;), le &lt;strong&gt;noyau Linux&lt;/strong&gt; dans notre cas, est un programme chargé de gérer l&amp;rsquo;utilisation des ressources (processeur/CPU, mémoire, RAM, etc.) d&amp;rsquo;un matériel informatique&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Il fournit également des services aux autres programmes pour s&amp;rsquo;interfacer avec le matériel&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; ou communiquer entre eux.&lt;/p&gt;
+
+&lt;p&gt;L&amp;rsquo;OS partage les ressources disponibles entre les différentes tâches à exécuter, afin que différents codes puissent être exécutés en &amp;ldquo;simultané&amp;rdquo;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;, c&amp;rsquo;est ce que l&amp;rsquo;on appelle l&amp;rsquo;&lt;strong&gt;ordonnancement de tâches&lt;/strong&gt; (ou &lt;em&gt;task scheduling&lt;/em&gt;). Ces tâches peuvent être de deux formes : les &lt;strong&gt;processus&lt;/strong&gt; (&lt;em&gt;process&lt;/em&gt; en anglais) et les &lt;strong&gt;threads&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&#34;les-processus&#34;&gt;Les processus&lt;/h2&gt;
+
+&lt;p&gt;Un &lt;strong&gt;processus&lt;/strong&gt; est un exécutable qui a accès à un partie de la mémoire qui lui est réservée. Cette mémoire contient les instructions à exécuter (le code) et les données utilisées par le programme pour fonctionner. Ces données sont elles-même divisées en deux sous-ensembles : la &lt;strong&gt;pile&lt;/strong&gt; (ou &lt;em&gt;stack&lt;/em&gt;) et le &lt;strong&gt;tas&lt;/strong&gt; (ou &lt;em&gt;heap&lt;/em&gt;). La &lt;strong&gt;pile&lt;/strong&gt; est la zone mémoire où sont stockées les variables locales et les adresses de retour des fonctions du code exécuté, alors que le &lt;strong&gt;tas&lt;/strong&gt; conserve en vrac tout le reste de la mémoire allouée par le programme.&lt;/p&gt;
+
+&lt;p&gt;Le noyau conserve les adresses des différentes zones mémoire de chaque processus en cours d&amp;rsquo;exécution, ainsi que leurs fichiers ouverts, son identifiant unique, etc. Ces informations sont listées dans le répertoire &lt;strong&gt;/proc&lt;/strong&gt;, qui contient un sous-répertoire pour chaque processus (le processus &lt;em&gt;1&lt;/em&gt; étant celui lancé par le noyau Linux au démarrage). Le plan d&amp;rsquo;adressage (ou &lt;em&gt;mapping&lt;/em&gt;) est lui contenu dans le fichier &lt;strong&gt;maps&lt;/strong&gt; de chaque processus.&lt;/p&gt;
+
+&lt;p&gt;Un processus a aussi une &lt;strong&gt;priorité&lt;/strong&gt; qui lui est propre. Plus le processus est prioritaire, plus l&amp;rsquo;OS lui fournira de ressource processeur (de cycle processeur) lors de l&amp;rsquo;ordonnancement des tâches.&lt;/p&gt;
+
+&lt;h2 id=&#34;les-threads&#34;&gt;Les threads&lt;/h2&gt;
+
+&lt;p&gt;Les processus sont relativement peu flexibles, car ils ont besoin qu&amp;rsquo;une partie de la mémoire leur soit dédiée en permanence et doivent passer par le système d&amp;rsquo;exploitation pour communiquer entre eux. C&amp;rsquo;est là que les &lt;strong&gt;threads&lt;/strong&gt; entrent en jeu. Un &lt;em&gt;thread&lt;/em&gt; est en quelque sorte un sous-ensemble de processus, il partage la même mémoire et les mêmes fichiers que le processus correspondant, mais exécute un code différent, là encore en simultané du processus et des autres &lt;em&gt;threads&lt;/em&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Pour le noyau Linux, un &lt;em&gt;thread&lt;/em&gt; partage donc les zones mémoire du processus auquel il est affilié, mais il s&amp;rsquo;agira d&amp;rsquo;une nouvelle entrée pour l&amp;rsquo;ordonnanceur de tâches.&lt;/p&gt;
+
+&lt;p&gt;Souvent on emploie également les termes de &lt;strong&gt;tâches&lt;/strong&gt; et de &lt;strong&gt;job&lt;/strong&gt;. Une tâche désigne le plus souvent l&amp;rsquo;action réalisée par un processus ou un &lt;em&gt;thread&lt;/em&gt;, alors qu&amp;rsquo;un &lt;strong&gt;job&lt;/strong&gt; désigne en général l&amp;rsquo;action réalisée par un ou plusieurs processus (un navigateur Internet par exemple, qui utilise plusieurs processus, peut être vu comme un &lt;em&gt;job&lt;/em&gt;). Cependant, ces deux termes ne sont pas formellement définis (contrairement aux processus et &lt;em&gt;threads&lt;/em&gt;), et leur signification peut donc varier.&lt;/p&gt;
+
+&lt;!-- Le problème d&#39;un processus c&#39;est que c&#39;est un peu lourd, cela implique des recopies de mémoire et surtout cela implique de passer par le système pour communiquer avec d&#39;autre processus. Il existe donc un autre concept nommé thread.
+
+Un thread, c&#39;est un découpage d&#39;un processus. Cela veut dire qu&#39;il utilise exactement la même mémoire qu&#39;un processus, ainsi que les mêmes descripteurs de fichiers. Ce qui diffère d&#39;un thread à l&#39;autre ce sont uniquement les pointeurs d&#39;exécution et de pile. ce qui veut dire que 2 threads peuvent exécuter des bouts de code différents d&#39;un même exécutable et avoir des variables locales différentes de celles des autres threads du processus.
+
+Du point de vue du noyau un thread est donc uniquement caractérisé par l&#39;état du processeur spécifiquement à l&#39;intérieur d&#39;un processus. Pour créer un nouveau thread, un thread existant (oeuf ou poule, un processus est déjà un thread) va appeler la fonction pthread_create() qui duplique la pile du thread existant et qui duplique l&#39;état du processeur. Le scheduler du noyau va donc voir une nouvelle entrée. --&gt;
+
+&lt;h1 id=&#34;gérer-les-processus&#34;&gt;Gérer les processus&lt;/h1&gt;
+
+&lt;h2 id=&#34;lister-les-processus&#34;&gt;Lister les processus&lt;/h2&gt;
+
+&lt;p&gt;Sous linux, de nombreuses commandes permettent d&amp;rsquo;obtenir des informations sur les processus en cours d&amp;rsquo;exécution. Comme nous l&amp;rsquo;avons vu plus haut, chaque processus a un identifiant unique, et un dossier qui lui est propre dans le répertoire &lt;strong&gt;/proc&lt;/strong&gt;. Ce dossier contient en particulier les fichiers &lt;strong&gt;maps&lt;/strong&gt; et &lt;strong&gt;map_files&lt;/strong&gt;, contenant respectivement le plan d&amp;rsquo;adressage mémoire et les descripteurs de fichiers ouverts par le processus.&lt;/p&gt;
+
+&lt;p&gt;Il est donc possible de lister les processus en cours d&amp;rsquo;exécution (ou &lt;em&gt;actifs&lt;/em&gt;) en listant les répertoires dans &lt;em&gt;/proc&lt;/em&gt;. Mais il existe aussi une commande pour cela : &lt;strong&gt;ps&lt;/strong&gt;. Par défaut &lt;em&gt;ps&lt;/em&gt; affiche les processus actifs sur le terminal courant, mais des options la rendent bien plus puissante :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;-x&lt;/strong&gt; : retourne tous les processus actifs de l&amp;rsquo;utilisateur courant&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-ax&lt;/strong&gt; : retourne tous les processus actifs pour tous les utilisateurs&lt;/li&gt;
+&lt;li&gt;** -p PID** : retourne le processus actif dont l&amp;rsquo;identifiant unique est &lt;em&gt;PID&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;em&gt;ps&lt;/em&gt; donne également pour chaque processus des informations basiques sur le processus. Avec l&amp;rsquo;option &lt;strong&gt;-u&lt;/strong&gt;, &lt;em&gt;ps&lt;/em&gt; fournit en plus des informations sur l&amp;rsquo;utilisateur possédant le processus, le pourcentage processeur/CPU et mémoire dédié, etc.&lt;/p&gt;
+
+&lt;p&gt;Dans la pratique, cela nous donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ps -aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+...
+zirka     3282  0.0  0.5 490924 21504 ?        Sl   08:27   0:01 /usr/lib/x86_64-linux-gnu/xfce4/panel-plugins/xfce4-xkb-plugin  8 6291499 xkb-plugin Dispositions du clavier Gre
+zirka     3292  0.0  0.1 287132  4748 ?        Sl   08:27   0:00 /usr/lib/gvfs/gvfs-udisks2-volume-monitor
+root      3295  0.0  0.2 367848  8516 ?        Ssl  08:27   0:00 /usr/lib/udisks2/udisksd --no-debug
+zirka     3303  0.0  0.0 259036  2724 ?        Sl   08:27   0:00 /usr/lib/gvfs/gvfs-goa-volume-monitor
+zirka     3308  0.0  0.1 405112  4900 ?        Sl   08:27   0:00 /usr/lib/gvfs/gvfs-afc-volume-monitor
+...
+
+$ sudo ls /proc
+1   10   10220   11   ...   3282   3292   3295   3303   3308   ... 
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;identifier-l-utilisation-des-ressources-par-processus&#34;&gt;Identifier l’utilisation des ressources par processus&lt;/h2&gt;
+
+&lt;p&gt;Nous l&amp;rsquo;avons vu, la commande &lt;em&gt;ps&lt;/em&gt; peut indiquer le pourcentage CPU et mémoire dédié à chaque processus. Cependant, il existe des commandes bien plus efficaces et détaillées pour le faire : &lt;strong&gt;top&lt;/strong&gt; et sa variante interractive &lt;strong&gt;htop&lt;/strong&gt;. Ces commandes retournent l&amp;rsquo;ensemble des processus actifs avec leur utilisateur, priorité, utilisation CPU et mémoire et la commande associée, entre autres. &lt;em&gt;top&lt;/em&gt; et &lt;em&gt;htop&lt;/em&gt; affichent aussi les ressources totales disponibles. Chacune de ces commandes reste ouverte et rafraîchit les informations affichées en continu, jusqu&amp;rsquo;à ce que la touche &lt;em&gt;q&lt;/em&gt; soit pressée. De manière plus spécifique, la commande &lt;strong&gt;vmstat&lt;/strong&gt; permet aussi de monitorer l&amp;rsquo;utilisation de la mémoire virtuelle.&lt;/p&gt;
+
+&lt;h2 id=&#34;changer-la-priorité-d-un-processus&#34;&gt;Changer la priorité d&amp;rsquo;un processus&lt;/h2&gt;
+
+&lt;p&gt;L&amp;rsquo;ordonnanceur de tâches est chargé de gérer les processus, en leur allouant plus ou moins de cycles processeur/CPU en fonction de leur priorité (il s&amp;rsquo;agit du champs &lt;em&gt;time&lt;/em&gt; de la commande &lt;em&gt;top&lt;/em&gt;). Il est facile de faire l&amp;rsquo;analogie entre l&amp;rsquo;ordonnanceur et nous-même lorsque nous planifions nos activités. Parfois, il nous est possible de mener de front plusieurs tâches, et parfois une seule d&amp;rsquo;entre elle nécessite notre attention complète.&lt;/p&gt;
+
+&lt;p&gt;Il est possible de donner des consignes au noyau Linux pour ordonnancer les processus le plus efficacement en fonction des besoins. Cela se fait via un paramètre appelé &lt;strong&gt;valeur nice&lt;/strong&gt; ou &lt;strong&gt;priorité&lt;/strong&gt; (voir le champ &lt;em&gt;PR&lt;/em&gt; de &lt;em&gt;top&lt;/em&gt;)&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:5&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:5&#34;&gt;5&lt;/a&gt;&lt;/sup&gt;, allant de -20 à +19 et avec 0 la valeur par défaut. Plus un processus est prioritaire, plus sa &lt;em&gt;valeur nice&lt;/em&gt; sera faible, et plus il bénéficiera de ressources CPU lorsque nécessaire. En ajustant cette valeur, il est donc possible d&amp;rsquo;agir sur les ressources allouées à des processus particuliers (limiter la priorité d&amp;rsquo;un processus gourmand et non-essentiel, par exemple). Pour cela, il existe deux commandes : &lt;em&gt;nice&lt;/em&gt; et &lt;em&gt;renice&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;La commande &lt;strong&gt;nice -n PRIO CMD&lt;/strong&gt; permet d&amp;rsquo;exécuter une commande &lt;em&gt;CMD&lt;/em&gt; avec une priorité &lt;em&gt;PRIO&lt;/em&gt; donnée. De la même manière, la commande &lt;strong&gt;renice PRIO -p PID&lt;/strong&gt; permet de changer la priorité du processus &lt;em&gt;PID&lt;/em&gt; en lui attribuant la valeur &lt;em&gt;PRIO&lt;/em&gt;. Enfin, il est possible de changer la priorité par défaut des processus lancés par un utilisateur ou groupe spécifique, en modifiant le fichier &lt;strong&gt;/etc/security/limits.conf&lt;/strong&gt;, comme expliqué dans &lt;a href=&#34;https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me&#34;&gt;mon article sur les limitations de ressources&lt;/a&gt;&lt;/p&gt;
+
+&lt;h1 id=&#34;pour-aller-plus-loin&#34;&gt;Pour aller plus loin&amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;Voici mes inspirations ayant mené à cet article. Vous y trouverez des ressources vous permettant d&amp;rsquo;aller plus loin sur le sujet.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;http://linux-attitude.fr/post/processus-et-threads&#34;&gt;Un article très détaillé sur le fonctionnement des processus et threads&lt;/a&gt; (FR)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://stackoverflow.com/questions/3073948/job-task-and-process-whats-the-difference&#34;&gt;Une question/réponse relative aux processus, threads, jobs et tâches&lt;/a&gt; (EN)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.octetmalin.net/linux/tutoriels/ps-connaitre-afficher-processus-actifs-a-un-moment-donne-instant-en-ligne-de-commande.php&#34;&gt;Des informations détaillées sur la commande ps&lt;/a&gt; (FR)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.nixtutor.com/linux/changing-priority-on-linux-processes/&#34;&gt;Un article sur le changement de priorité de processus&lt;/a&gt; (EN)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.cyberciti.biz/tips/linux-resource-utilization-to-detect-system-bottlenecks.html&#34;&gt;Un article complet sur vmstat&lt;/a&gt; (EN)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 
+https://unix.stackexchange.com/questions/4999/how-to-find-which-processes-are-taking-all-the-memory
+https://www.cyberciti.biz/tips/linux-resource-utilization-to-detect-system-bottlenecks.html
+ --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;En général il s&amp;rsquo;agit d&amp;rsquo;un ordinateur, mais en &lt;em&gt;informatique embarquée&lt;/em&gt; il peut s&amp;rsquo;agir d&amp;rsquo;une carte électronique seule, par exemple.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Typiquement, ces services permettent de s&amp;rsquo;attribuer des ressources. On y trouve par exemple des fonctions de création de &lt;em&gt;threads&lt;/em&gt; et &lt;em&gt;processus&lt;/em&gt;, d&amp;rsquo;allocation mémoire, d&amp;rsquo;entrée/sortie (I/O pour Input/Output) etc.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;En fait, les programmes sont exécutés chacun à leur tour, mais le passage d&amp;rsquo;une tâche à l&amp;rsquo;autre est tellement rapide et fréquent que cela donne l&amp;rsquo;impression qu&amp;rsquo;ils le sont en simultané. Lorsque des tâches sont exécutées sur deux matériels différents (et ne partagent donc pas les ressources processeur), on parle de &lt;strong&gt;parallélisme&lt;/strong&gt;.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;En somme, les pointeurs d&amp;rsquo;exécution et de pile sont différents pour chaque thread et leur processus.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;La &lt;em&gt;valeur nice&lt;/em&gt; et la &lt;em&gt;priorité&lt;/em&gt; d&amp;rsquo;un processus sont liés mais ne désignent pas exactement la même chose. Cependant ici nous considèrerons que si, par volonté de simplification.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:5&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : Programmer des tâches</title>
+      <link>https://zirkachok.github.io/2017/06/15/lfcs--programmer-des-t%C3%A2ches</link>
+      <pubDate>Thu, 15 Jun 2017 08:50:34 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/06/15/lfcs--programmer-des-t%C3%A2ches</guid>
+      <description>
+
+&lt;!-- â ê î ô û --&gt;
+
+&lt;!-- é è ù à --&gt;
+
+&lt;p&gt;Lorsque l&amp;rsquo;on administre un système Linux, il est souvent nécessaire d&amp;rsquo;effectuer certaines tâches régulièrement. Pour n&amp;rsquo;en citer que quelques unes, il peut s&amp;rsquo;agir d&amp;rsquo;un backup régulier du système (voir en complément &lt;a href=&#34;https://zirkachok.github.io/2017/06/06/lfcs--archivage-et-compression&#34;&gt;mon article sur l&amp;rsquo;archivage&lt;/a&gt;), de maintenance (recherche de mises-à-jour), etc. Bien sûr, il est bien plus pratique d&amp;rsquo;automatiser ces tâches plutôt que de les effectuer manuellement. Sous Linux, il est facile de le faire, en programmant des tâches spécifiques pour s&amp;rsquo;exécuter à une date/heure donnée, et la commande qui va nous le permettre est &lt;strong&gt;cron&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h1 id=&#34;programmer-une-tâche-avec-cron&#34;&gt;Programmer une tâche avec &lt;em&gt;cron&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;&lt;strong&gt;cron&lt;/strong&gt; est un &lt;strong&gt;démon&lt;/strong&gt; (ou &lt;em&gt;daemon&lt;/em&gt;), c&amp;rsquo;est à dire une tâche exécutée en arrière plan (ou &lt;em&gt;background&lt;/em&gt;), qui va vérifier régulièrement la date/heure du système et lancer si nécessaire des tâches préprogrammées (appelées &lt;strong&gt;crontab&lt;/strong&gt;) contenues dans le fichier &lt;strong&gt;/etc/crontab&lt;/strong&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;Comme souvent, il est préférable de ne pas modifier ce fichier directement, mais plutôt d&amp;rsquo;utiliser la commande &lt;strong&gt;crontab -e&lt;/strong&gt;, qui le fera sans risque de mauvais formatage. Une tâche &lt;em&gt;cron&lt;/em&gt; se décrit donc en une ligne dans le fichier &lt;em&gt;/etc/crontab&lt;/em&gt;. Chaque ligne comprends 5 paramètres (chacun séparé par un espace ou une tabulation) : les minute, heure, jour du mois, mois et jour de la semaine (date/heure d&amp;rsquo;exécution de la tâche), ainsi que la commande à exécuter&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;. Dans la date/heure, un symbole &lt;strong&gt;*&lt;/strong&gt; permet de dire &amp;ldquo;tous&amp;rdquo; (tous les jours, tous les mois, etc.).&lt;/p&gt;
+
+&lt;p&gt;La commande &lt;em&gt;crontab&lt;/em&gt; peut aussi prendre d&amp;rsquo;autres options, notamment :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;-l&lt;/strong&gt; : Retourne la liste des tâches programmées&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-r&lt;/strong&gt; : Supprime la &lt;em&gt;crontab&lt;/em&gt; en cours&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-u&lt;/strong&gt; : Spécifie l&amp;rsquo;utilisateur dont les &lt;em&gt;crontab&lt;/em&gt; seront utilisées/modifiées&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-i&lt;/strong&gt; : Active une demande de confirmation avant de supprimer une &lt;em&gt;crontab&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Voyons par exemple comment programmer une tâche tous les 6 du mois à 6h25, et permettant d&amp;rsquo;archiver le répertoire &lt;em&gt;/home&lt;/em&gt; :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ crontab -l
+no crontab for zirka
+
+$ crontab -e
+25 6 1 * * tar -cf /tmp/backup.tar /home
+
+no crontab for zirka - using an empty one
+crontab: installing new crontab
+
+$ crontab -l
+25 6 1 * * tar -cf /tmp/backup.tar /home
+
+$ crontab -r
+$ crontab -l
+no crontab for zirka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Lors de la création d&amp;rsquo;une tâche &lt;em&gt;cron&lt;/em&gt;, il est aussi possible de remplacer les champs de date/heure par ces raccourcis :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;@reboot&lt;/strong&gt; : Effectue la tâche en question à chaque redémarrage du système&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@yearly&lt;/strong&gt; : Effectue la tâche en question tous les ans (équivalant à 0 0 1 1 *)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@monthly&lt;/strong&gt; : Effectue la tâche en question tous les mois (équivalant à 0 0 1 * *)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@daily&lt;/strong&gt; : Effectue la tâche en question tous les jours (équivalant à 0 0 * * *)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@hourly&lt;/strong&gt; : Effectue la tâche en question tous les mois (équivalant à 0 * * * *)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;@weekly&lt;/strong&gt;, &lt;strong&gt;@midnight&lt;/strong&gt;, &amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;vérifier-la-complétion-de-tâches&#34;&gt;Vérifier la complétion de tâches&lt;/h1&gt;
+
+&lt;p&gt;Lorsqu&amp;rsquo;une tâche est exécutée automatiquement, &lt;em&gt;cron&lt;/em&gt; écrit un ou plusieurs &lt;em&gt;logs&lt;/em&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt; pour le signaler. Ces logs sont écrits par défaut dans le fichier &lt;strong&gt;/var/log&lt;/strong&gt; ou /var/log/syslog&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt;. Par défaut, &lt;em&gt;cron&lt;/em&gt; n&amp;rsquo;enregistre que le début d&amp;rsquo;exécution des tâches (i.e. le fait qu&amp;rsquo;elles aient été lancées), mais il est possible d&amp;rsquo;indiquer à la commande &lt;em&gt;cron&lt;/em&gt; de logguer plus ou moins de choses. Pour cela, il suffit de l&amp;rsquo;appeler avec l&amp;rsquo;option &lt;strong&gt;-L&lt;/strong&gt; suivie d&amp;rsquo;une somme des valeurs suivantes (en fonctions des logs que nous voulons voir apparaitre) :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;1&lt;/strong&gt; : log le début d&amp;rsquo;exécution de toute tâche &lt;em&gt;cron&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;2&lt;/strong&gt; : log la fin d&amp;rsquo;exécution de toute tâche &lt;em&gt;cron&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;4&lt;/strong&gt; : log toute tâche &lt;em&gt;cron&lt;/em&gt; ayant échoué&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;8&lt;/strong&gt; : log l&amp;rsquo;identifiant du processus&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:5&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:5&#34;&gt;5&lt;/a&gt;&lt;/sup&gt; de toute tâche &lt;em&gt;cron&lt;/em&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Pour activer ces niveaux de logs, il suffit de modifier le fichier &lt;strong&gt;/etc/init/cron.conf&lt;/strong&gt;, qui régit l&amp;rsquo;initialisation de &lt;em&gt;cron&lt;/em&gt; lors du démarrage du système. Remplacez ainsi &lt;em&gt;exec cron&lt;/em&gt; par &lt;em&gt;exec cron -L 7&lt;/em&gt; par exemple.&lt;/p&gt;
+
+&lt;p&gt;Pour nous faire une idée du fonctionnement des logs, programmons une tâche toutes les heures, qui ajoute une ligne à un fichier temporaire :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ crontab -l
+no crontab for zirka
+
+$ crontab -e
+@hourly echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt
+
+$ crontab -l
+@hourly echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Après quelques heures, regardons les logs :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ cat /tmp/test.txt
+Test en cours
+Test en cours
+Test en cours
+Test en cours
+Test en cours
+
+$ cat /var/log/syslog | grep -i &amp;quot;cron&amp;quot;
+Jun 16 08:58:51 Epinet crontab[22604]: (zirka) LIST (zirka)
+Jun 16 08:49:54 Epinet crontab[21967]: (zirka) BEGIN EDIT (zirka)
+Jun 16 08:50:10 Epinet crontab[21967]: (zirka) REPLACE (zirka)
+Jun 16 08:50:10 Epinet crontab[21967]: (zirka) END EDIT (zirka)
+Jun 16 08:58:51 Epinet crontab[22604]: (zirka) LIST (zirka)
+Jun 16 09:00:01 Epinet CRON[22702]: (zirka) CMD (echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt)
+Jun 16 10:00:01 Epinet CRON[27080]: (zirka) CMD (echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt)
+Jun 16 11:00:01 Epinet CRON[31111]: (zirka) CMD (echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt)
+Jun 16 12:00:01 Epinet CRON[2688]: (zirka) CMD (echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt)
+Jun 16 13:00:01 Epinet CRON[7165]: (zirka) CMD (echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt)
+
+$ crontab -l
+@hourly echo &amp;quot;Test en cours&amp;quot; &amp;gt;&amp;gt; /tmp/test.txt
+
+$ crontab -r
+
+$ crontab -l
+no crontab for zirka
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;pour-aller-plus-loin&#34;&gt;Pour aller plus loin&amp;hellip;&lt;/h1&gt;
+
+&lt;p&gt;Voici mes inspirations ayant mené à cet article. Vous y trouverez des ressources vous permettant d&amp;rsquo;aller plus loin sur le sujet.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://doc.ubuntu-fr.org/cron&#34;&gt;Un article d&amp;rsquo;Ubuntu-fr sur le sujet&lt;/a&gt; (FR)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.thegeekstuff.com/2009/06/15-practical-crontab-examples/&#34;&gt;Une liste d&amp;rsquo;exemples&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://bencane.com/2011/11/02/did-my-cronjob-run/&#34;&gt;Un article sur la vérification&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Pour les systèmes basés sur &lt;em&gt;Debian&lt;/em&gt; (&lt;em&gt;Ubuntu&lt;/em&gt; par exemple), des sous-fichiers /etc/cron.daily, /etc/cron.weekly et /etc/cron.monthly sont gérés par le système, mais cela n&amp;rsquo;a pas d&amp;rsquo;impact majeur sur la manière de programmer des tâches.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Lors de l&amp;rsquo;écriture directe du fichier &lt;em&gt;/etc/crontab&lt;/em&gt;, un champs s&amp;rsquo;ajoute entre la date/heure et la commande : l&amp;rsquo;utilisateur. Avec la commande &lt;em&gt;crontab&lt;/em&gt;, l&amp;rsquo;utilisateur en cours sera choisi par défaut.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;Un &lt;a href=&#34;https://en.wikipedia.org/wiki/Logfile&#34;&gt;&lt;em&gt;log&lt;/em&gt;&lt;/a&gt; est un événement enregistré par le système pour historisation.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;Nous verrons plus en détail dans un prochain article comment analyser les logs système.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:5&#34;&gt;Nous aborderons la question des processus et threads dans un prochain article.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:5&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : Limiter les ressources système</title>
+      <link>https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me</link>
+      <pubDate>Wed, 14 Jun 2017 13:31:54 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me</guid>
+      <description>
+
+&lt;!-- â ê î ô û --&gt;
+
+&lt;!-- é è ù à --&gt;
+
+&lt;p&gt;Nous avons déjà vu comment limiter, pour chaque système de fichier, le volume de données et le nombre de fichiers qu&amp;rsquo;un utilisateur ou groupe a à sa disposition. Aujourd&amp;rsquo;hui, nous allons explorer un peu plus la question en limitant cette fois-ci les ressources système disponibles pour un utilisateur.&lt;/p&gt;
+
+&lt;p&gt;L&amp;rsquo;utilisation de ces ressources, telles que la taille maximale des fichiers, le nombre maximal de fichiers ouverts, le nombre de processus, etc., sont autant de failles courantes dans les systèmes multi-utilisateurs. Imaginons un tel système sans limites : Tout utilisateur peut alors créer des processus à l&amp;rsquo;infini&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;, ouvrir autant de fichiers que possible, etc., rendant de fait le système inutilisable. Il est donc essentiel par sécurité d&amp;rsquo;introduire des limites strictes à ce niveau, comme pour les quotas d&amp;rsquo;utilisation disque.&lt;/p&gt;
+
+&lt;p&gt;Linux permet d&amp;rsquo;y parvenir facilement, via le fichier &lt;strong&gt;/etc/security/limits.conf&lt;/strong&gt;. Ce fichier est chargé à l&amp;rsquo;ouverture d&amp;rsquo;une session dans le système par &lt;em&gt;PAM&lt;/em&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;, et définit l&amp;rsquo;ensemble des limites apposées pour un grand nombre de paramètres système, à chaque utilisateur. Pour changer ces paramètres, plutôt que d&amp;rsquo;écrire directement dans le fichier, nous utiliserons la commande &lt;strong&gt;ulimit&lt;/strong&gt; avec les options suivantes (entre autres) :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;-a&lt;/strong&gt; : Affiche les limites pour chaque ressource système concernée&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-f&lt;/strong&gt; : Affiche (si seul) ou fixe (si suivi d&amp;rsquo;un nombre) la &lt;strong&gt;taille maximale d&amp;rsquo;un fichier&lt;/strong&gt; créé&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-n&lt;/strong&gt; : Affiche ou fixe le &lt;strong&gt;nombre maximum de fichiers ouverts&lt;/strong&gt; simultanément&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-t&lt;/strong&gt; : Affiche ou fixe le &lt;strong&gt;temps CPU maximal&lt;/strong&gt; pour un processus (i.e. son utilisation des ressources processeur)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-u&lt;/strong&gt; : Affiche ou fixe le &lt;strong&gt;nombre maximal de processus&lt;/strong&gt; simultanément&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;-v&lt;/strong&gt; : Affiche ou fixe la &lt;strong&gt;quantité maximale de mémoire virtuelle&lt;/strong&gt; disponible pour un processus&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Comme pour les quotas disque, &lt;em&gt;ulimit&lt;/em&gt; gère des limites strictes (&lt;strong&gt;hard limits&lt;/strong&gt;) avec l&amp;rsquo;option &lt;strong&gt;-H&lt;/strong&gt;, et non strictes (&lt;strong&gt;soft limits&lt;/strong&gt;) avec l&amp;rsquo;option &lt;strong&gt;-S&lt;/strong&gt;&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. Sans aucune de ces deux options, les deux types de limites sont motifiées simultanément.&lt;/p&gt;
+
+&lt;p&gt;D&amp;rsquo;autres limites ne sont modifiables qu&amp;rsquo;en écrivant directement dans le fichier &lt;em&gt;/etc/security/limits.conf&lt;/em&gt;. On retrouve entre autres les champs :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;maxlogins : nombre maximal de connections en simultané à chaque utilisateur (le superutilisateur n&amp;rsquo;étant pas concerné)&lt;/li&gt;
+&lt;li&gt;maxsyslogins : nombre maximal d&amp;rsquo;utilisateurs connectés en simultané au système&lt;/li&gt;
+&lt;li&gt;nice : priorité maximale des processus de l’utilisateur&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Le fichier &lt;em&gt;/etc/security/limits.conf&lt;/em&gt; permet aussi une gestion fine des limites, en fonction des utilisateurs et groupes (faire varier les limites en fonction des utilisateurs, par exemple).&lt;/p&gt;
+
+&lt;p&gt;Dans la pratique, cela nous donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ulimit -u
+30353
+
+$ ulimit -u 300
+
+$ ulimit -u
+300
+
+$ ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) 1000000
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 772466
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) 1000000
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 30353
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;pour-aller-plus-loin&#34;&gt;Pour aller plus loin&amp;hellip;&lt;/h2&gt;
+
+&lt;p&gt;Voici mes inspirations ayant mené à cet article. Vous y trouverez des ressources vous permettant d&amp;rsquo;aller plus loin sur le sujet.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;L&amp;rsquo;&lt;a href=&#34;https://ss64.com/bash/ulimit.html&#34;&gt;entrée de manuel&lt;/a&gt; de &lt;em&gt;limits.conf&lt;/em&gt; (&lt;strong&gt;man limits.conf&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://access.redhat.com/solutions/61334&#34;&gt;Documentation Red Hat&lt;/a&gt; (EN)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.admin-linux.fr/controle-des-ressources-systemes-ulimit/&#34;&gt;Un excellent article sur la question&lt;/a&gt; (FR)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.linuxhowtos.org/Tips%20and%20Tricks/ulimit.htm&#34;&gt;Un résumé sur le sujet&lt;/a&gt; (EN)&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.tecmint.com/set-limits-on-user-processes-using-ulimit-in-linux/&#34;&gt;Un bel article de Tecmint&lt;/a&gt; (EN)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;C&amp;rsquo;est ce que l&amp;rsquo;on appelle une &lt;a href=&#34;https://www.admin-linux.fr/?p=7530&#34;&gt;fork bomb&lt;/a&gt;.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Nous aborderons &lt;strong&gt;PAM&lt;/strong&gt; (&lt;em&gt;Pluggable Authentication Modules&lt;/em&gt;) dans un prochain article.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;À noter que la limite stricte doit forcément être supérieure à la limite non-stricte.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : Archivage et compression</title>
+      <link>https://zirkachok.github.io/2017/06/06/lfcs--archivage-et-compression</link>
+      <pubDate>Tue, 06 Jun 2017 11:06:04 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/06/06/lfcs--archivage-et-compression</guid>
+      <description>
+
+&lt;!-- â ê î ô û --&gt;
+
+&lt;!-- é è ù à --&gt;
+
+&lt;p&gt;Aucun système, qu&amp;rsquo;il soit pour un ordinateur personnel ou pour un réseau d&amp;rsquo;entreprise avec de nombreux noeuds et utilisateurs, n&amp;rsquo;est a l&amp;rsquo;abri d&amp;rsquo;une défaillance. Un disque dur peut tomber en panne, le système peut être compromis, un administrateur ou utilisateur peut faire une erreur, etc., et il est alors nécessaire de revenir en arrière, à un point de sauvegarde (&lt;strong&gt;snapshot&lt;/strong&gt;) sûr. Il est donc indispensable de mettre en place des sauvegardes régulières (&lt;strong&gt;backup&lt;/strong&gt;) de l&amp;rsquo;état du système, et d&amp;rsquo;être capable d&amp;rsquo;y basculer le cas échéant (&lt;strong&gt;restore&lt;/strong&gt;). Nous allons donc aujourd&amp;rsquo;hui voir comment archiver simplement et efficacement des données, et comment programmer des &lt;em&gt;backup&lt;/em&gt; réguliers de votre système.&lt;/p&gt;
+
+&lt;p&gt;Les archives peut être vu comme des paquets contenant des fichiers et répertoires, et servent à conserver facilement des données dans un unique fichier. Par défaut, une archive resulte d&amp;rsquo;une simple concaténation des fichiers, avec quelques éventuelles informations sur la hiérarchie des fichiers, leurs droits, etc. Une archive peut cependant aussi être compressée, c&amp;rsquo;est-à-dire qu&amp;rsquo;un algorithme sera appliqué sur les fichiers pour les compresser (i.e. en réduire la taille). Nous allons voir ici les méthodes les plus courantes pour créer une archive, compressée ou non.&lt;/p&gt;
+
+&lt;h1 id=&#34;archiver-avec-cpio&#34;&gt;Archiver avec &lt;em&gt;cpio&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;La commande &lt;strong&gt;cpio&lt;/strong&gt; (pour &lt;em&gt;copy in and out&lt;/em&gt;) date des débuts d&amp;rsquo;UNIX, et était prévue pour la sauvegarde de données sur des bandes magnétiques. Bien que d&amp;rsquo;autres commandes d&amp;rsquo;archivage aient vu le jour, &lt;em&gt;cpio&lt;/em&gt; reste présent dans la quasi-totalité des systèmes UNIX/Linux, notamment du fait de sa légèreté.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;cpio&lt;/em&gt; permet d&amp;rsquo;archiver, extraire et lister le contenu d&amp;rsquo;archives, avec les options suivantes :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;create&lt;/strong&gt; (ou -o) : Crée une archive&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;extract&lt;/strong&gt; (ou -i) : Extrait le contenu d&amp;rsquo;une archive&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;list&lt;/strong&gt; (ou -t) : Liste le contenu d&amp;rsquo;une archive&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Le contenu à archiver peut être spécifié avec l&amp;rsquo;option &lt;strong&gt;-I&lt;/strong&gt; ou une redirection de la ligne de commande, et l&amp;rsquo;archive en sortie peut être spécifiée avec l&amp;rsquo;option &lt;strong&gt;-O&lt;/strong&gt; ou également une redirection. Par l&amp;rsquo;exemple, cela nous donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tree 
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+
+$ find . -depth | cpio -o &amp;gt; test.cpio
+
+$ ls
+config.xml  somewhere   test.cpio
+
+$ cat test.cpio | cpio -t
+somewhere/over/rainbow/high.c
+somewhere/over/rainbow/up.mk
+somewhere/over/rainbow
+somewhere/over
+somewhere
+config.xml
+test.cpio
+.
+13 blocs
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h1 id=&#34;archiver-et-compresser-avec-tar&#34;&gt;Archiver et compresser avec &lt;em&gt;tar&lt;/em&gt;&lt;/h1&gt;
+
+&lt;p&gt;La commande &lt;strong&gt;tar&lt;/strong&gt; permet aussi l&amp;rsquo;archivage, mais est plus récente et plus simple d&amp;rsquo;utilisation que &lt;em&gt;cpio&lt;/em&gt;. Elle gère par défaut des archives du même nom (aussi appelées tarballs), avec les options suivantes :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;create&lt;/strong&gt; ou &lt;strong&gt;-c&lt;/strong&gt; : Permet de créer une nouvelle archive à partir des fichiers donnés en paramètre.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;extract&lt;/strong&gt; ou &lt;strong&gt;-x&lt;/strong&gt; : Permet d&amp;rsquo;extraire le contenu d&amp;rsquo;une archive.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;list&lt;/strong&gt; ou &lt;strong&gt;-t&lt;/strong&gt; : Liste le contenu d&amp;rsquo;une archive.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;&amp;ndash;file ARCH&lt;/strong&gt; ou &lt;strong&gt;-f ARCH&lt;/strong&gt; : Désigne le fichier (archive, device, &amp;hellip;) à utiliser pour réaliser l&amp;rsquo;opération choisie.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Cela nous donne par exemple :&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Archivage&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tree
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+
+$ tar -cf test.tar somewhere
+
+$ tar -tf test.tar
+somewhere/
+somewhere/over/
+somewhere/over/rainbow/
+somewhere/over/rainbow/high.c
+somewhere/over/rainbow/up.mk
+somewhere/over/rainbow/way.c
+
+$ rm -r somewhere
+
+$ tree
+.
+├── config.xml
+└── test.tar
+
+$ tar -xf test.tar
+
+$ tree
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;tar&lt;/em&gt; a aussi d&amp;rsquo;autres atouts dans sa manches, qui rendent son utilisation particulièrement intéressante pour les &lt;em&gt;backup&lt;/em&gt;. Il est par exemple possible :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;de n&amp;rsquo;ajouter que les fichiers plus récents qu&amp;rsquo;une certaine date avec l&amp;rsquo;option &lt;strong&gt;&amp;ndash;newer DATE&lt;/strong&gt; (ou &lt;strong&gt;-N DATE&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;de n&amp;rsquo;ajouter que les fichiers plus récents que ceux contenus dans l&amp;rsquo;archive avec l&amp;rsquo;option &lt;strong&gt;&amp;ndash;update&lt;/strong&gt; (ou &lt;strong&gt;-u&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;d&amp;rsquo;exclure les fichiers dont le nom suit un certain motif avec l&amp;rsquo;option &lt;strong&gt;&amp;ndash;exclude=MOTIF&lt;/strong&gt; ou &lt;strong&gt;-X=MOTIF&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;de compresser les données, par exemple avec l&amp;rsquo;option &lt;strong&gt;&amp;ndash;gzip&lt;/strong&gt; (ou &lt;strong&gt;-z&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;d&amp;rsquo;obtenir les différences entre le contenu de l&amp;rsquo;archive et le contenu sur le disque, avec l&amp;rsquo;option &lt;strong&gt;&amp;ndash;diff&lt;/strong&gt; (ou &lt;strong&gt;-d&lt;/strong&gt;)&lt;/li&gt;
+&lt;li&gt;&amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;archivage-et-backup&#34;&gt;Archivage et backup&lt;/h1&gt;
+
+&lt;p&gt;J&amp;rsquo;ai effleuré la question en introduction, il est donc temps de rentrer dans le vif du sujet : l&amp;rsquo;archivage (ici, avec &lt;em&gt;tar&lt;/em&gt;) est largement utilisé pour effectuer du &lt;em&gt;backup&lt;/em&gt;. Il existe principalement 2 méthodes de backup : le &lt;strong&gt;backup complet&lt;/strong&gt;, où un archivage des données est réalisé régulièrement, le &lt;strong&gt;backup incrémental&lt;/strong&gt;, où seules les différences par rapport au dernier archivage sont conservées. Bien sûr, les &lt;em&gt;backup complets&lt;/em&gt; sont plus faciles à récupérer (pour un backup incrémental, on doit revenir à la dernière archive complète et appliquer un à un les archives incrémentales), mais les &lt;em&gt;backup incrémentaux&lt;/em&gt; sont évidemment plus légers, un juste équilibre des deux est donc souvent la meilleure approche.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;tar&lt;/em&gt; est parfaitement adapté aux &lt;em&gt;backup complets&lt;/em&gt; (avec notamment la compression), mais aussi aux &lt;em&gt;backup incrémentaux&lt;/em&gt; (avec les options &lt;em&gt;newer&lt;/em&gt;, &lt;em&gt;update&lt;/em&gt;, &lt;em&gt;diff&lt;/em&gt;, &amp;hellip;). Il comporte d&amp;rsquo;ailleurs une option spécifique pour ces derniers (utlisée pour l&amp;rsquo;archivage comme pour l&amp;rsquo;extraction) : &lt;strong&gt;&amp;ndash;listed-incremental=SNAP&lt;/strong&gt; (ou &lt;strong&gt;-g SNAP&lt;/strong&gt;), avec &lt;em&gt;SNAP&lt;/em&gt; un fichier de travail pour réaliser cette opération (le même doit être utilisé pour chaque prochain backup incrémental).&lt;/p&gt;
+
+&lt;p&gt;Cela nous donne :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ tree
+├── somewhere
+│   └── over
+│       ├── 
+│       └── rainbow bigfile.txt
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+
+$ ls -al somewhere
+total 204816
+drwxrwxr-x 3 julien julien      4096 juin  13 11:54 .
+drwxrwxr-x 3 julien julien      4096 juin  13 11:54 ..
+-rw-rw-r-- 1 julien julien 209715200 juin  13 11:54 bigfile.txt
+drwxrwxr-x 3 julien julien      4096 juin   7 11:09 over
+
+$ tar --create --file=increm1.tar --listed-incremental=save.list somewhere/
+
+$ ls -al increm1.tar
+-rw-rw-r-- 1 julien julien 209725440 juin  13 11:56 increm1.tar
+
+$ echo &amp;quot;Hello there&amp;quot; &amp;gt; somewhere/over/rainbow/way.c
+
+$ tar --create --file=increm2.tar --listed-incremental=save.list somewhere/
+-rw-rw-r-- 1 julien julien 10240 juin  13 11:58 increm2.tar
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Comme on peut le voir, la première itération de &lt;em&gt;tar&lt;/em&gt; pour notre backup incrémental crée une archive volumineuse, alors que la seconde est extrèmement légère, car peu de contenu a été changé entre temps.&lt;/p&gt;
+
+&lt;p&gt;Nous avons vu un des premiers aspects du &lt;em&gt;backup&lt;/em&gt;, l&amp;rsquo;archivage et l&amp;rsquo;extraction. Reste qu&amp;rsquo;il est fastidieux (et dangereux&amp;hellip;) de faire ces opérations à la main, régulièrement. Nous verrons donc dans un prochain article comment automatiser ces tâches.&lt;/p&gt;
+
+&lt;!-- tar is easier to use than cpio:
+
+    When creating a tar archive, for each directory given as an argument, all files and subdirectories will be included in the archive.
+    When restoring it reconstitutes directories as necessary.
+    It even has a --newer option that lets you do incremental backups.
+    The version of tar used in Linux can also handle backups that do not fit on one tape or whatever device you use.
+
+
+Below are a few example of how to use tar for backups:
+
+
+
+    Create an archive using -c or --create:
+
+    $ tar --create --file /dev/st0 /root
+    $ tar -cvf /dev/st0 /root
+
+    You can specify a device or file with the -f or --file options.
+     
+    Create with multi volume option using -M or --multi-volume if your backup won&#39;t fit on one device:
+
+    $ tar -cMf /dev/st0 /root
+
+    You will be prompted to put next tape when needed.
+     
+    Verify files with compare option using -d or --compare:
+
+    $ tar --compare --verbose --file /dev/st0
+    $ tar -dvf /dev/st0
+
+    After you make a backup, you can make sure that it is complete and correct using the above verification option. --&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : Gérer les quotas disque</title>
+      <link>https://zirkachok.github.io/2017/06/06/lfcs--g%C3%A9rer-les-quotas-disque</link>
+      <pubDate>Tue, 06 Jun 2017 11:06:04 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/06/06/lfcs--g%C3%A9rer-les-quotas-disque</guid>
+      <description>
+
+&lt;!-- â ê î ô û --&gt;
+
+&lt;!-- é è ù à --&gt;
+
+&lt;p&gt;Dans un système où cohabitent plusieurs utilisateurs, un seul d&amp;rsquo;entre eux peut s&amp;rsquo;accaparer un grande partie des ressources. Cela se fait bien sûr au détriment des autres utilisateurs, mais peut aussi rendre le système indisponible. Pour éviter ces situations, il est possible d&amp;rsquo;instaurer des quotas et limites pour chaque utilisaterur sur le nombre de fichiers qu&amp;rsquo;il peut posséder, ou sur l&amp;rsquo;espace disque dont il dispose. Ces quotas sont gérés par le systèmes, et peuvent s&amp;rsquo;appliquer à des utilisateurs autant qu&amp;rsquo;à des groupes.&lt;/p&gt;
+
+&lt;h1 id=&#34;préparer-le-terrain&#34;&gt;Préparer le terrain&lt;/h1&gt;
+
+&lt;p&gt;La gestion des quotas est une option du noyau, qui est activée par défaut pour la plupart des distributions Linux&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. En plus de cette option, il sera nécessaire d&amp;rsquo;installer des outils pour gérer leur utilisation, qui peuvent être obtenus via le &lt;strong&gt;paquet quotas&lt;/strong&gt;. Ce paquet comporte des utilitaires, des fichiers de configurations, des scripts de démarrage, etc.&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+
+&lt;p&gt;Il est ensuite nécessaire d&amp;rsquo;activer les quotas indépendamment pour chaque système de fichiers. Pour ce faire, nous allons devoir modifier les options des systèmes de fichiers dans le fichier &lt;em&gt;/etc/fstab/&lt;/em&gt;, et ajouter pour chacun d&amp;rsquo;entre eux l&amp;rsquo;option usrquota (pour activer les quotas utilisateurs) et/ou grpquota (pour activer les quotas sur les groupes).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;/dev/sdc5   /home   ext3    usrquota,grpquota   1   1
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Cette ligne active dans cet exemple pour la partition &lt;em&gt;/dev/sdc5&lt;/em&gt;, qui est dans ce cas le sysème de fichers monté dans &lt;em&gt;/home&lt;/em&gt;, la gestion des quotas utilisateurs et groupes&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:3&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:3&#34;&gt;3&lt;/a&gt;&lt;/sup&gt;. Après avoir installé &lt;em&gt;quota&lt;/em&gt; et configuré les sysèmes de fichiers, il ne nous reste plus qu&amp;rsquo;à appliquer les changements, soit en redémarrant le système, soit en remontant les systèmes de fichiers concernés avec la commande &lt;strong&gt;mount -o remount /mount-point&lt;/strong&gt; (avec /mount-point le point de montage concerné**.&lt;/p&gt;
+
+&lt;h1 id=&#34;mettre-en-place-les-quotas&#34;&gt;Mettre en place les quotas&lt;/h1&gt;
+
+&lt;p&gt;À présent, &lt;em&gt;quota&lt;/em&gt; devrait être pleinement fonctionnel sur votre système, mais les quotas eux-même ne sont pas paramétrés. La commande &lt;strong&gt;edquota&lt;/strong&gt; permet alors de le faire. Elle permet d&amp;rsquo;éditer le fichier de configuration temporaire &lt;strong&gt;/etc/quotatab&lt;/strong&gt; qui contrôle les quotas pour l&amp;rsquo;utilisateur spécifié en paramètre (l&amp;rsquo;option &lt;strong&gt;-g&lt;/strong&gt; permet de faire de même pour les groupes), et les systèmes de fichiers ayant l&amp;rsquo;option activée. Cela nous donne par exemple :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ edquota zirka
+Filesystem  blocks  soft        hard        inodes  soft    hard
+/dev/sdc5   97104   1048576     1048576     1242    0       0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;On retrouve ici le nombre de blocs mémoire&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:4&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:4&#34;&gt;4&lt;/a&gt;&lt;/sup&gt; composant le système de fichiers, et le nombre fichiers (i.e. inodes) présents, suivis des limites strictes (&lt;strong&gt;Hard limits&lt;/strong&gt;) et non-strictes (&lt;strong&gt;Soft limits&lt;/strong&gt;) dans chacun des cas. Les limites strictes ne peuvent pas être dépassées par l&amp;rsquo;utilisateur, le noyau Linux empêchant explicitement. Les limites non-strictes peuvent par contre être dépassées, mais leur dépassement génèrera un avertissement. Une valeur de &lt;em&gt;0&lt;/em&gt; pour une limite désactive la gestion des quotas dans ce cas.&lt;/p&gt;
+
+&lt;p&gt;Il est aussi possible de mettre en place une &lt;strong&gt;période de grâce&lt;/strong&gt;, via l&amp;rsquo;option &lt;strong&gt;-t&lt;/strong&gt;, valable pour un système de fichier donné. Si un utilisateur dépasse son quota &amp;ldquo;non-strict&amp;rdquo; pendant une période plus longue, cette limite sera alors considérée comme si elle était &amp;ldquo;stricte&amp;rdquo;.&lt;/p&gt;
+
+&lt;p&gt;Enfin, il est possible de vérifier et mettre à jour les informations sur les quotas via la commande &lt;strong&gt;quotacheck&lt;/strong&gt;, et de résumer ces informations pour un système de fichiers donné (ou pour tous avec l&amp;rsquo;option &lt;strong&gt;-a&lt;/strong&gt;) via la commande repquota.&lt;/p&gt;
+
+&lt;!-- https://wiki.archlinux.org/index.php/disk_quota --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Si tel n&amp;rsquo;est pas le cas, il vous sera nécessaire de recompiler votre noyau en activant cette option (option &lt;em&gt;CONFIG_QUOTA&lt;/em&gt; dans la catégorie &lt;em&gt;File systems&lt;/em&gt;).
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Il existe aussi un &lt;a href=&#34;http://en.tldp.org/HOWTO/Quota.html&#34;&gt;tutoriel en ligne&lt;/a&gt;
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:3&#34;&gt;Il est aussi possible qu&amp;rsquo;il faille activer le service &lt;em&gt;quota&lt;/em&gt; au démarrage du système. Référez-vous à l&amp;rsquo;article associé pour découvrir comment.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:3&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:4&#34;&gt;La taille des blocs mémoire variant selon le matériel.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:4&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>LFCS : La documentation passée au crible</title>
+      <link>https://zirkachok.github.io/2017/05/22/lfcs--la-documentation-pass%C3%A9e-au-crible</link>
+      <pubDate>Mon, 22 May 2017 09:21:55 +0200</pubDate>
+      
+      <guid>https://zirkachok.github.io/2017/05/22/lfcs--la-documentation-pass%C3%A9e-au-crible</guid>
+      <description>
+
+&lt;!-- ê î ô û --&gt;
+
+&lt;p&gt;Aussi expérimenté que vous soyez, il est simplement impossible de retenir toutes les commandes disponibles sous Unix/Linux, leur rôle, leur fonctionnement, leurs paramètres et leurs arguments. Heureusement, il existe une documentation simple d&amp;rsquo;accès en ligne de commande et très fournie : le manuel. Aujourd&amp;rsquo;hui, nous allons donc nous plonger dans ce sujet&lt;/p&gt;
+
+&lt;h1 id=&#34;le-manuel-en-ligne-de-commande&#34;&gt;Le manuel en ligne de commande&lt;/h1&gt;
+
+&lt;p&gt;La commande de référence pour consulter une entrée du manuel est &lt;strong&gt;man&lt;/strong&gt;, suivie de la commande pour laquelle vous avez besoin d&amp;rsquo;informations&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:1&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:1&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;. Une page s&amp;rsquo;ouvrira alors dans le terminal pour afficher toutes les informations essentielles sur cette commande&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:2&#34;&gt;&lt;a rel=&#34;footnote&#34; href=&#34;#fn:2&#34;&gt;2&lt;/a&gt;&lt;/sup&gt; : son rôle, son fonctionnement, ses options et paramètres, &amp;hellip; (Pour une description en une seule ligne, utiliser la commande &lt;strong&gt;whatis&lt;/strong&gt;).&lt;/p&gt;
+
+&lt;p&gt;Info alternative à man, &amp;hellip;&lt;/p&gt;
+
+&lt;p&gt;Il est aussi possible de chercher des commandes à partir d&amp;rsquo;un mot clé, avec la commande &lt;strong&gt;apropos&lt;/strong&gt;. Celle-ci retourne toutes les commandes (et leur description) pour lesquelles le mot-clé est présent dans leur nom ou descriptions. Par exemple, pour cherchées toutes les commandes liées à l&amp;rsquo;algorithme de compression bzip2 :&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ apropos bzip
+bzcmp (1)            - compare bzip2 compressed files
+bzdiff (1)           - compare bzip2 compressed files
+bzegrep (1)          - search possibly bzip2 compressed files for a regular expression
+bzfgrep (1)          - search possibly bzip2 compressed files for a regular expression
+bzgrep (1)           - search possibly bzip2 compressed files for a regular expression
+bzip2 (1)            - a block-sorting file compressor, v1.0.6
+bzip2recover (1)     - recovers data from damaged bzip2 files
+bzless (1)           - file perusal filter for crt viewing of bzip2 compressed text
+bzmore (1)           - file perusal filter for crt viewing of bzip2 compressed text
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;La commande &lt;em&gt;man&lt;/em&gt; n&amp;rsquo;est qu&amp;rsquo;un outil de visualisation des pages de manuel, qui ne contient pas lui-même toutes les descriptions disponibles (appelées &lt;em&gt;entrées&lt;/em&gt;). En fait, &lt;em&gt;man&lt;/em&gt; consulte une base de données d&amp;rsquo;indexation des pages de manuel, créée ou mise-à-jour avec la commande &lt;strong&gt;mandb&lt;/strong&gt;. Cette base de données est construite à partir des emplacements et options spécifiés dans le fichier &lt;strong&gt;/etc/manpath.config&lt;/strong&gt; (à consulter pour mieux comprendre le fonctionnement du manuel).&lt;/p&gt;
+
+&lt;h1 id=&#34;créer-sa-propre-entrée-de-manuel&#34;&gt;Créer sa propre entrée de manuel&lt;/h1&gt;
+
+&lt;p&gt;Il est bien sûr possible de créer de toute pièce une entrée de manuel (par exemple, pour une commande &amp;ldquo;&lt;em&gt;maison&lt;/em&gt;&amp;rdquo; que vous avez créée). Les entrées de manuel suivent un format spécique, permettant à un système de traitement de documents nommé &lt;strong&gt;troff&lt;/strong&gt; (ou plutôt à l&amp;rsquo;un de ses packages, &lt;em&gt;groff an.tmac&lt;/em&gt;) d&amp;rsquo;en déduire la mise-en-page du document. Ce format fonctionne par l&amp;rsquo;intermédiaire de &lt;em&gt;Macros&lt;/em&gt; définissant les sections, les en-tête et pieds de page, etc.&lt;/p&gt;
+
+&lt;p&gt;Pour comprendre comment fonctionne le formatage d&amp;rsquo;une entrée de documentation, le mieux est encore d&amp;rsquo;en lire une. Succintement, voici quelques macros utilisées :&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;NAME&lt;/strong&gt; : Le nom de la commande ou fonction, suivi d&amp;rsquo;une description en une ligne de son fonctionnement&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SYNOPSIS&lt;/strong&gt; : Une description plus complète de son fonctionnement et des options disponibles&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;EXAMPLES&lt;/strong&gt; : Quelques exemples de son utilisation générale&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;BUGS&lt;/strong&gt; : Les bugs connus liés à cette commande&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SEE ALSO&lt;/strong&gt;, &lt;strong&gt;AUTHOR&lt;/strong&gt;, &lt;strong&gt;COPYRIGHT&lt;/strong&gt;, &lt;strong&gt;DESCRIPTION&lt;/strong&gt;, &amp;hellip;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Une fois la documentation réalisée, il suffit de la placer dans un des emplacements définis dans &lt;em&gt;/etc/manpath.config&lt;/em&gt;, de recréer la base de données d&amp;rsquo;indexation avec la commande &lt;em&gt;mandb&lt;/em&gt;, et le tour est joué.&lt;/p&gt;
+
+&lt;!-- https://www.cyberciti.biz/faq/linux-unix-creating-a-manpage/ --&gt;
+
+&lt;h1 id=&#34;références-sur-internet&#34;&gt;Références sur Internet&lt;/h1&gt;
+
+&lt;p&gt;Le manuel Linux est incroyablement bien fourni et vous aidra à trouver la réponse à une grande partie de vos questions. Mais pour toutes les autres, il reste à se tourner vers Internet. De manière générale, le &lt;a href=&#34;https://wiki.archlinux.org&#34;&gt;&lt;strong&gt;wiki d&amp;rsquo;Archlinux&lt;/strong&gt;&lt;/a&gt; est une mine d&amp;rsquo;or en matière d&amp;rsquo;information et de résolution de problèmes. Une excellente alternative est la &lt;a href=&#34;https://access.redhat.com/documentation&#34;&gt;&lt;strong&gt;documentation en ligne de Red Hat&lt;/strong&gt;&lt;/a&gt;, ou encore le &lt;a href=&#34;http://www.tldp.org/&#34;&gt;&lt;strong&gt;Projet de Documentation Linux (TLDP)&lt;/strong&gt;&lt;/a&gt;. Enfin, le forum &lt;a href=&#34;https://stackexchange.com/&#34;&gt;&lt;strong&gt;stackexchange&lt;/strong&gt;&lt;/a&gt;, et en particulier son groupe &lt;a href=&#34;https://serverfault.com/&#34;&gt;&lt;strong&gt;serverfault&lt;/strong&gt;&lt;/a&gt;, permet de résoudre une vaste majorité des problèmes rencontrés dans la vie de tous les jours avec Linux.&lt;/p&gt;
+
+&lt;!-- https://www.youtube.com/watch?v=59jnWX_EzTY&amp;index=123&amp;list=WL --&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;Il existe une alternative à &lt;em&gt;man&lt;/em&gt;, &lt;strong&gt;info&lt;/strong&gt;, qui sert de principale outil de documentation pour les Systèmes basés sur &lt;a href=&#34;https://en.wikipedia.org/wiki/GNU&#34;&gt;GNU&lt;/a&gt;. Cependant, bien que mieux organisée (avec des hyperliens par exemple), &lt;em&gt;info&lt;/em&gt; est souvent moins bien fournie.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:1&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;Si plusieurs entrées existent pour cette commande, il n&amp;rsquo;affichera que la première.
+ &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:2&#34;&gt;↩&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Index des prérequis LFCS-LFCE</title>
@@ -38,35 +723,37 @@
 &lt;li&gt;Se connecter en mode graphique et texte&lt;/li&gt;
 &lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Effectuer des recherches sur des fichiers&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence&#34;&gt;[ici]&lt;/a&gt; et &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour&#34;&gt;[là]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Évaluer et comparer les fonctionnalités et options des systèmes de fichiers de base&lt;/li&gt;
-&lt;li&gt;Comparer, créer et éditer des fichiers texte&lt;/li&gt;
-&lt;li&gt;Comparer des fichiers binaires&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Comparer, créer et éditer des fichiers texte&lt;/span&gt; : &lt;a href=&#34;No page found with path or logical name &#34;lfcs-manipfile.md&#34;.
+&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Comparer des fichiers binaires&lt;/span&gt; : &lt;a href=&#34;No page found with path or logical name &#34;lfcs-manipfile.md&#34;.
+&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Utiliser les redirections des flux d&amp;rsquo;entrée et de sortie (e.g. &amp;gt;, &amp;gt;&amp;gt;, |, 2&amp;gt;)&lt;/li&gt;
 &lt;li&gt;Analyser du texte en utilisant les expressions régulières de base&lt;/li&gt;
-&lt;li&gt;Archiver, sauvegarder, compresser et décompresser des fichiers&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Archiver, sauvegarder, compresser et décompresser des fichiers&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/06/06/lfcs--archivage-et-compression&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Créer, supprimer, copier et déplacer des fichiers et répertoires&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/02/14/lfcs--naviguer-dans-un-syst%C3%A8me-linux&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Créer des liens physiques et symboliques&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/11/lfcs--syst%C3%A8me-de-fichiers-et-liens&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Lister, affecter et modifier les permissions standard de fichiers&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux&#34;&gt;[ici]&lt;/a&gt; et &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour&#34;&gt;[là]&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;Lire et utiliser la documentation système&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Lire et utiliser la documentation système&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/05/22/lfcs--la-documentation-pass%C3%A9e-au-crible&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Gérer les accès au compte superutilisateur (root)&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;7%&lt;/span&gt; / 25%&lt;/p&gt;
+&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;16%&lt;/span&gt; / 25% (&lt;sup&gt;8&lt;/sup&gt;&amp;frasl;&lt;sub&gt;13&lt;/sub&gt;)&lt;/p&gt;
 
 &lt;!-- 
 Essential Commands - 25%
 
     Log into graphical and text mode consoles
-    Search for files
+x   Search for files
     Evaluate and compare the basic file system features and options
     Compare, create and edit text files
     Compare binary files
     Use input-output redirection (e.g. &gt;, &gt;&gt;, |, 2&gt;)
     Analyze text using basic regular expressions
-    Archive, backup, compress, unpack, and uncompress files
-    Create, delete, copy, and move files and directories
-    Create hard and soft links
-    List, set, and change standard file permissions
-    Read, and use system documentation
+x   Archive, backup, compress, unpack, and uncompress files
+x   Create, delete, copy, and move files and directories
+x   Create hard and soft links
+x   List, set, and change standard file permissions
+x   Read, and use system documentation
     Manage access to the root account
 --&gt;
 
@@ -76,13 +763,23 @@ Essential Commands - 25%
 &lt;li&gt;Démarrer, redémarrer et éteindre le système en toute sécurité&lt;/li&gt;
 &lt;li&gt;Démarrer les systèmes manuellement sous différents niveaux de fonctionnement (runlevels)&lt;/li&gt;
 &lt;li&gt;Installer, configurer et dépanner le bootloader&lt;/li&gt;
-&lt;li&gt;Changer la priorité d&amp;rsquo;un processus&lt;/li&gt;
-&lt;li&gt;Identifier l&amp;rsquo;utilisation des ressources par processus&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Changer la priorité d&amp;rsquo;un processus&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/06/16/lfcs--t%C3%A2ches-et-gestion-des-ressources&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Identifier l&amp;rsquo;utilisation des ressources par processus&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/06/16/lfcs--t%C3%A2ches-et-gestion-des-ressources&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Localiser et analyser les fichiers de logs système&lt;/li&gt;
-&lt;li&gt;Programmer des tâches&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Programmer des tâches pour se lancer à une certaine date et heure&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/06/15/lfcs--programmer-des-t%C3%A2ches&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Vérifier la complétion de tâches planifiées&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/06/15/lfcs--programmer-des-t%C3%A2ches&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Mettre à jour des logiciels pour maintenir les fonctionnalités et la sécurité&lt;/li&gt;
+&lt;li&gt;Vérifier l&amp;rsquo;intégrité et disponibilité de ressources&lt;/li&gt;
+&lt;li&gt;Vérifier l&amp;rsquo;intégrité et disponibilité des processus clé&lt;/li&gt;
+&lt;li&gt;Changer le paramétrage du noyau, de manière persistante ou non&lt;/li&gt;
+&lt;li&gt;Utiliser des scripts pour automatiser des tâches de maintenance&lt;/li&gt;
+&lt;li&gt;Gérer les processus de démarrage et services&lt;/li&gt;
+&lt;li&gt;Lister et identifier les fichiers et contextes de processus SELinux et AppArmor&lt;/li&gt;
+&lt;li&gt;Configurer et modifier les politiques SELinux et AppArmor&lt;/li&gt;
+&lt;li&gt;Installer les logiciels depuis les sources&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;0%&lt;/span&gt; / 20%&lt;/p&gt;
+&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;5%&lt;/span&gt; / 20% (&lt;sup&gt;4&lt;/sup&gt;&amp;frasl;&lt;sub&gt;17&lt;/sub&gt;)&lt;/p&gt;
 
 &lt;!--
 Operation of Running Systems - 20%
@@ -93,8 +790,8 @@ Operation of Running Systems - 20%
     Change the priority of a process
     Identify resource utilization by process
     Locate and analyze system log files
-    Schedule tasks to run at a set date and time
-    Verify completion of scheduled jobs
+x   Schedule tasks to run at a set date and time
+x   Verify completion of scheduled jobs
     Update software to provide required functionality and security
     Verify the integrity and availability of resources
     Verify the integrity and availability of key processes
@@ -113,21 +810,21 @@ Operation of Running Systems - 20%
 &lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Créer, supprimer et modifier les groupes locaux et leur appartenance&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux&#34;&gt;[ici]&lt;/a&gt; et &lt;a href=&#34;https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour&#34;&gt;[là]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Manage system-wide environment profiles&lt;/li&gt;
 &lt;li&gt;Manage template user environment&lt;/li&gt;
-&lt;li&gt;Configuer les limites de ressources des utilisateurs&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Configuer les limites de ressources des utilisateurs&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;Gérer les processus utilisateurs&lt;/li&gt;
 &lt;li&gt;Configurer le système d&amp;rsquo;authentification PAM&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;4%&lt;/span&gt; / 15%&lt;/p&gt;
+&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;7%&lt;/span&gt; / 15% (&lt;sup&gt;3&lt;/sup&gt;&amp;frasl;&lt;sub&gt;7&lt;/sub&gt;)&lt;/p&gt;
 
 &lt;!--
 User and Group Management - 15%
 
-    Create, delete, and modify local user accounts
-    Create, delete, and modify local groups and group memberships
+x   Create, delete, and modify local user accounts
+x   Create, delete, and modify local groups and group memberships
     Manage system-wide environment profiles
     Manage template user environment
-    Configure user resource limits
+x   Configure user resource limits
     Manage user processes
     Configure PAM
 --&gt;
@@ -147,7 +844,14 @@ User and Group Management - 15%
 
 &lt;h2 id=&#34;configuration-des-services-10&#34;&gt;Configuration des services (10%)&lt;/h2&gt;
 
-&lt;!-- Service Configuration - 10%
+&lt;ul&gt;
+&lt;li&gt;Configurer un serveur DNS basique&lt;/li&gt;
+&lt;li&gt;Maintenir une zone DNS&lt;/li&gt;
+&lt;li&gt;Configurer un serveur FTP&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--
+Service Configuration - 10%
 
     Configure a basic DNS server
     Maintain a DNS zone
@@ -165,25 +869,50 @@ User and Group Management - 15%
     Configure HTTP server log files
     Restrict access to a web page
     Diagnose routine SELinux/AppArmor policy violations
-    Configure database server --&gt;
+    Configure database server
+--&gt;
 
 &lt;h2 id=&#34;virtualisation-5&#34;&gt;Virtualisation (5%)&lt;/h2&gt;
 
-&lt;!-- Virtualization - 5%
+&lt;ul&gt;
+&lt;li&gt;Configurer un hyperviseur pour héberger des hôtes virtuels&lt;/li&gt;
+&lt;li&gt;Accéder à une console de la machine virtuelle (VM)&lt;/li&gt;
+&lt;li&gt;Configurer le système pour démarrer des VMs au démarrage&lt;/li&gt;
+&lt;li&gt;Évaluer l&amp;rsquo;utilisation mémoire de VMs&lt;/li&gt;
+&lt;li&gt;Redimentionner la RAM et l&amp;rsquo;espace de stockage de VMs&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!--
+Virtualization - 5%
 
     Configure a hypervisor to host virtual guests
     Access a VM console
     Configure systems to launch virtual machines at boot
     Evaluate memory usage of virtual machines
-    Resize RAM or storage of VMs --&gt;
+    Resize RAM or storage of VMs
+--&gt;
 
 &lt;h2 id=&#34;gestion-des-espaces-de-stockage-10&#34;&gt;Gestion des espaces de stockage (10%)&lt;/h2&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Lister, créer, supprimer et modifier les partitions de stockage&lt;/li&gt;
+&lt;li&gt;Créer, modifier, et supprimer des volumes logiques&lt;/li&gt;
+&lt;li&gt;Étendre des volumes logiques et systèmes de fichiers existants&lt;/li&gt;
+&lt;li&gt;Créer et configurer des partitions cryptées&lt;/li&gt;
+&lt;li&gt;Configurer le système pour monter des systèmes de fichiers au démarrage&lt;/li&gt;
+&lt;li&gt;Configurer et gérer le &lt;a href=&#34;https://fr.wikipedia.org/wiki/M%C3%A9moire_virtuelle#Swapping&#34;&gt;Swap&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Ajouter de nouvelles partitions et volumes logiques&lt;/li&gt;
+&lt;li&gt;Assembler des partitions comme des dispositifs RAID&lt;/li&gt;
+&lt;li&gt;Configurer le système pour monter à la demande des systèmes de fichiers standard, encryptés ou réseau&lt;/li&gt;
+&lt;li&gt;Créer et gérer les Access Control Lists (ACLs) de systèmes de fichiers&lt;/li&gt;
+&lt;li&gt;Diagnostiquer et corriger les problèmes de permissions fichiers&lt;/li&gt;
+&lt;li&gt;&lt;span style=&#34;color:red&#34;&gt;Mettre en place des quotas disque sur les systèmes de fichiers pour les utilisateurs et groupes&lt;/span&gt; : &lt;a href=&#34;https://zirkachok.github.io/2017/06/06/lfcs--g%C3%A9rer-les-quotas-disque&#34;&gt;[ici]&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;!-- Storage Management - 10%
+&lt;p&gt;Avancement : &lt;span style=&#34;color:red&#34;&gt;1%&lt;/span&gt; / 10% (&lt;sup&gt;1&lt;/sup&gt;&amp;frasl;&lt;sub&gt;12&lt;/sub&gt;)&lt;/p&gt;
+
+&lt;!--
+Storage Management - 10%
 
     List, create, delete, and modify storage partitions
     Create, modify and delete Logical Volumes
@@ -196,7 +925,8 @@ User and Group Management - 15%
     Configure systems to mount standard, encrypted, and network file systems on demand
     Create and manage filesystem Access Control Lists (ACLs)
     Diagnose and correct file permission problems
-    Setup user and group disk quotas for filesystems --&gt;
+x   Setup user and group disk quotas for filesystems 
+--&gt;
 
 &lt;h1 id=&#34;linux-foundation-certified-engineer-lfce&#34;&gt;Linux Foundation Certified Engineer (LFCE)&lt;/h1&gt;
 
@@ -219,7 +949,7 @@ Network administration
     Produce and deliver reports on system use, outages and user requests
     Route IP traffic statically and dynamically
     Troubleshoot network issues
- --&gt;
+--&gt;
 
 &lt;h2 id=&#34;systèmes-de-fichiers&#34;&gt;Systèmes de fichiers&lt;/h2&gt;
 
@@ -257,7 +987,7 @@ Network security
 
 &lt;!-- 
 Remote access
-    Configure the firewall with iptables
+    Configure the firewall with iptables   ====&gt;&gt;   https://www.linux.com/learn/intro-to-linux/2017/5/building-linux-firewalls-good-old-iptables-part-1
  --&gt;
 
 &lt;h2 id=&#34;services-http&#34;&gt;Services HTTP&lt;/h2&gt;
@@ -290,10 +1020,10 @@ HTTP services
 
 &lt;!-- 
 Email services
-Configure email aliases
-Install and configure an IMAP and IMAPS service
-Install and configure an smtp service
-Restrict access to an smtp server
+    Configure email aliases
+    Install and configure an IMAP and IMAPS service
+    Install and configure an smtp service
+    Restrict access to an smtp server
  --&gt;
 </description>
     </item>

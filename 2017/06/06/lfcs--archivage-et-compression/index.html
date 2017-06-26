@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>LFCS : Utilisateurs et droits, le retour - Zirka</title>
-    <meta property='og:title' content="LFCS : Utilisateurs et droits, le retour - Zirka">
+    <title>LFCS : Archivage et compression - Zirka</title>
+    <meta property='og:title' content="LFCS : Archivage et compression - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/06/06/lfcs--archivage-et-compression">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  18 Apr 2017
+                  6 Jun 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">LFCS : Utilisateurs et droits, le retour</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Archivage et compression</h1>
           </header>
         </div>
       </div>
@@ -396,205 +396,191 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<!-- ê î ô û -->
+<!-- â ê î ô û -->
 
-<p>Je vous ai présenté <a href="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux">la fois précédente</a> comment gérer les permissions et les utilisateurs au sein de votre système, mais le sujet est bien trop vaste pour être plié en un seul post de blog. Je vais donc revenir à la charge aujourd&rsquo;hui avec de nouvelles commandes et quelques conseils appréciables pour optimiser leur gestion.</p>
+<!-- é è ù à -->
 
-<h1 id="gestion-avancée-des-permissions">Gestion avancée des permissions</h1>
+<p>Aucun système, qu&rsquo;il soit pour un ordinateur personnel ou pour un réseau d&rsquo;entreprise avec de nombreux noeuds et utilisateurs, n&rsquo;est a l&rsquo;abri d&rsquo;une défaillance. Un disque dur peut tomber en panne, le système peut être compromis, un administrateur ou utilisateur peut faire une erreur, etc., et il est alors nécessaire de revenir en arrière, à un point de sauvegarde (<strong>snapshot</strong>) sûr. Il est donc indispensable de mettre en place des sauvegardes régulières (<strong>backup</strong>) de l&rsquo;état du système, et d&rsquo;être capable d&rsquo;y basculer le cas échéant (<strong>restore</strong>). Nous allons donc aujourd&rsquo;hui voir comment archiver simplement et efficacement des données, et comment programmer des <em>backup</em> réguliers de votre système.</p>
 
-<h2 id="changer-de-propriétaire">Changer de propriétaire</h2>
+<p>Les archives peut être vu comme des paquets contenant des fichiers et répertoires, et servent à conserver facilement des données dans un unique fichier. Par défaut, une archive resulte d&rsquo;une simple concaténation des fichiers, avec quelques éventuelles informations sur la hiérarchie des fichiers, leurs droits, etc. Une archive peut cependant aussi être compressée, c&rsquo;est-à-dire qu&rsquo;un algorithme sera appliqué sur les fichiers pour les compresser (i.e. en réduire la taille). Nous allons voir ici les méthodes les plus courantes pour créer une archive, compressée ou non.</p>
 
-<p>En plus de pouvoir changer les permissions d&rsquo;un fichier, il est aussi possible d&rsquo;en modifier l&rsquo;utilisateur et le groupe propriétaire, respectivement avec les commandes <strong>chown</strong> et <strong>chgrp</strong> (qui nécessitent les droits administrateur). Ces commandes prennent en premier paramètre l&rsquo;utilisateur/le groupe, suivi du fichier concerné. Il est aussi possible de changer à la fois l&rsquo;utilisateur et le groupe propriétaires du fichier avec <em>chown</em>, en combinant les deux séparés par &ldquo; <em>:</em> &ldquo;.</p>
+<h1 id="archiver-avec-cpio">Archiver avec <em>cpio</em></h1>
 
-<p>Par l&rsquo;exemple, cela nous donne :</p>
+<p>La commande <strong>cpio</strong> (pour <em>copy in and out</em>) date des débuts d&rsquo;UNIX, et était prévue pour la sauvegarde de données sur des bandes magnétiques. Bien que d&rsquo;autres commandes d&rsquo;archivage aient vu le jour, <em>cpio</em> reste présent dans la quasi-totalité des systèmes UNIX/Linux, notamment du fait de sa légèreté.</p>
 
-<pre><code>$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-
-$ sudo chown hobbes test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   humains   921   avril 10 15:47   test.txt
-
-$ sudo chgrp tigres test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   tigres    921   avril 10 15:47   test.txt
-
-$ sudo chown calvin:humains test.txt
-$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-</code></pre>
-
-<h2 id="modifier-les-droits-par-défaut">Modifier les droits par défaut</h2>
-
-<p>Chaque fichier créé se voit attribuer à sa création un ensemble de permissions par défaut, mais il est possible de modifier ces droits via la commande <strong>umask</strong><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
-
-<!-- Par défaut, les permissions d'un nouveau fichier sont 022 ou 002 -->
-
-<p><em>umask</em> utilise la variante numérique de modification des droits (voir l&rsquo;article précédent, avec 4 pour l&rsquo;accès en lecture, 2 en écriture et 1 en exécution), mais part de permissions complètes (donc <em>777</em>) et y retranche celles données en argument. Avec <em>umask 021</em> par exemple, on obtiendra les droits rwxr-xrw- (777 - 021 = 756). Dans la plupart des distributions, <em>umask</em> est mis à 022 par défaut (soit rwxr-xr-x ou 755).</p>
-
-<pre><code>$ touch test.txt
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-</code></pre>
-
-<!--
-When you run the umask command it will give that default set of permissions on any new file you make. However, if you want it to persist you'll have to modify your startup file (.profile), but we'll discuss that in a later lesson. -->
-
-<h2 id="cas-spécifique-des-suid-et-sgid">Cas spécifique des SUID et SGID</h2>
-
-<p>Dans de nombreux cas, des utilisateurs &ldquo;lambda&rdquo; ont besoin de droits &ldquo;privilégiés&rdquo; pour certaines actions, mais les accès au compte administrateur ne peuvent pas être donnés à tous. Pour ces cas particuliers, il existe une permission spéciale, le <strong>Set User ID (SUID)</strong>, qui permet de lancer une commande en étant considéré comme le propriétaire du fichier.</p>
-
-<p>Prenons un exemple. Disons qu&rsquo;un utilisateur souhaite changer son mot de passe. Pour cela, il utilisera la commande <em>passwd</em>, qui elle même modifiera les fichiers système <em>/etc/passwd</em>. Cependant, ce fichier est propriété de l&rsquo;administrateur et n&rsquo;es modifiable que par lui. Regardons maintenant les permissions de la commande <em>passwd</em> (fichier exécutable situé dans &ldquo; <em>/usr/bin/passwd</em> &ldquo;):</p>
-
-<pre><code>$ ls -l /usr/bin/passwd
--rwSr-xr-x 1 root root 54256 mars  29  2016 /usr/bin/passwd
-</code></pre>
-
-<p>Vous remarquerez le nouveau caractère <strong>s</strong> : il s&rsquo;agit du SUID. Quand cette permission est mise sur un fichier, n&rsquo;importe quel utilisateur exécutant ce fichier sera considéré comme son propriétaire, dans notre exemple l&rsquo;administrateur (<em>root</em>). Sans ce droit spécial, il serait impossible à un utilisateur de changer son mot de passe sans passer par le compte administrateur.</p>
-
-<p>Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>4</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u+s test.txt
--rwSrw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 4755 test.txt 
--rwsr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<p>De la même manière, il est possible d&rsquo;autoriser l&rsquo;exécution d&rsquo;une commande en étant considéré comme appartenant au groupe propriétaire du fichier, et cela par l&rsquo;intermédiaire de la permission <strong>Set Group ID (SGID)</strong>. Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>2</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g+s test.txt
--rw-rwSr--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 2555 test.txt 
--r-xr-sr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<!-- 
-
-7. Process Permissions
-
-Let's segue into process permissions for a bit, remember how I told you that when you run the passwd command with the SUID permission bit enabled you will run the program as root? That is true, however does that mean since you are temporarily root you can modify other user's passwords? Nope fortunately not!
-
-This is because of the many UIDs that Linux implements. There are three UIDS associated with every process:
-
-When you launch a process, it runs with the same permissions as the user or group that ran it, this is known as an effective user ID. This UID is used to grant access rights to a process. So naturally if Bob ran the touch command, the process would run as him and any files he created would be under his ownership.
-
-There is another UID, called the real user ID this is the ID of the user that launched the process. These are used to track down who the user who launched the process is.
-
-One last UID is the saved user ID, this allows a process to switch between the effective UID and real UID, vice versa. This is useful because we don't want our process to run with elevated privileges all the time, it's just good practice to use special privileges at specific times.
-
-Now let's piece these all together by looking at the passwd command once more.
-
-When running the passwd command, your effective UID is your user ID, let's say its 500 for now. Oh but wait, remember the passwd command has the SUID permission enabled. So when you run it, your effective UID is now 0 (0 is the UID of root). Now this program can access files as root.
-
-Let's say you get a little taste of power and you want to modify Sally's password, Sally has a UID of 600. Well you'll be out of luck, fortunately the process also has your real UID in this case 500. It knows that your UID is 500 and therefore you can't modify the password of UID of 600. (This of course is always bypassed if you are a superuser on a machine and can control and change everything).
-
-Since you ran passwd, it will start the process off using your real UID, and it will save the UID of the owner of the file (effective UID), so you can switch between the two. No need to modify all files with root access if it's not required.
-
-Most of the time the real UID and the effective UID are the same, but in such cases as the passwd command they will change.
-
- -->
-
-<h2 id="le-sticky-bit">Le &ldquo;Sticky bit&rdquo;</h2>
-
-<p>Parlons maintenant d&rsquo;une dernière permissions spéciale: le &ldquo;sticky bit&rdquo;. Il est possible de rendre un fichier destructible seulement par son propriétaire et l&rsquo;administrateur, et ce quelles que soient les permissions sur ce fichier. Prenons l&rsquo;exemple du répertoire &ldquo; <em>/tmp</em> &ldquo; (l&rsquo;option <em>-d</em> de <em>ls</em> permet de lister les répertoires, et non leur contenu):</p>
-
-<pre><code>$ ls -ld /tmp
-drwxrwxrwt 13 root root 135168 avril 19 14:19 /tmp
-</code></pre>
-
-<p>Vous remarquerez que le dernier caractère des droits est à <strong>t</strong>. C&rsquo;est le fameur &ldquo;<strong>sticky bit</strong>&rdquo;. Ce dossier ne peut donc être supprimé que par l&rsquo;administrateur, tout en étant modifiable par tous.</p>
-
-<p>Comme pour les SUID et SGID, le &ldquo;sticky bit&rdquo; peut être affecté de manière symbolique avec <strong>t</strong> ou de manière numérique en précédent les droits d&rsquo;un <strong>1</strong> :</p>
-
-<pre><code>$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 1755 test.txt
-$ ls -l
--rwxr-xr-t  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod -t test.txt
-$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<h1 id="recherches-par-utilisateurs-et-permissions">Recherches par utilisateurs et permissions</h1>
-
-<p>Je vous ai montré dans <a href="https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence">un précédent article</a> comment lister et trouver les fichiers dans le système, en proposant quelques filtres possibles. En voici quelques autres permettent de filtrer en fonction des utilisateurs, groupes et permissions :</p>
+<p><em>cpio</em> permet d&rsquo;archiver, extraire et lister le contenu d&rsquo;archives, avec les options suivantes :</p>
 
 <ul>
-<li><strong>find -user <em>u</em></strong> : Liste les fichiers appartenant à l&rsquo;utilisateur <em>u</em>.</li>
-<li><strong>find -group <em>g</em></strong> : Liste les fichiers appartenant au groupe <em>g</em>.</li>
-<li><strong>find -perm</strong> : Liste les fichiers selon leurs permissions:
-
-<ul>
-<li><strong>-perm <em>p</em></strong> : ne liste que les fichiers dont les permissions sont exactement <em>p</em>.</li>
-<li><strong>-perm <em>-p</em></strong> : liste les fichiers dont les permissions sont au moins <em>p</em>.</li>
-<li><strong>-perm <em>/p</em></strong> : liste les fichiers dont au moins un des droits de <em>p</em> est setté.</li>
-</ul></li>
+<li><strong>&ndash;create</strong> (ou -o) : Crée une archive</li>
+<li><strong>&ndash;extract</strong> (ou -i) : Extrait le contenu d&rsquo;une archive</li>
+<li><strong>&ndash;list</strong> (ou -t) : Liste le contenu d&rsquo;une archive</li>
 </ul>
 
-<p>Et en pratique, cela nous donne :</p>
+<p>Le contenu à archiver peut être spécifié avec l&rsquo;option <strong>-I</strong> ou une redirection de la ligne de commande, et l&rsquo;archive en sortie peut être spécifiée avec l&rsquo;option <strong>-O</strong> ou également une redirection. Par l&rsquo;exemple, cela nous donne :</p>
 
-<pre><code>$ ls -l
--rw-r--r--  1 root    root     0 avril 18 16:11 supertest.txt
--rw-r--rw-  1 calvin  humains  0 avril 18 16:07 testbis.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:14 testTer.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:06 test.txt
+<pre><code>$ tree 
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
 
-$ find . -user hobbes
-./testTer.txt
-./test.txt
+$ find . -depth | cpio -o &gt; test.cpio
 
-$ find . -group humains
-./testbis.txt
+$ ls
+config.xml  somewhere   test.cpio
 
-$ find . -perm 664
-./testTer.txt
-./test.txt
+$ cat test.cpio | cpio -t
+somewhere/over/rainbow/high.c
+somewhere/over/rainbow/up.mk
+somewhere/over/rainbow
+somewhere/over
+somewhere
+config.xml
+test.cpio
+.
+13 blocs
 </code></pre>
 
-<!--
-Ref : https://linuxjourney.com/lesson/file-permissions
--->
+<h1 id="archiver-et-compresser-avec-tar">Archiver et compresser avec <em>tar</em></h1>
 
-<!-- sudo -->
+<p>La commande <strong>tar</strong> permet aussi l&rsquo;archivage, mais est plus récente et plus simple d&rsquo;utilisation que <em>cpio</em>. Elle gère par défaut des archives du même nom (aussi appelées tarballs), avec les options suivantes :</p>
 
-<!-- uname -a -->
+<ul>
+<li><strong>&ndash;create</strong> ou <strong>-c</strong> : Permet de créer une nouvelle archive à partir des fichiers donnés en paramètre.</li>
+<li><strong>&ndash;extract</strong> ou <strong>-x</strong> : Permet d&rsquo;extraire le contenu d&rsquo;une archive.</li>
+<li><strong>&ndash;list</strong> ou <strong>-t</strong> : Liste le contenu d&rsquo;une archive.</li>
+<li><strong>&ndash;file ARCH</strong> ou <strong>-f ARCH</strong> : Désigne le fichier (archive, device, &hellip;) à utiliser pour réaliser l&rsquo;opération choisie.</li>
+</ul>
 
-<!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux -->
+<p>Cela nous donne par exemple :</p>
 
-<!--   A      B         C                                D                          E      F      G      H      -->
+<p><strong>Archivage</strong></p>
 
-<!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name -->
+<pre><code>$ tree
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
 
-<!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system -->
+$ tar -cf test.tar somewhere
 
-<!-- shutdown -->
+$ tar -tf test.tar
+somewhere/
+somewhere/over/
+somewhere/over/rainbow/
+somewhere/over/rainbow/high.c
+somewhere/over/rainbow/up.mk
+somewhere/over/rainbow/way.c
 
-<!-- logout -->
-<div class="footnotes">
+$ rm -r somewhere
 
-<hr />
+$ tree
+.
+├── config.xml
+└── test.tar
 
-<ol>
-<li id="fn:1">À noter que la modification des droits par défaut n&rsquo;est pas persistante (elle ne sera plus valable après redémarrage de l&rsquo;appareil par exemple). Pour l&rsquo;affecter de manière permanente, il faudra modifier le profil de démarrage (fichier <em>.profile</em>), mais j&rsquo;aborderai ce point dans un autre article.
- <a class="footnote-return" href="#fnref:1">↩</a></li>
-</ol>
-</div>
+$ tar -xf test.tar
+
+$ tree
+.
+├── config.xml
+├── somewhere
+│   └── over
+│       └── rainbow
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+</code></pre>
+
+<p><em>tar</em> a aussi d&rsquo;autres atouts dans sa manches, qui rendent son utilisation particulièrement intéressante pour les <em>backup</em>. Il est par exemple possible :</p>
+
+<ul>
+<li>de n&rsquo;ajouter que les fichiers plus récents qu&rsquo;une certaine date avec l&rsquo;option <strong>&ndash;newer DATE</strong> (ou <strong>-N DATE</strong>)</li>
+<li>de n&rsquo;ajouter que les fichiers plus récents que ceux contenus dans l&rsquo;archive avec l&rsquo;option <strong>&ndash;update</strong> (ou <strong>-u</strong>)</li>
+<li>d&rsquo;exclure les fichiers dont le nom suit un certain motif avec l&rsquo;option <strong>&ndash;exclude=MOTIF</strong> ou <strong>-X=MOTIF</strong></li>
+<li>de compresser les données, par exemple avec l&rsquo;option <strong>&ndash;gzip</strong> (ou <strong>-z</strong>)</li>
+<li>d&rsquo;obtenir les différences entre le contenu de l&rsquo;archive et le contenu sur le disque, avec l&rsquo;option <strong>&ndash;diff</strong> (ou <strong>-d</strong>)</li>
+<li>&hellip;</li>
+</ul>
+
+<h1 id="archivage-et-backup">Archivage et backup</h1>
+
+<p>J&rsquo;ai effleuré la question en introduction, il est donc temps de rentrer dans le vif du sujet : l&rsquo;archivage (ici, avec <em>tar</em>) est largement utilisé pour effectuer du <em>backup</em>. Il existe principalement 2 méthodes de backup : le <strong>backup complet</strong>, où un archivage des données est réalisé régulièrement, le <strong>backup incrémental</strong>, où seules les différences par rapport au dernier archivage sont conservées. Bien sûr, les <em>backup complets</em> sont plus faciles à récupérer (pour un backup incrémental, on doit revenir à la dernière archive complète et appliquer un à un les archives incrémentales), mais les <em>backup incrémentaux</em> sont évidemment plus légers, un juste équilibre des deux est donc souvent la meilleure approche.</p>
+
+<p><em>tar</em> est parfaitement adapté aux <em>backup complets</em> (avec notamment la compression), mais aussi aux <em>backup incrémentaux</em> (avec les options <em>newer</em>, <em>update</em>, <em>diff</em>, &hellip;). Il comporte d&rsquo;ailleurs une option spécifique pour ces derniers (utlisée pour l&rsquo;archivage comme pour l&rsquo;extraction) : <strong>&ndash;listed-incremental=SNAP</strong> (ou <strong>-g SNAP</strong>), avec <em>SNAP</em> un fichier de travail pour réaliser cette opération (le même doit être utilisé pour chaque prochain backup incrémental).</p>
+
+<p>Cela nous donne :</p>
+
+<pre><code>$ tree
+├── somewhere
+│   └── over
+│       ├── 
+│       └── rainbow bigfile.txt
+│           ├── high.c
+│           ├── up.mk
+│           └── way.c
+
+$ ls -al somewhere
+total 204816
+drwxrwxr-x 3 julien julien      4096 juin  13 11:54 .
+drwxrwxr-x 3 julien julien      4096 juin  13 11:54 ..
+-rw-rw-r-- 1 julien julien 209715200 juin  13 11:54 bigfile.txt
+drwxrwxr-x 3 julien julien      4096 juin   7 11:09 over
+
+$ tar --create --file=increm1.tar --listed-incremental=save.list somewhere/
+
+$ ls -al increm1.tar
+-rw-rw-r-- 1 julien julien 209725440 juin  13 11:56 increm1.tar
+
+$ echo &quot;Hello there&quot; &gt; somewhere/over/rainbow/way.c
+
+$ tar --create --file=increm2.tar --listed-incremental=save.list somewhere/
+-rw-rw-r-- 1 julien julien 10240 juin  13 11:58 increm2.tar
+</code></pre>
+
+<p>Comme on peut le voir, la première itération de <em>tar</em> pour notre backup incrémental crée une archive volumineuse, alors que la seconde est extrèmement légère, car peu de contenu a été changé entre temps.</p>
+
+<p>Nous avons vu un des premiers aspects du <em>backup</em>, l&rsquo;archivage et l&rsquo;extraction. Reste qu&rsquo;il est fastidieux (et dangereux&hellip;) de faire ces opérations à la main, régulièrement. Nous verrons donc dans un prochain article comment automatiser ces tâches.</p>
+
+<!-- tar is easier to use than cpio:
+
+    When creating a tar archive, for each directory given as an argument, all files and subdirectories will be included in the archive.
+    When restoring it reconstitutes directories as necessary.
+    It even has a --newer option that lets you do incremental backups.
+    The version of tar used in Linux can also handle backups that do not fit on one tape or whatever device you use.
+
+
+Below are a few example of how to use tar for backups:
+
+
+
+    Create an archive using -c or --create:
+
+    $ tar --create --file /dev/st0 /root
+    $ tar -cvf /dev/st0 /root
+
+    You can specify a device or file with the -f or --file options.
+     
+    Create with multi volume option using -M or --multi-volume if your backup won't fit on one device:
+
+    $ tar -cMf /dev/st0 /root
+
+    You will be prompted to put next tape when needed.
+     
+    Verify files with compare option using -d or --compare:
+
+    $ tar --compare --verbose --file /dev/st0
+    $ tar -dvf /dev/st0
+
+    After you make a backup, you can make sure that it is complete and correct using the above verification option. -->
 </div>
         </div>
       </div>
@@ -692,7 +678,7 @@ Et comme il n'y a pas que le travail dans la vie, le Tango et d'oenologie, je tr
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/06/06/lfcs--archivage-et-compression" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>

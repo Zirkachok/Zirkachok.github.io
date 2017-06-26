@@ -2,6 +2,36 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://zirkachok.github.io/2017/06/16/lfcs--t%C3%A2ches-et-gestion-des-ressources</loc>
+    <lastmod>2017-06-16T14:59:06+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/2017/06/15/lfcs--programmer-des-t%C3%A2ches</loc>
+    <lastmod>2017-06-15T08:50:34+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me</loc>
+    <lastmod>2017-06-14T13:31:54+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/2017/06/06/lfcs--archivage-et-compression</loc>
+    <lastmod>2017-06-06T11:06:04+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/2017/06/06/lfcs--g%C3%A9rer-les-quotas-disque</loc>
+    <lastmod>2017-06-06T11:06:04+02:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://zirkachok.github.io/2017/05/22/lfcs--la-documentation-pass%C3%A9e-au-crible</loc>
+    <lastmod>2017-05-22T09:21:55+02:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://zirkachok.github.io/2017/04/18/index-des-pr%C3%A9requis-lfcs-lfce</loc>
     <lastmod>2017-04-18T11:05:07+02:00</lastmod>
   </url>
@@ -65,25 +95,25 @@
   
   <url>
     <loc>https://zirkachok.github.io/categories/informatique/</loc>
-    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
+    <lastmod>2017-06-16T14:59:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zirkachok.github.io/tags/lfce-lfcs/</loc>
-    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
+    <lastmod>2017-06-16T14:59:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zirkachok.github.io/tags/linux/</loc>
-    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
+    <lastmod>2017-06-16T14:59:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://zirkachok.github.io/post/</loc>
-    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
+    <lastmod>2017-06-16T14:59:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -94,7 +124,7 @@
   
   <url>
     <loc>https://zirkachok.github.io/</loc>
-    <lastmod>2017-04-18T11:05:07+02:00</lastmod>
+    <lastmod>2017-06-16T14:59:06+02:00</lastmod>
     <priority>0</priority>
   </url>
   

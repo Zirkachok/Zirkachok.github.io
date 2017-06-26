@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>LFCS : Utilisateurs et droits, le retour - Zirka</title>
-    <meta property='og:title' content="LFCS : Utilisateurs et droits, le retour - Zirka">
+    <title>LFCS : Limiter les ressources système - Zirka</title>
+    <meta property='og:title' content="LFCS : Limiter les ressources système - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  18 Apr 2017
+                  14 Jun 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">LFCS : Utilisateurs et droits, le retour</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Limiter les ressources système</h1>
           </header>
         </div>
       </div>
@@ -396,203 +396,89 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<!-- ê î ô û -->
+<!-- â ê î ô û -->
 
-<p>Je vous ai présenté <a href="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux">la fois précédente</a> comment gérer les permissions et les utilisateurs au sein de votre système, mais le sujet est bien trop vaste pour être plié en un seul post de blog. Je vais donc revenir à la charge aujourd&rsquo;hui avec de nouvelles commandes et quelques conseils appréciables pour optimiser leur gestion.</p>
+<!-- é è ù à -->
 
-<h1 id="gestion-avancée-des-permissions">Gestion avancée des permissions</h1>
+<p>Nous avons déjà vu comment limiter, pour chaque système de fichier, le volume de données et le nombre de fichiers qu&rsquo;un utilisateur ou groupe a à sa disposition. Aujourd&rsquo;hui, nous allons explorer un peu plus la question en limitant cette fois-ci les ressources système disponibles pour un utilisateur.</p>
 
-<h2 id="changer-de-propriétaire">Changer de propriétaire</h2>
+<p>L&rsquo;utilisation de ces ressources, telles que la taille maximale des fichiers, le nombre maximal de fichiers ouverts, le nombre de processus, etc., sont autant de failles courantes dans les systèmes multi-utilisateurs. Imaginons un tel système sans limites : Tout utilisateur peut alors créer des processus à l&rsquo;infini<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>, ouvrir autant de fichiers que possible, etc., rendant de fait le système inutilisable. Il est donc essentiel par sécurité d&rsquo;introduire des limites strictes à ce niveau, comme pour les quotas d&rsquo;utilisation disque.</p>
 
-<p>En plus de pouvoir changer les permissions d&rsquo;un fichier, il est aussi possible d&rsquo;en modifier l&rsquo;utilisateur et le groupe propriétaire, respectivement avec les commandes <strong>chown</strong> et <strong>chgrp</strong> (qui nécessitent les droits administrateur). Ces commandes prennent en premier paramètre l&rsquo;utilisateur/le groupe, suivi du fichier concerné. Il est aussi possible de changer à la fois l&rsquo;utilisateur et le groupe propriétaires du fichier avec <em>chown</em>, en combinant les deux séparés par &ldquo; <em>:</em> &ldquo;.</p>
-
-<p>Par l&rsquo;exemple, cela nous donne :</p>
-
-<pre><code>$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-
-$ sudo chown hobbes test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   humains   921   avril 10 15:47   test.txt
-
-$ sudo chgrp tigres test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   tigres    921   avril 10 15:47   test.txt
-
-$ sudo chown calvin:humains test.txt
-$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-</code></pre>
-
-<h2 id="modifier-les-droits-par-défaut">Modifier les droits par défaut</h2>
-
-<p>Chaque fichier créé se voit attribuer à sa création un ensemble de permissions par défaut, mais il est possible de modifier ces droits via la commande <strong>umask</strong><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
-
-<!-- Par défaut, les permissions d'un nouveau fichier sont 022 ou 002 -->
-
-<p><em>umask</em> utilise la variante numérique de modification des droits (voir l&rsquo;article précédent, avec 4 pour l&rsquo;accès en lecture, 2 en écriture et 1 en exécution), mais part de permissions complètes (donc <em>777</em>) et y retranche celles données en argument. Avec <em>umask 021</em> par exemple, on obtiendra les droits rwxr-xrw- (777 - 021 = 756). Dans la plupart des distributions, <em>umask</em> est mis à 022 par défaut (soit rwxr-xr-x ou 755).</p>
-
-<pre><code>$ touch test.txt
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-</code></pre>
-
-<!--
-When you run the umask command it will give that default set of permissions on any new file you make. However, if you want it to persist you'll have to modify your startup file (.profile), but we'll discuss that in a later lesson. -->
-
-<h2 id="cas-spécifique-des-suid-et-sgid">Cas spécifique des SUID et SGID</h2>
-
-<p>Dans de nombreux cas, des utilisateurs &ldquo;lambda&rdquo; ont besoin de droits &ldquo;privilégiés&rdquo; pour certaines actions, mais les accès au compte administrateur ne peuvent pas être donnés à tous. Pour ces cas particuliers, il existe une permission spéciale, le <strong>Set User ID (SUID)</strong>, qui permet de lancer une commande en étant considéré comme le propriétaire du fichier.</p>
-
-<p>Prenons un exemple. Disons qu&rsquo;un utilisateur souhaite changer son mot de passe. Pour cela, il utilisera la commande <em>passwd</em>, qui elle même modifiera les fichiers système <em>/etc/passwd</em>. Cependant, ce fichier est propriété de l&rsquo;administrateur et n&rsquo;es modifiable que par lui. Regardons maintenant les permissions de la commande <em>passwd</em> (fichier exécutable situé dans &ldquo; <em>/usr/bin/passwd</em> &ldquo;):</p>
-
-<pre><code>$ ls -l /usr/bin/passwd
--rwSr-xr-x 1 root root 54256 mars  29  2016 /usr/bin/passwd
-</code></pre>
-
-<p>Vous remarquerez le nouveau caractère <strong>s</strong> : il s&rsquo;agit du SUID. Quand cette permission est mise sur un fichier, n&rsquo;importe quel utilisateur exécutant ce fichier sera considéré comme son propriétaire, dans notre exemple l&rsquo;administrateur (<em>root</em>). Sans ce droit spécial, il serait impossible à un utilisateur de changer son mot de passe sans passer par le compte administrateur.</p>
-
-<p>Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>4</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u+s test.txt
--rwSrw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 4755 test.txt 
--rwsr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<p>De la même manière, il est possible d&rsquo;autoriser l&rsquo;exécution d&rsquo;une commande en étant considéré comme appartenant au groupe propriétaire du fichier, et cela par l&rsquo;intermédiaire de la permission <strong>Set Group ID (SGID)</strong>. Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>2</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g+s test.txt
--rw-rwSr--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 2555 test.txt 
--r-xr-sr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<!-- 
-
-7. Process Permissions
-
-Let's segue into process permissions for a bit, remember how I told you that when you run the passwd command with the SUID permission bit enabled you will run the program as root? That is true, however does that mean since you are temporarily root you can modify other user's passwords? Nope fortunately not!
-
-This is because of the many UIDs that Linux implements. There are three UIDS associated with every process:
-
-When you launch a process, it runs with the same permissions as the user or group that ran it, this is known as an effective user ID. This UID is used to grant access rights to a process. So naturally if Bob ran the touch command, the process would run as him and any files he created would be under his ownership.
-
-There is another UID, called the real user ID this is the ID of the user that launched the process. These are used to track down who the user who launched the process is.
-
-One last UID is the saved user ID, this allows a process to switch between the effective UID and real UID, vice versa. This is useful because we don't want our process to run with elevated privileges all the time, it's just good practice to use special privileges at specific times.
-
-Now let's piece these all together by looking at the passwd command once more.
-
-When running the passwd command, your effective UID is your user ID, let's say its 500 for now. Oh but wait, remember the passwd command has the SUID permission enabled. So when you run it, your effective UID is now 0 (0 is the UID of root). Now this program can access files as root.
-
-Let's say you get a little taste of power and you want to modify Sally's password, Sally has a UID of 600. Well you'll be out of luck, fortunately the process also has your real UID in this case 500. It knows that your UID is 500 and therefore you can't modify the password of UID of 600. (This of course is always bypassed if you are a superuser on a machine and can control and change everything).
-
-Since you ran passwd, it will start the process off using your real UID, and it will save the UID of the owner of the file (effective UID), so you can switch between the two. No need to modify all files with root access if it's not required.
-
-Most of the time the real UID and the effective UID are the same, but in such cases as the passwd command they will change.
-
- -->
-
-<h2 id="le-sticky-bit">Le &ldquo;Sticky bit&rdquo;</h2>
-
-<p>Parlons maintenant d&rsquo;une dernière permissions spéciale: le &ldquo;sticky bit&rdquo;. Il est possible de rendre un fichier destructible seulement par son propriétaire et l&rsquo;administrateur, et ce quelles que soient les permissions sur ce fichier. Prenons l&rsquo;exemple du répertoire &ldquo; <em>/tmp</em> &ldquo; (l&rsquo;option <em>-d</em> de <em>ls</em> permet de lister les répertoires, et non leur contenu):</p>
-
-<pre><code>$ ls -ld /tmp
-drwxrwxrwt 13 root root 135168 avril 19 14:19 /tmp
-</code></pre>
-
-<p>Vous remarquerez que le dernier caractère des droits est à <strong>t</strong>. C&rsquo;est le fameur &ldquo;<strong>sticky bit</strong>&rdquo;. Ce dossier ne peut donc être supprimé que par l&rsquo;administrateur, tout en étant modifiable par tous.</p>
-
-<p>Comme pour les SUID et SGID, le &ldquo;sticky bit&rdquo; peut être affecté de manière symbolique avec <strong>t</strong> ou de manière numérique en précédent les droits d&rsquo;un <strong>1</strong> :</p>
-
-<pre><code>$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 1755 test.txt
-$ ls -l
--rwxr-xr-t  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod -t test.txt
-$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<h1 id="recherches-par-utilisateurs-et-permissions">Recherches par utilisateurs et permissions</h1>
-
-<p>Je vous ai montré dans <a href="https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence">un précédent article</a> comment lister et trouver les fichiers dans le système, en proposant quelques filtres possibles. En voici quelques autres permettent de filtrer en fonction des utilisateurs, groupes et permissions :</p>
+<p>Linux permet d&rsquo;y parvenir facilement, via le fichier <strong>/etc/security/limits.conf</strong>. Ce fichier est chargé à l&rsquo;ouverture d&rsquo;une session dans le système par <em>PAM</em><sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup>, et définit l&rsquo;ensemble des limites apposées pour un grand nombre de paramètres système, à chaque utilisateur. Pour changer ces paramètres, plutôt que d&rsquo;écrire directement dans le fichier, nous utiliserons la commande <strong>ulimit</strong> avec les options suivantes (entre autres) :</p>
 
 <ul>
-<li><strong>find -user <em>u</em></strong> : Liste les fichiers appartenant à l&rsquo;utilisateur <em>u</em>.</li>
-<li><strong>find -group <em>g</em></strong> : Liste les fichiers appartenant au groupe <em>g</em>.</li>
-<li><strong>find -perm</strong> : Liste les fichiers selon leurs permissions:
-
-<ul>
-<li><strong>-perm <em>p</em></strong> : ne liste que les fichiers dont les permissions sont exactement <em>p</em>.</li>
-<li><strong>-perm <em>-p</em></strong> : liste les fichiers dont les permissions sont au moins <em>p</em>.</li>
-<li><strong>-perm <em>/p</em></strong> : liste les fichiers dont au moins un des droits de <em>p</em> est setté.</li>
-</ul></li>
+<li><strong>-a</strong> : Affiche les limites pour chaque ressource système concernée</li>
+<li><strong>-f</strong> : Affiche (si seul) ou fixe (si suivi d&rsquo;un nombre) la <strong>taille maximale d&rsquo;un fichier</strong> créé</li>
+<li><strong>-n</strong> : Affiche ou fixe le <strong>nombre maximum de fichiers ouverts</strong> simultanément</li>
+<li><strong>-t</strong> : Affiche ou fixe le <strong>temps CPU maximal</strong> pour un processus (i.e. son utilisation des ressources processeur)</li>
+<li><strong>-u</strong> : Affiche ou fixe le <strong>nombre maximal de processus</strong> simultanément</li>
+<li><strong>-v</strong> : Affiche ou fixe la <strong>quantité maximale de mémoire virtuelle</strong> disponible pour un processus</li>
 </ul>
 
-<p>Et en pratique, cela nous donne :</p>
+<p>Comme pour les quotas disque, <em>ulimit</em> gère des limites strictes (<strong>hard limits</strong>) avec l&rsquo;option <strong>-H</strong>, et non strictes (<strong>soft limits</strong>) avec l&rsquo;option <strong>-S</strong><sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup>. Sans aucune de ces deux options, les deux types de limites sont motifiées simultanément.</p>
 
-<pre><code>$ ls -l
--rw-r--r--  1 root    root     0 avril 18 16:11 supertest.txt
--rw-r--rw-  1 calvin  humains  0 avril 18 16:07 testbis.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:14 testTer.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:06 test.txt
+<p>D&rsquo;autres limites ne sont modifiables qu&rsquo;en écrivant directement dans le fichier <em>/etc/security/limits.conf</em>. On retrouve entre autres les champs :</p>
 
-$ find . -user hobbes
-./testTer.txt
-./test.txt
+<ul>
+<li>maxlogins : nombre maximal de connections en simultané à chaque utilisateur (le superutilisateur n&rsquo;étant pas concerné)</li>
+<li>maxsyslogins : nombre maximal d&rsquo;utilisateurs connectés en simultané au système</li>
+<li>nice : priorité maximale des processus de l’utilisateur</li>
+<li>&hellip;</li>
+</ul>
 
-$ find . -group humains
-./testbis.txt
+<p>Le fichier <em>/etc/security/limits.conf</em> permet aussi une gestion fine des limites, en fonction des utilisateurs et groupes (faire varier les limites en fonction des utilisateurs, par exemple).</p>
 
-$ find . -perm 664
-./testTer.txt
-./test.txt
+<p>Dans la pratique, cela nous donne :</p>
+
+<pre><code>$ ulimit -u
+30353
+
+$ ulimit -u 300
+
+$ ulimit -u
+300
+
+$ ulimit -a
+core file size          (blocks, -c) 0
+data seg size           (kbytes, -d) 1000000
+scheduling priority             (-e) 0
+file size               (blocks, -f) unlimited
+pending signals                 (-i) 772466
+max locked memory       (kbytes, -l) 64
+max memory size         (kbytes, -m) 1000000
+open files                      (-n) 1024
+pipe size            (512 bytes, -p) 8
+POSIX message queues     (bytes, -q) 819200
+real-time priority              (-r) 0
+stack size              (kbytes, -s) 8192
+cpu time               (seconds, -t) unlimited
+max user processes              (-u) 30353
+virtual memory          (kbytes, -v) unlimited
+file locks                      (-x) unlimited
 </code></pre>
 
-<!--
-Ref : https://linuxjourney.com/lesson/file-permissions
--->
+<h2 id="pour-aller-plus-loin">Pour aller plus loin&hellip;</h2>
 
-<!-- sudo -->
+<p>Voici mes inspirations ayant mené à cet article. Vous y trouverez des ressources vous permettant d&rsquo;aller plus loin sur le sujet.</p>
 
-<!-- uname -a -->
-
-<!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux -->
-
-<!--   A      B         C                                D                          E      F      G      H      -->
-
-<!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name -->
-
-<!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system -->
-
-<!-- shutdown -->
-
-<!-- logout -->
+<ul>
+<li>L&rsquo;<a href="https://ss64.com/bash/ulimit.html">entrée de manuel</a> de <em>limits.conf</em> (<strong>man limits.conf</strong>)</li>
+<li><a href="https://access.redhat.com/solutions/61334">Documentation Red Hat</a> (EN)</li>
+<li><a href="https://www.admin-linux.fr/controle-des-ressources-systemes-ulimit/">Un excellent article sur la question</a> (FR)</li>
+<li><a href="http://www.linuxhowtos.org/Tips%20and%20Tricks/ulimit.htm">Un résumé sur le sujet</a> (EN)</li>
+<li><a href="https://www.tecmint.com/set-limits-on-user-processes-using-ulimit-in-linux/">Un bel article de Tecmint</a> (EN)</li>
+</ul>
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">À noter que la modification des droits par défaut n&rsquo;est pas persistante (elle ne sera plus valable après redémarrage de l&rsquo;appareil par exemple). Pour l&rsquo;affecter de manière permanente, il faudra modifier le profil de démarrage (fichier <em>.profile</em>), mais j&rsquo;aborderai ce point dans un autre article.
+<li id="fn:1">C&rsquo;est ce que l&rsquo;on appelle une <a href="https://www.admin-linux.fr/?p=7530">fork bomb</a>.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2">Nous aborderons <strong>PAM</strong> (<em>Pluggable Authentication Modules</em>) dans un prochain article.
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+<li id="fn:3">À noter que la limite stricte doit forcément être supérieure à la limite non-stricte.
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
 </ol>
 </div>
 </div>
@@ -692,7 +578,7 @@ Et comme il n'y a pas que le travail dans la vie, le Tango et d'oenologie, je tr
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>

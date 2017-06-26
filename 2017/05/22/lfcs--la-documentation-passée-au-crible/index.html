@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>LFCS : Utilisateurs et droits, le retour - Zirka</title>
-    <meta property='og:title' content="LFCS : Utilisateurs et droits, le retour - Zirka">
+    <title>LFCS : La documentation passée au crible - Zirka</title>
+    <meta property='og:title' content="LFCS : La documentation passée au crible - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/05/22/lfcs--la-documentation-pass%C3%A9e-au-crible">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  18 Apr 2017
+                  22 May 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">LFCS : Utilisateurs et droits, le retour</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : La documentation passée au crible</h1>
           </header>
         </div>
       </div>
@@ -398,201 +398,62 @@
 
 <!-- ê î ô û -->
 
-<p>Je vous ai présenté <a href="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux">la fois précédente</a> comment gérer les permissions et les utilisateurs au sein de votre système, mais le sujet est bien trop vaste pour être plié en un seul post de blog. Je vais donc revenir à la charge aujourd&rsquo;hui avec de nouvelles commandes et quelques conseils appréciables pour optimiser leur gestion.</p>
+<p>Aussi expérimenté que vous soyez, il est simplement impossible de retenir toutes les commandes disponibles sous Unix/Linux, leur rôle, leur fonctionnement, leurs paramètres et leurs arguments. Heureusement, il existe une documentation simple d&rsquo;accès en ligne de commande et très fournie : le manuel. Aujourd&rsquo;hui, nous allons donc nous plonger dans ce sujet</p>
 
-<h1 id="gestion-avancée-des-permissions">Gestion avancée des permissions</h1>
+<h1 id="le-manuel-en-ligne-de-commande">Le manuel en ligne de commande</h1>
 
-<h2 id="changer-de-propriétaire">Changer de propriétaire</h2>
+<p>La commande de référence pour consulter une entrée du manuel est <strong>man</strong>, suivie de la commande pour laquelle vous avez besoin d&rsquo;informations<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. Une page s&rsquo;ouvrira alors dans le terminal pour afficher toutes les informations essentielles sur cette commande<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup> : son rôle, son fonctionnement, ses options et paramètres, &hellip; (Pour une description en une seule ligne, utiliser la commande <strong>whatis</strong>).</p>
 
-<p>En plus de pouvoir changer les permissions d&rsquo;un fichier, il est aussi possible d&rsquo;en modifier l&rsquo;utilisateur et le groupe propriétaire, respectivement avec les commandes <strong>chown</strong> et <strong>chgrp</strong> (qui nécessitent les droits administrateur). Ces commandes prennent en premier paramètre l&rsquo;utilisateur/le groupe, suivi du fichier concerné. Il est aussi possible de changer à la fois l&rsquo;utilisateur et le groupe propriétaires du fichier avec <em>chown</em>, en combinant les deux séparés par &ldquo; <em>:</em> &ldquo;.</p>
+<p>Info alternative à man, &hellip;</p>
 
-<p>Par l&rsquo;exemple, cela nous donne :</p>
+<p>Il est aussi possible de chercher des commandes à partir d&rsquo;un mot clé, avec la commande <strong>apropos</strong>. Celle-ci retourne toutes les commandes (et leur description) pour lesquelles le mot-clé est présent dans leur nom ou descriptions. Par exemple, pour cherchées toutes les commandes liées à l&rsquo;algorithme de compression bzip2 :</p>
 
-<pre><code>$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-
-$ sudo chown hobbes test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   humains   921   avril 10 15:47   test.txt
-
-$ sudo chgrp tigres test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   tigres    921   avril 10 15:47   test.txt
-
-$ sudo chown calvin:humains test.txt
-$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+<pre><code>$ apropos bzip
+bzcmp (1)            - compare bzip2 compressed files
+bzdiff (1)           - compare bzip2 compressed files
+bzegrep (1)          - search possibly bzip2 compressed files for a regular expression
+bzfgrep (1)          - search possibly bzip2 compressed files for a regular expression
+bzgrep (1)           - search possibly bzip2 compressed files for a regular expression
+bzip2 (1)            - a block-sorting file compressor, v1.0.6
+bzip2recover (1)     - recovers data from damaged bzip2 files
+bzless (1)           - file perusal filter for crt viewing of bzip2 compressed text
+bzmore (1)           - file perusal filter for crt viewing of bzip2 compressed text
 </code></pre>
 
-<h2 id="modifier-les-droits-par-défaut">Modifier les droits par défaut</h2>
+<p>La commande <em>man</em> n&rsquo;est qu&rsquo;un outil de visualisation des pages de manuel, qui ne contient pas lui-même toutes les descriptions disponibles (appelées <em>entrées</em>). En fait, <em>man</em> consulte une base de données d&rsquo;indexation des pages de manuel, créée ou mise-à-jour avec la commande <strong>mandb</strong>. Cette base de données est construite à partir des emplacements et options spécifiés dans le fichier <strong>/etc/manpath.config</strong> (à consulter pour mieux comprendre le fonctionnement du manuel).</p>
 
-<p>Chaque fichier créé se voit attribuer à sa création un ensemble de permissions par défaut, mais il est possible de modifier ces droits via la commande <strong>umask</strong><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
+<h1 id="créer-sa-propre-entrée-de-manuel">Créer sa propre entrée de manuel</h1>
 
-<!-- Par défaut, les permissions d'un nouveau fichier sont 022 ou 002 -->
+<p>Il est bien sûr possible de créer de toute pièce une entrée de manuel (par exemple, pour une commande &ldquo;<em>maison</em>&rdquo; que vous avez créée). Les entrées de manuel suivent un format spécique, permettant à un système de traitement de documents nommé <strong>troff</strong> (ou plutôt à l&rsquo;un de ses packages, <em>groff an.tmac</em>) d&rsquo;en déduire la mise-en-page du document. Ce format fonctionne par l&rsquo;intermédiaire de <em>Macros</em> définissant les sections, les en-tête et pieds de page, etc.</p>
 
-<p><em>umask</em> utilise la variante numérique de modification des droits (voir l&rsquo;article précédent, avec 4 pour l&rsquo;accès en lecture, 2 en écriture et 1 en exécution), mais part de permissions complètes (donc <em>777</em>) et y retranche celles données en argument. Avec <em>umask 021</em> par exemple, on obtiendra les droits rwxr-xrw- (777 - 021 = 756). Dans la plupart des distributions, <em>umask</em> est mis à 022 par défaut (soit rwxr-xr-x ou 755).</p>
-
-<pre><code>$ touch test.txt
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-</code></pre>
-
-<!--
-When you run the umask command it will give that default set of permissions on any new file you make. However, if you want it to persist you'll have to modify your startup file (.profile), but we'll discuss that in a later lesson. -->
-
-<h2 id="cas-spécifique-des-suid-et-sgid">Cas spécifique des SUID et SGID</h2>
-
-<p>Dans de nombreux cas, des utilisateurs &ldquo;lambda&rdquo; ont besoin de droits &ldquo;privilégiés&rdquo; pour certaines actions, mais les accès au compte administrateur ne peuvent pas être donnés à tous. Pour ces cas particuliers, il existe une permission spéciale, le <strong>Set User ID (SUID)</strong>, qui permet de lancer une commande en étant considéré comme le propriétaire du fichier.</p>
-
-<p>Prenons un exemple. Disons qu&rsquo;un utilisateur souhaite changer son mot de passe. Pour cela, il utilisera la commande <em>passwd</em>, qui elle même modifiera les fichiers système <em>/etc/passwd</em>. Cependant, ce fichier est propriété de l&rsquo;administrateur et n&rsquo;es modifiable que par lui. Regardons maintenant les permissions de la commande <em>passwd</em> (fichier exécutable situé dans &ldquo; <em>/usr/bin/passwd</em> &ldquo;):</p>
-
-<pre><code>$ ls -l /usr/bin/passwd
--rwSr-xr-x 1 root root 54256 mars  29  2016 /usr/bin/passwd
-</code></pre>
-
-<p>Vous remarquerez le nouveau caractère <strong>s</strong> : il s&rsquo;agit du SUID. Quand cette permission est mise sur un fichier, n&rsquo;importe quel utilisateur exécutant ce fichier sera considéré comme son propriétaire, dans notre exemple l&rsquo;administrateur (<em>root</em>). Sans ce droit spécial, il serait impossible à un utilisateur de changer son mot de passe sans passer par le compte administrateur.</p>
-
-<p>Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>4</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u+s test.txt
--rwSrw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 4755 test.txt 
--rwsr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<p>De la même manière, il est possible d&rsquo;autoriser l&rsquo;exécution d&rsquo;une commande en étant considéré comme appartenant au groupe propriétaire du fichier, et cela par l&rsquo;intermédiaire de la permission <strong>Set Group ID (SGID)</strong>. Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>2</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g+s test.txt
--rw-rwSr--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 2555 test.txt 
--r-xr-sr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<!-- 
-
-7. Process Permissions
-
-Let's segue into process permissions for a bit, remember how I told you that when you run the passwd command with the SUID permission bit enabled you will run the program as root? That is true, however does that mean since you are temporarily root you can modify other user's passwords? Nope fortunately not!
-
-This is because of the many UIDs that Linux implements. There are three UIDS associated with every process:
-
-When you launch a process, it runs with the same permissions as the user or group that ran it, this is known as an effective user ID. This UID is used to grant access rights to a process. So naturally if Bob ran the touch command, the process would run as him and any files he created would be under his ownership.
-
-There is another UID, called the real user ID this is the ID of the user that launched the process. These are used to track down who the user who launched the process is.
-
-One last UID is the saved user ID, this allows a process to switch between the effective UID and real UID, vice versa. This is useful because we don't want our process to run with elevated privileges all the time, it's just good practice to use special privileges at specific times.
-
-Now let's piece these all together by looking at the passwd command once more.
-
-When running the passwd command, your effective UID is your user ID, let's say its 500 for now. Oh but wait, remember the passwd command has the SUID permission enabled. So when you run it, your effective UID is now 0 (0 is the UID of root). Now this program can access files as root.
-
-Let's say you get a little taste of power and you want to modify Sally's password, Sally has a UID of 600. Well you'll be out of luck, fortunately the process also has your real UID in this case 500. It knows that your UID is 500 and therefore you can't modify the password of UID of 600. (This of course is always bypassed if you are a superuser on a machine and can control and change everything).
-
-Since you ran passwd, it will start the process off using your real UID, and it will save the UID of the owner of the file (effective UID), so you can switch between the two. No need to modify all files with root access if it's not required.
-
-Most of the time the real UID and the effective UID are the same, but in such cases as the passwd command they will change.
-
- -->
-
-<h2 id="le-sticky-bit">Le &ldquo;Sticky bit&rdquo;</h2>
-
-<p>Parlons maintenant d&rsquo;une dernière permissions spéciale: le &ldquo;sticky bit&rdquo;. Il est possible de rendre un fichier destructible seulement par son propriétaire et l&rsquo;administrateur, et ce quelles que soient les permissions sur ce fichier. Prenons l&rsquo;exemple du répertoire &ldquo; <em>/tmp</em> &ldquo; (l&rsquo;option <em>-d</em> de <em>ls</em> permet de lister les répertoires, et non leur contenu):</p>
-
-<pre><code>$ ls -ld /tmp
-drwxrwxrwt 13 root root 135168 avril 19 14:19 /tmp
-</code></pre>
-
-<p>Vous remarquerez que le dernier caractère des droits est à <strong>t</strong>. C&rsquo;est le fameur &ldquo;<strong>sticky bit</strong>&rdquo;. Ce dossier ne peut donc être supprimé que par l&rsquo;administrateur, tout en étant modifiable par tous.</p>
-
-<p>Comme pour les SUID et SGID, le &ldquo;sticky bit&rdquo; peut être affecté de manière symbolique avec <strong>t</strong> ou de manière numérique en précédent les droits d&rsquo;un <strong>1</strong> :</p>
-
-<pre><code>$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 1755 test.txt
-$ ls -l
--rwxr-xr-t  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod -t test.txt
-$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<h1 id="recherches-par-utilisateurs-et-permissions">Recherches par utilisateurs et permissions</h1>
-
-<p>Je vous ai montré dans <a href="https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence">un précédent article</a> comment lister et trouver les fichiers dans le système, en proposant quelques filtres possibles. En voici quelques autres permettent de filtrer en fonction des utilisateurs, groupes et permissions :</p>
+<p>Pour comprendre comment fonctionne le formatage d&rsquo;une entrée de documentation, le mieux est encore d&rsquo;en lire une. Succintement, voici quelques macros utilisées :</p>
 
 <ul>
-<li><strong>find -user <em>u</em></strong> : Liste les fichiers appartenant à l&rsquo;utilisateur <em>u</em>.</li>
-<li><strong>find -group <em>g</em></strong> : Liste les fichiers appartenant au groupe <em>g</em>.</li>
-<li><strong>find -perm</strong> : Liste les fichiers selon leurs permissions:
-
-<ul>
-<li><strong>-perm <em>p</em></strong> : ne liste que les fichiers dont les permissions sont exactement <em>p</em>.</li>
-<li><strong>-perm <em>-p</em></strong> : liste les fichiers dont les permissions sont au moins <em>p</em>.</li>
-<li><strong>-perm <em>/p</em></strong> : liste les fichiers dont au moins un des droits de <em>p</em> est setté.</li>
-</ul></li>
+<li><strong>NAME</strong> : Le nom de la commande ou fonction, suivi d&rsquo;une description en une ligne de son fonctionnement</li>
+<li><strong>SYNOPSIS</strong> : Une description plus complète de son fonctionnement et des options disponibles</li>
+<li><strong>EXAMPLES</strong> : Quelques exemples de son utilisation générale</li>
+<li><strong>BUGS</strong> : Les bugs connus liés à cette commande</li>
+<li><strong>SEE ALSO</strong>, <strong>AUTHOR</strong>, <strong>COPYRIGHT</strong>, <strong>DESCRIPTION</strong>, &hellip;</li>
 </ul>
 
-<p>Et en pratique, cela nous donne :</p>
+<p>Une fois la documentation réalisée, il suffit de la placer dans un des emplacements définis dans <em>/etc/manpath.config</em>, de recréer la base de données d&rsquo;indexation avec la commande <em>mandb</em>, et le tour est joué.</p>
 
-<pre><code>$ ls -l
--rw-r--r--  1 root    root     0 avril 18 16:11 supertest.txt
--rw-r--rw-  1 calvin  humains  0 avril 18 16:07 testbis.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:14 testTer.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:06 test.txt
+<!-- https://www.cyberciti.biz/faq/linux-unix-creating-a-manpage/ -->
 
-$ find . -user hobbes
-./testTer.txt
-./test.txt
+<h1 id="références-sur-internet">Références sur Internet</h1>
 
-$ find . -group humains
-./testbis.txt
+<p>Le manuel Linux est incroyablement bien fourni et vous aidra à trouver la réponse à une grande partie de vos questions. Mais pour toutes les autres, il reste à se tourner vers Internet. De manière générale, le <a href="https://wiki.archlinux.org"><strong>wiki d&rsquo;Archlinux</strong></a> est une mine d&rsquo;or en matière d&rsquo;information et de résolution de problèmes. Une excellente alternative est la <a href="https://access.redhat.com/documentation"><strong>documentation en ligne de Red Hat</strong></a>, ou encore le <a href="http://www.tldp.org/"><strong>Projet de Documentation Linux (TLDP)</strong></a>. Enfin, le forum <a href="https://stackexchange.com/"><strong>stackexchange</strong></a>, et en particulier son groupe <a href="https://serverfault.com/"><strong>serverfault</strong></a>, permet de résoudre une vaste majorité des problèmes rencontrés dans la vie de tous les jours avec Linux.</p>
 
-$ find . -perm 664
-./testTer.txt
-./test.txt
-</code></pre>
-
-<!--
-Ref : https://linuxjourney.com/lesson/file-permissions
--->
-
-<!-- sudo -->
-
-<!-- uname -a -->
-
-<!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux -->
-
-<!--   A      B         C                                D                          E      F      G      H      -->
-
-<!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name -->
-
-<!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system -->
-
-<!-- shutdown -->
-
-<!-- logout -->
+<!-- https://www.youtube.com/watch?v=59jnWX_EzTY&index=123&list=WL -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">À noter que la modification des droits par défaut n&rsquo;est pas persistante (elle ne sera plus valable après redémarrage de l&rsquo;appareil par exemple). Pour l&rsquo;affecter de manière permanente, il faudra modifier le profil de démarrage (fichier <em>.profile</em>), mais j&rsquo;aborderai ce point dans un autre article.
+<li id="fn:1">Il existe une alternative à <em>man</em>, <strong>info</strong>, qui sert de principale outil de documentation pour les Systèmes basés sur <a href="https://en.wikipedia.org/wiki/GNU">GNU</a>. Cependant, bien que mieux organisée (avec des hyperliens par exemple), <em>info</em> est souvent moins bien fournie.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2">Si plusieurs entrées existent pour cette commande, il n&rsquo;affichera que la première.
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
 </ol>
 </div>
 </div>
@@ -692,7 +553,7 @@ Et comme il n'y a pas que le travail dans la vie, le Tango et d'oenologie, je tr
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/05/22/lfcs--la-documentation-pass%C3%A9e-au-crible" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>

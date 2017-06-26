@@ -1,4 +1,6 @@
-- extended article on permissions (setuid, setgit, sticky bit, ...)
+- Kernel, userspace, ...
+
+$ ionic serve --lab
 
 
 - différences entre interpréteurs de commande (bash, sh, zsh)

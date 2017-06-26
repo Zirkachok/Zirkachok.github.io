@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>LFCS : Utilisateurs et droits, le retour - Zirka</title>
-    <meta property='og:title' content="LFCS : Utilisateurs et droits, le retour - Zirka">
+    <title>LFCS : Tâches et gestion des ressources - Zirka</title>
+    <meta property='og:title' content="LFCS : Tâches et gestion des ressources - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/06/16/lfcs--t%C3%A2ches-et-gestion-des-ressources">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  18 Apr 2017
+                  16 Jun 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">LFCS : Utilisateurs et droits, le retour</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Tâches et gestion des ressources</h1>
           </header>
         </div>
       </div>
@@ -396,203 +396,113 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<!-- ê î ô û -->
+<!-- â ê î ô û -->
 
-<p>Je vous ai présenté <a href="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux">la fois précédente</a> comment gérer les permissions et les utilisateurs au sein de votre système, mais le sujet est bien trop vaste pour être plié en un seul post de blog. Je vais donc revenir à la charge aujourd&rsquo;hui avec de nouvelles commandes et quelques conseils appréciables pour optimiser leur gestion.</p>
+<p>Aujourd&rsquo;hui, nous allons aborder la question des <em>tâches</em> dans un environnement Linux, leur rôle et fonctionnement, ainsi que la manière dont il est possible de les gérer. De manière générale, plusieurs termes sont utilisés pour désigner une <em>tâche</em> réalisée par le système d&rsquo;exploitation. On parler parfois de <em>tâche</em>, de <em>job</em>, de <em>processus</em>, ou encore de <em>thread</em>, mais la différence entre ces désignations n&rsquo;est pas toujours évidente. Essayons d&rsquo;y voir plus clair, en les passant en revue une à une.</p>
 
-<h1 id="gestion-avancée-des-permissions">Gestion avancée des permissions</h1>
+<h1 id="quel-est-le-rôle-du-noyau-linux">Quel est le rôle du noyau Linux ?</h1>
 
-<h2 id="changer-de-propriétaire">Changer de propriétaire</h2>
+<p>Commencons par expliquer comment fonctionne un système d&rsquo;exploitation. Un <strong>système d&rsquo;exploitation</strong> (ou <strong>OS</strong> pour <em>Operating System</em>), le <strong>noyau Linux</strong> dans notre cas, est un programme chargé de gérer l&rsquo;utilisation des ressources (processeur/CPU, mémoire, RAM, etc.) d&rsquo;un matériel informatique<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. Il fournit également des services aux autres programmes pour s&rsquo;interfacer avec le matériel<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup> ou communiquer entre eux.</p>
 
-<p>En plus de pouvoir changer les permissions d&rsquo;un fichier, il est aussi possible d&rsquo;en modifier l&rsquo;utilisateur et le groupe propriétaire, respectivement avec les commandes <strong>chown</strong> et <strong>chgrp</strong> (qui nécessitent les droits administrateur). Ces commandes prennent en premier paramètre l&rsquo;utilisateur/le groupe, suivi du fichier concerné. Il est aussi possible de changer à la fois l&rsquo;utilisateur et le groupe propriétaires du fichier avec <em>chown</em>, en combinant les deux séparés par &ldquo; <em>:</em> &ldquo;.</p>
+<p>L&rsquo;OS partage les ressources disponibles entre les différentes tâches à exécuter, afin que différents codes puissent être exécutés en &ldquo;simultané&rdquo;<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup>, c&rsquo;est ce que l&rsquo;on appelle l&rsquo;<strong>ordonnancement de tâches</strong> (ou <em>task scheduling</em>). Ces tâches peuvent être de deux formes : les <strong>processus</strong> (<em>process</em> en anglais) et les <strong>threads</strong>.</p>
 
-<p>Par l&rsquo;exemple, cela nous donne :</p>
+<h2 id="les-processus">Les processus</h2>
 
-<pre><code>$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+<p>Un <strong>processus</strong> est un exécutable qui a accès à un partie de la mémoire qui lui est réservée. Cette mémoire contient les instructions à exécuter (le code) et les données utilisées par le programme pour fonctionner. Ces données sont elles-même divisées en deux sous-ensembles : la <strong>pile</strong> (ou <em>stack</em>) et le <strong>tas</strong> (ou <em>heap</em>). La <strong>pile</strong> est la zone mémoire où sont stockées les variables locales et les adresses de retour des fonctions du code exécuté, alors que le <strong>tas</strong> conserve en vrac tout le reste de la mémoire allouée par le programme.</p>
 
-$ sudo chown hobbes test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   humains   921   avril 10 15:47   test.txt
+<p>Le noyau conserve les adresses des différentes zones mémoire de chaque processus en cours d&rsquo;exécution, ainsi que leurs fichiers ouverts, son identifiant unique, etc. Ces informations sont listées dans le répertoire <strong>/proc</strong>, qui contient un sous-répertoire pour chaque processus (le processus <em>1</em> étant celui lancé par le noyau Linux au démarrage). Le plan d&rsquo;adressage (ou <em>mapping</em>) est lui contenu dans le fichier <strong>maps</strong> de chaque processus.</p>
 
-$ sudo chgrp tigres test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   tigres    921   avril 10 15:47   test.txt
+<p>Un processus a aussi une <strong>priorité</strong> qui lui est propre. Plus le processus est prioritaire, plus l&rsquo;OS lui fournira de ressource processeur (de cycle processeur) lors de l&rsquo;ordonnancement des tâches.</p>
 
-$ sudo chown calvin:humains test.txt
-$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-</code></pre>
+<h2 id="les-threads">Les threads</h2>
 
-<h2 id="modifier-les-droits-par-défaut">Modifier les droits par défaut</h2>
+<p>Les processus sont relativement peu flexibles, car ils ont besoin qu&rsquo;une partie de la mémoire leur soit dédiée en permanence et doivent passer par le système d&rsquo;exploitation pour communiquer entre eux. C&rsquo;est là que les <strong>threads</strong> entrent en jeu. Un <em>thread</em> est en quelque sorte un sous-ensemble de processus, il partage la même mémoire et les mêmes fichiers que le processus correspondant, mais exécute un code différent, là encore en simultané du processus et des autres <em>threads</em><sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup>.</p>
 
-<p>Chaque fichier créé se voit attribuer à sa création un ensemble de permissions par défaut, mais il est possible de modifier ces droits via la commande <strong>umask</strong><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
+<p>Pour le noyau Linux, un <em>thread</em> partage donc les zones mémoire du processus auquel il est affilié, mais il s&rsquo;agira d&rsquo;une nouvelle entrée pour l&rsquo;ordonnanceur de tâches.</p>
 
-<!-- Par défaut, les permissions d'un nouveau fichier sont 022 ou 002 -->
+<p>Souvent on emploie également les termes de <strong>tâches</strong> et de <strong>job</strong>. Une tâche désigne le plus souvent l&rsquo;action réalisée par un processus ou un <em>thread</em>, alors qu&rsquo;un <strong>job</strong> désigne en général l&rsquo;action réalisée par un ou plusieurs processus (un navigateur Internet par exemple, qui utilise plusieurs processus, peut être vu comme un <em>job</em>). Cependant, ces deux termes ne sont pas formellement définis (contrairement aux processus et <em>threads</em>), et leur signification peut donc varier.</p>
 
-<p><em>umask</em> utilise la variante numérique de modification des droits (voir l&rsquo;article précédent, avec 4 pour l&rsquo;accès en lecture, 2 en écriture et 1 en exécution), mais part de permissions complètes (donc <em>777</em>) et y retranche celles données en argument. Avec <em>umask 021</em> par exemple, on obtiendra les droits rwxr-xrw- (777 - 021 = 756). Dans la plupart des distributions, <em>umask</em> est mis à 022 par défaut (soit rwxr-xr-x ou 755).</p>
+<!-- Le problème d'un processus c'est que c'est un peu lourd, cela implique des recopies de mémoire et surtout cela implique de passer par le système pour communiquer avec d'autre processus. Il existe donc un autre concept nommé thread.
 
-<pre><code>$ touch test.txt
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-</code></pre>
+Un thread, c'est un découpage d'un processus. Cela veut dire qu'il utilise exactement la même mémoire qu'un processus, ainsi que les mêmes descripteurs de fichiers. Ce qui diffère d'un thread à l'autre ce sont uniquement les pointeurs d'exécution et de pile. ce qui veut dire que 2 threads peuvent exécuter des bouts de code différents d'un même exécutable et avoir des variables locales différentes de celles des autres threads du processus.
 
-<!--
-When you run the umask command it will give that default set of permissions on any new file you make. However, if you want it to persist you'll have to modify your startup file (.profile), but we'll discuss that in a later lesson. -->
+Du point de vue du noyau un thread est donc uniquement caractérisé par l'état du processeur spécifiquement à l'intérieur d'un processus. Pour créer un nouveau thread, un thread existant (oeuf ou poule, un processus est déjà un thread) va appeler la fonction pthread_create() qui duplique la pile du thread existant et qui duplique l'état du processeur. Le scheduler du noyau va donc voir une nouvelle entrée. -->
 
-<h2 id="cas-spécifique-des-suid-et-sgid">Cas spécifique des SUID et SGID</h2>
+<h1 id="gérer-les-processus">Gérer les processus</h1>
 
-<p>Dans de nombreux cas, des utilisateurs &ldquo;lambda&rdquo; ont besoin de droits &ldquo;privilégiés&rdquo; pour certaines actions, mais les accès au compte administrateur ne peuvent pas être donnés à tous. Pour ces cas particuliers, il existe une permission spéciale, le <strong>Set User ID (SUID)</strong>, qui permet de lancer une commande en étant considéré comme le propriétaire du fichier.</p>
+<h2 id="lister-les-processus">Lister les processus</h2>
 
-<p>Prenons un exemple. Disons qu&rsquo;un utilisateur souhaite changer son mot de passe. Pour cela, il utilisera la commande <em>passwd</em>, qui elle même modifiera les fichiers système <em>/etc/passwd</em>. Cependant, ce fichier est propriété de l&rsquo;administrateur et n&rsquo;es modifiable que par lui. Regardons maintenant les permissions de la commande <em>passwd</em> (fichier exécutable situé dans &ldquo; <em>/usr/bin/passwd</em> &ldquo;):</p>
+<p>Sous linux, de nombreuses commandes permettent d&rsquo;obtenir des informations sur les processus en cours d&rsquo;exécution. Comme nous l&rsquo;avons vu plus haut, chaque processus a un identifiant unique, et un dossier qui lui est propre dans le répertoire <strong>/proc</strong>. Ce dossier contient en particulier les fichiers <strong>maps</strong> et <strong>map_files</strong>, contenant respectivement le plan d&rsquo;adressage mémoire et les descripteurs de fichiers ouverts par le processus.</p>
 
-<pre><code>$ ls -l /usr/bin/passwd
--rwSr-xr-x 1 root root 54256 mars  29  2016 /usr/bin/passwd
-</code></pre>
-
-<p>Vous remarquerez le nouveau caractère <strong>s</strong> : il s&rsquo;agit du SUID. Quand cette permission est mise sur un fichier, n&rsquo;importe quel utilisateur exécutant ce fichier sera considéré comme son propriétaire, dans notre exemple l&rsquo;administrateur (<em>root</em>). Sans ce droit spécial, il serait impossible à un utilisateur de changer son mot de passe sans passer par le compte administrateur.</p>
-
-<p>Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>4</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u+s test.txt
--rwSrw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 4755 test.txt 
--rwsr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<p>De la même manière, il est possible d&rsquo;autoriser l&rsquo;exécution d&rsquo;une commande en étant considéré comme appartenant au groupe propriétaire du fichier, et cela par l&rsquo;intermédiaire de la permission <strong>Set Group ID (SGID)</strong>. Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>2</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g+s test.txt
--rw-rwSr--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 2555 test.txt 
--r-xr-sr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<!-- 
-
-7. Process Permissions
-
-Let's segue into process permissions for a bit, remember how I told you that when you run the passwd command with the SUID permission bit enabled you will run the program as root? That is true, however does that mean since you are temporarily root you can modify other user's passwords? Nope fortunately not!
-
-This is because of the many UIDs that Linux implements. There are three UIDS associated with every process:
-
-When you launch a process, it runs with the same permissions as the user or group that ran it, this is known as an effective user ID. This UID is used to grant access rights to a process. So naturally if Bob ran the touch command, the process would run as him and any files he created would be under his ownership.
-
-There is another UID, called the real user ID this is the ID of the user that launched the process. These are used to track down who the user who launched the process is.
-
-One last UID is the saved user ID, this allows a process to switch between the effective UID and real UID, vice versa. This is useful because we don't want our process to run with elevated privileges all the time, it's just good practice to use special privileges at specific times.
-
-Now let's piece these all together by looking at the passwd command once more.
-
-When running the passwd command, your effective UID is your user ID, let's say its 500 for now. Oh but wait, remember the passwd command has the SUID permission enabled. So when you run it, your effective UID is now 0 (0 is the UID of root). Now this program can access files as root.
-
-Let's say you get a little taste of power and you want to modify Sally's password, Sally has a UID of 600. Well you'll be out of luck, fortunately the process also has your real UID in this case 500. It knows that your UID is 500 and therefore you can't modify the password of UID of 600. (This of course is always bypassed if you are a superuser on a machine and can control and change everything).
-
-Since you ran passwd, it will start the process off using your real UID, and it will save the UID of the owner of the file (effective UID), so you can switch between the two. No need to modify all files with root access if it's not required.
-
-Most of the time the real UID and the effective UID are the same, but in such cases as the passwd command they will change.
-
- -->
-
-<h2 id="le-sticky-bit">Le &ldquo;Sticky bit&rdquo;</h2>
-
-<p>Parlons maintenant d&rsquo;une dernière permissions spéciale: le &ldquo;sticky bit&rdquo;. Il est possible de rendre un fichier destructible seulement par son propriétaire et l&rsquo;administrateur, et ce quelles que soient les permissions sur ce fichier. Prenons l&rsquo;exemple du répertoire &ldquo; <em>/tmp</em> &ldquo; (l&rsquo;option <em>-d</em> de <em>ls</em> permet de lister les répertoires, et non leur contenu):</p>
-
-<pre><code>$ ls -ld /tmp
-drwxrwxrwt 13 root root 135168 avril 19 14:19 /tmp
-</code></pre>
-
-<p>Vous remarquerez que le dernier caractère des droits est à <strong>t</strong>. C&rsquo;est le fameur &ldquo;<strong>sticky bit</strong>&rdquo;. Ce dossier ne peut donc être supprimé que par l&rsquo;administrateur, tout en étant modifiable par tous.</p>
-
-<p>Comme pour les SUID et SGID, le &ldquo;sticky bit&rdquo; peut être affecté de manière symbolique avec <strong>t</strong> ou de manière numérique en précédent les droits d&rsquo;un <strong>1</strong> :</p>
-
-<pre><code>$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 1755 test.txt
-$ ls -l
--rwxr-xr-t  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod -t test.txt
-$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<h1 id="recherches-par-utilisateurs-et-permissions">Recherches par utilisateurs et permissions</h1>
-
-<p>Je vous ai montré dans <a href="https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence">un précédent article</a> comment lister et trouver les fichiers dans le système, en proposant quelques filtres possibles. En voici quelques autres permettent de filtrer en fonction des utilisateurs, groupes et permissions :</p>
+<p>Il est donc possible de lister les processus en cours d&rsquo;exécution (ou <em>actifs</em>) en listant les répertoires dans <em>/proc</em>. Mais il existe aussi une commande pour cela : <strong>ps</strong>. Par défaut <em>ps</em> affiche les processus actifs sur le terminal courant, mais des options la rendent bien plus puissante :</p>
 
 <ul>
-<li><strong>find -user <em>u</em></strong> : Liste les fichiers appartenant à l&rsquo;utilisateur <em>u</em>.</li>
-<li><strong>find -group <em>g</em></strong> : Liste les fichiers appartenant au groupe <em>g</em>.</li>
-<li><strong>find -perm</strong> : Liste les fichiers selon leurs permissions:
-
-<ul>
-<li><strong>-perm <em>p</em></strong> : ne liste que les fichiers dont les permissions sont exactement <em>p</em>.</li>
-<li><strong>-perm <em>-p</em></strong> : liste les fichiers dont les permissions sont au moins <em>p</em>.</li>
-<li><strong>-perm <em>/p</em></strong> : liste les fichiers dont au moins un des droits de <em>p</em> est setté.</li>
-</ul></li>
+<li><strong>-x</strong> : retourne tous les processus actifs de l&rsquo;utilisateur courant</li>
+<li><strong>-ax</strong> : retourne tous les processus actifs pour tous les utilisateurs</li>
+<li>** -p PID** : retourne le processus actif dont l&rsquo;identifiant unique est <em>PID</em></li>
 </ul>
 
-<p>Et en pratique, cela nous donne :</p>
+<p><em>ps</em> donne également pour chaque processus des informations basiques sur le processus. Avec l&rsquo;option <strong>-u</strong>, <em>ps</em> fournit en plus des informations sur l&rsquo;utilisateur possédant le processus, le pourcentage processeur/CPU et mémoire dédié, etc.</p>
 
-<pre><code>$ ls -l
--rw-r--r--  1 root    root     0 avril 18 16:11 supertest.txt
--rw-r--rw-  1 calvin  humains  0 avril 18 16:07 testbis.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:14 testTer.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:06 test.txt
+<p>Dans la pratique, cela nous donne :</p>
 
-$ find . -user hobbes
-./testTer.txt
-./test.txt
+<pre><code>$ ps -aux
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+...
+zirka     3282  0.0  0.5 490924 21504 ?        Sl   08:27   0:01 /usr/lib/x86_64-linux-gnu/xfce4/panel-plugins/xfce4-xkb-plugin  8 6291499 xkb-plugin Dispositions du clavier Gre
+zirka     3292  0.0  0.1 287132  4748 ?        Sl   08:27   0:00 /usr/lib/gvfs/gvfs-udisks2-volume-monitor
+root      3295  0.0  0.2 367848  8516 ?        Ssl  08:27   0:00 /usr/lib/udisks2/udisksd --no-debug
+zirka     3303  0.0  0.0 259036  2724 ?        Sl   08:27   0:00 /usr/lib/gvfs/gvfs-goa-volume-monitor
+zirka     3308  0.0  0.1 405112  4900 ?        Sl   08:27   0:00 /usr/lib/gvfs/gvfs-afc-volume-monitor
+...
 
-$ find . -group humains
-./testbis.txt
-
-$ find . -perm 664
-./testTer.txt
-./test.txt
+$ sudo ls /proc
+1   10   10220   11   ...   3282   3292   3295   3303   3308   ... 
 </code></pre>
 
-<!--
-Ref : https://linuxjourney.com/lesson/file-permissions
--->
+<h2 id="identifier-l-utilisation-des-ressources-par-processus">Identifier l’utilisation des ressources par processus</h2>
 
-<!-- sudo -->
+<p>Nous l&rsquo;avons vu, la commande <em>ps</em> peut indiquer le pourcentage CPU et mémoire dédié à chaque processus. Cependant, il existe des commandes bien plus efficaces et détaillées pour le faire : <strong>top</strong> et sa variante interractive <strong>htop</strong>. Ces commandes retournent l&rsquo;ensemble des processus actifs avec leur utilisateur, priorité, utilisation CPU et mémoire et la commande associée, entre autres. <em>top</em> et <em>htop</em> affichent aussi les ressources totales disponibles. Chacune de ces commandes reste ouverte et rafraîchit les informations affichées en continu, jusqu&rsquo;à ce que la touche <em>q</em> soit pressée. De manière plus spécifique, la commande <strong>vmstat</strong> permet aussi de monitorer l&rsquo;utilisation de la mémoire virtuelle.</p>
 
-<!-- uname -a -->
+<h2 id="changer-la-priorité-d-un-processus">Changer la priorité d&rsquo;un processus</h2>
 
-<!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux -->
+<p>L&rsquo;ordonnanceur de tâches est chargé de gérer les processus, en leur allouant plus ou moins de cycles processeur/CPU en fonction de leur priorité (il s&rsquo;agit du champs <em>time</em> de la commande <em>top</em>). Il est facile de faire l&rsquo;analogie entre l&rsquo;ordonnanceur et nous-même lorsque nous planifions nos activités. Parfois, il nous est possible de mener de front plusieurs tâches, et parfois une seule d&rsquo;entre elle nécessite notre attention complète.</p>
 
-<!--   A      B         C                                D                          E      F      G      H      -->
+<p>Il est possible de donner des consignes au noyau Linux pour ordonnancer les processus le plus efficacement en fonction des besoins. Cela se fait via un paramètre appelé <strong>valeur nice</strong> ou <strong>priorité</strong> (voir le champ <em>PR</em> de <em>top</em>)<sup class="footnote-ref" id="fnref:5"><a rel="footnote" href="#fn:5">5</a></sup>, allant de -20 à +19 et avec 0 la valeur par défaut. Plus un processus est prioritaire, plus sa <em>valeur nice</em> sera faible, et plus il bénéficiera de ressources CPU lorsque nécessaire. En ajustant cette valeur, il est donc possible d&rsquo;agir sur les ressources allouées à des processus particuliers (limiter la priorité d&rsquo;un processus gourmand et non-essentiel, par exemple). Pour cela, il existe deux commandes : <em>nice</em> et <em>renice</em>.</p>
 
-<!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name -->
+<p>La commande <strong>nice -n PRIO CMD</strong> permet d&rsquo;exécuter une commande <em>CMD</em> avec une priorité <em>PRIO</em> donnée. De la même manière, la commande <strong>renice PRIO -p PID</strong> permet de changer la priorité du processus <em>PID</em> en lui attribuant la valeur <em>PRIO</em>. Enfin, il est possible de changer la priorité par défaut des processus lancés par un utilisateur ou groupe spécifique, en modifiant le fichier <strong>/etc/security/limits.conf</strong>, comme expliqué dans <a href="https://zirkachok.github.io/2017/06/14/lfcs--limiter-les-ressources-syst%C3%A8me">mon article sur les limitations de ressources</a></p>
 
-<!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system -->
+<h1 id="pour-aller-plus-loin">Pour aller plus loin&hellip;</h1>
 
-<!-- shutdown -->
+<p>Voici mes inspirations ayant mené à cet article. Vous y trouverez des ressources vous permettant d&rsquo;aller plus loin sur le sujet.</p>
 
-<!-- logout -->
+<ul>
+<li><a href="http://linux-attitude.fr/post/processus-et-threads">Un article très détaillé sur le fonctionnement des processus et threads</a> (FR)</li>
+<li><a href="https://stackoverflow.com/questions/3073948/job-task-and-process-whats-the-difference">Une question/réponse relative aux processus, threads, jobs et tâches</a> (EN)</li>
+<li><a href="http://www.octetmalin.net/linux/tutoriels/ps-connaitre-afficher-processus-actifs-a-un-moment-donne-instant-en-ligne-de-commande.php">Des informations détaillées sur la commande ps</a> (FR)</li>
+<li><a href="https://www.nixtutor.com/linux/changing-priority-on-linux-processes/">Un article sur le changement de priorité de processus</a> (EN)</li>
+<li><a href="https://www.cyberciti.biz/tips/linux-resource-utilization-to-detect-system-bottlenecks.html">Un article complet sur vmstat</a> (EN)</li>
+</ul>
+
+<!-- 
+https://unix.stackexchange.com/questions/4999/how-to-find-which-processes-are-taking-all-the-memory
+https://www.cyberciti.biz/tips/linux-resource-utilization-to-detect-system-bottlenecks.html
+ -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">À noter que la modification des droits par défaut n&rsquo;est pas persistante (elle ne sera plus valable après redémarrage de l&rsquo;appareil par exemple). Pour l&rsquo;affecter de manière permanente, il faudra modifier le profil de démarrage (fichier <em>.profile</em>), mais j&rsquo;aborderai ce point dans un autre article.
+<li id="fn:1">En général il s&rsquo;agit d&rsquo;un ordinateur, mais en <em>informatique embarquée</em> il peut s&rsquo;agir d&rsquo;une carte électronique seule, par exemple.
  <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2">Typiquement, ces services permettent de s&rsquo;attribuer des ressources. On y trouve par exemple des fonctions de création de <em>threads</em> et <em>processus</em>, d&rsquo;allocation mémoire, d&rsquo;entrée/sortie (I/O pour Input/Output) etc.
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+<li id="fn:3">En fait, les programmes sont exécutés chacun à leur tour, mais le passage d&rsquo;une tâche à l&rsquo;autre est tellement rapide et fréquent que cela donne l&rsquo;impression qu&rsquo;ils le sont en simultané. Lorsque des tâches sont exécutées sur deux matériels différents (et ne partagent donc pas les ressources processeur), on parle de <strong>parallélisme</strong>.
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
+<li id="fn:4">En somme, les pointeurs d&rsquo;exécution et de pile sont différents pour chaque thread et leur processus.
+ <a class="footnote-return" href="#fnref:4">↩</a></li>
+<li id="fn:5">La <em>valeur nice</em> et la <em>priorité</em> d&rsquo;un processus sont liés mais ne désignent pas exactement la même chose. Cependant ici nous considèrerons que si, par volonté de simplification.
+ <a class="footnote-return" href="#fnref:5">↩</a></li>
 </ol>
 </div>
 </div>
@@ -692,7 +602,7 @@ Et comme il n'y a pas que le travail dans la vie, le Tango et d'oenologie, je tr
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/06/16/lfcs--t%C3%A2ches-et-gestion-des-ressources" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>

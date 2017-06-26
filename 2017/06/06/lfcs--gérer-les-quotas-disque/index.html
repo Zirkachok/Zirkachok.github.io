@@ -26,12 +26,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS" href="https://zirkachok.github.io/index.xml">    
 
     
-    <title>LFCS : Utilisateurs et droits, le retour - Zirka</title>
-    <meta property='og:title' content="LFCS : Utilisateurs et droits, le retour - Zirka">
+    <title>LFCS : Gérer les quotas disque - Zirka</title>
+    <meta property='og:title' content="LFCS : Gérer les quotas disque - Zirka">
     <meta property="og:type" content="article">
         
 
-    <meta property="og:url" content="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour">
+    <meta property="og:url" content="https://zirkachok.github.io/2017/06/06/lfcs--g%C3%A9rer-les-quotas-disque">
     
       
 
@@ -366,7 +366,7 @@
             <div class="article__meta">
               <span class="article__meta-item article__date">
                 
-                  18 Apr 2017
+                  6 Jun 2017
                 , par
                 
 
@@ -381,7 +381,7 @@
                 </ul>
               </div>
             </div>
-            <h1 class="page-intro__title page-intro__title--blog">LFCS : Utilisateurs et droits, le retour</h1>
+            <h1 class="page-intro__title page-intro__title--blog">LFCS : Gérer les quotas disque</h1>
           </header>
         </div>
       </div>
@@ -396,203 +396,52 @@
           <img class="opening__image" src="https://zirkachok.github.io/images/placeholder.png">
           <div class="article-content">
 
-<!-- ê î ô û -->
+<!-- â ê î ô û -->
 
-<p>Je vous ai présenté <a href="https://zirkachok.github.io/2017/04/13/lfcs--utilisateurs-et-droits-dans-un-syst%C3%A8me-linux">la fois précédente</a> comment gérer les permissions et les utilisateurs au sein de votre système, mais le sujet est bien trop vaste pour être plié en un seul post de blog. Je vais donc revenir à la charge aujourd&rsquo;hui avec de nouvelles commandes et quelques conseils appréciables pour optimiser leur gestion.</p>
+<!-- é è ù à -->
 
-<h1 id="gestion-avancée-des-permissions">Gestion avancée des permissions</h1>
+<p>Dans un système où cohabitent plusieurs utilisateurs, un seul d&rsquo;entre eux peut s&rsquo;accaparer un grande partie des ressources. Cela se fait bien sûr au détriment des autres utilisateurs, mais peut aussi rendre le système indisponible. Pour éviter ces situations, il est possible d&rsquo;instaurer des quotas et limites pour chaque utilisaterur sur le nombre de fichiers qu&rsquo;il peut posséder, ou sur l&rsquo;espace disque dont il dispose. Ces quotas sont gérés par le systèmes, et peuvent s&rsquo;appliquer à des utilisateurs autant qu&rsquo;à des groupes.</p>
 
-<h2 id="changer-de-propriétaire">Changer de propriétaire</h2>
+<h1 id="préparer-le-terrain">Préparer le terrain</h1>
 
-<p>En plus de pouvoir changer les permissions d&rsquo;un fichier, il est aussi possible d&rsquo;en modifier l&rsquo;utilisateur et le groupe propriétaire, respectivement avec les commandes <strong>chown</strong> et <strong>chgrp</strong> (qui nécessitent les droits administrateur). Ces commandes prennent en premier paramètre l&rsquo;utilisateur/le groupe, suivi du fichier concerné. Il est aussi possible de changer à la fois l&rsquo;utilisateur et le groupe propriétaires du fichier avec <em>chown</em>, en combinant les deux séparés par &ldquo; <em>:</em> &ldquo;.</p>
+<p>La gestion des quotas est une option du noyau, qui est activée par défaut pour la plupart des distributions Linux<sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>. En plus de cette option, il sera nécessaire d&rsquo;installer des outils pour gérer leur utilisation, qui peuvent être obtenus via le <strong>paquet quotas</strong>. Ce paquet comporte des utilitaires, des fichiers de configurations, des scripts de démarrage, etc.<sup class="footnote-ref" id="fnref:2"><a rel="footnote" href="#fn:2">2</a></sup></p>
 
-<p>Par l&rsquo;exemple, cela nous donne :</p>
+<p>Il est ensuite nécessaire d&rsquo;activer les quotas indépendamment pour chaque système de fichiers. Pour ce faire, nous allons devoir modifier les options des systèmes de fichiers dans le fichier <em>/etc/fstab/</em>, et ajouter pour chacun d&rsquo;entre eux l&rsquo;option usrquota (pour activer les quotas utilisateurs) et/ou grpquota (pour activer les quotas sur les groupes).</p>
 
-<pre><code>$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
-
-$ sudo chown hobbes test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   humains   921   avril 10 15:47   test.txt
-
-$ sudo chgrp tigres test.txt
-$ ls -l
--rwxrwxr--   1   hobbes   tigres    921   avril 10 15:47   test.txt
-
-$ sudo chown calvin:humains test.txt
-$ ls -l
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+<pre><code>/dev/sdc5   /home   ext3    usrquota,grpquota   1   1
 </code></pre>
 
-<h2 id="modifier-les-droits-par-défaut">Modifier les droits par défaut</h2>
+<p>Cette ligne active dans cet exemple pour la partition <em>/dev/sdc5</em>, qui est dans ce cas le sysème de fichers monté dans <em>/home</em>, la gestion des quotas utilisateurs et groupes<sup class="footnote-ref" id="fnref:3"><a rel="footnote" href="#fn:3">3</a></sup>. Après avoir installé <em>quota</em> et configuré les sysèmes de fichiers, il ne nous reste plus qu&rsquo;à appliquer les changements, soit en redémarrant le système, soit en remontant les systèmes de fichiers concernés avec la commande <strong>mount -o remount /mount-point</strong> (avec /mount-point le point de montage concerné**.</p>
 
-<p>Chaque fichier créé se voit attribuer à sa création un ensemble de permissions par défaut, mais il est possible de modifier ces droits via la commande <strong>umask</strong><sup class="footnote-ref" id="fnref:1"><a rel="footnote" href="#fn:1">1</a></sup>.</p>
+<h1 id="mettre-en-place-les-quotas">Mettre en place les quotas</h1>
 
-<!-- Par défaut, les permissions d'un nouveau fichier sont 022 ou 002 -->
+<p>À présent, <em>quota</em> devrait être pleinement fonctionnel sur votre système, mais les quotas eux-même ne sont pas paramétrés. La commande <strong>edquota</strong> permet alors de le faire. Elle permet d&rsquo;éditer le fichier de configuration temporaire <strong>/etc/quotatab</strong> qui contrôle les quotas pour l&rsquo;utilisateur spécifié en paramètre (l&rsquo;option <strong>-g</strong> permet de faire de même pour les groupes), et les systèmes de fichiers ayant l&rsquo;option activée. Cela nous donne par exemple :</p>
 
-<p><em>umask</em> utilise la variante numérique de modification des droits (voir l&rsquo;article précédent, avec 4 pour l&rsquo;accès en lecture, 2 en écriture et 1 en exécution), mais part de permissions complètes (donc <em>777</em>) et y retranche celles données en argument. Avec <em>umask 021</em> par exemple, on obtiendra les droits rwxr-xrw- (777 - 021 = 756). Dans la plupart des distributions, <em>umask</em> est mis à 022 par défaut (soit rwxr-xr-x ou 755).</p>
-
-<pre><code>$ touch test.txt
--rwxrwxr--   1   calvin   humains   921   avril 10 15:47   test.txt
+<pre><code>$ edquota zirka
+Filesystem  blocks  soft        hard        inodes  soft    hard
+/dev/sdc5   97104   1048576     1048576     1242    0       0
 </code></pre>
 
-<!--
-When you run the umask command it will give that default set of permissions on any new file you make. However, if you want it to persist you'll have to modify your startup file (.profile), but we'll discuss that in a later lesson. -->
+<p>On retrouve ici le nombre de blocs mémoire<sup class="footnote-ref" id="fnref:4"><a rel="footnote" href="#fn:4">4</a></sup> composant le système de fichiers, et le nombre fichiers (i.e. inodes) présents, suivis des limites strictes (<strong>Hard limits</strong>) et non-strictes (<strong>Soft limits</strong>) dans chacun des cas. Les limites strictes ne peuvent pas être dépassées par l&rsquo;utilisateur, le noyau Linux empêchant explicitement. Les limites non-strictes peuvent par contre être dépassées, mais leur dépassement génèrera un avertissement. Une valeur de <em>0</em> pour une limite désactive la gestion des quotas dans ce cas.</p>
 
-<h2 id="cas-spécifique-des-suid-et-sgid">Cas spécifique des SUID et SGID</h2>
+<p>Il est aussi possible de mettre en place une <strong>période de grâce</strong>, via l&rsquo;option <strong>-t</strong>, valable pour un système de fichier donné. Si un utilisateur dépasse son quota &ldquo;non-strict&rdquo; pendant une période plus longue, cette limite sera alors considérée comme si elle était &ldquo;stricte&rdquo;.</p>
 
-<p>Dans de nombreux cas, des utilisateurs &ldquo;lambda&rdquo; ont besoin de droits &ldquo;privilégiés&rdquo; pour certaines actions, mais les accès au compte administrateur ne peuvent pas être donnés à tous. Pour ces cas particuliers, il existe une permission spéciale, le <strong>Set User ID (SUID)</strong>, qui permet de lancer une commande en étant considéré comme le propriétaire du fichier.</p>
+<p>Enfin, il est possible de vérifier et mettre à jour les informations sur les quotas via la commande <strong>quotacheck</strong>, et de résumer ces informations pour un système de fichiers donné (ou pour tous avec l&rsquo;option <strong>-a</strong>) via la commande repquota.</p>
 
-<p>Prenons un exemple. Disons qu&rsquo;un utilisateur souhaite changer son mot de passe. Pour cela, il utilisera la commande <em>passwd</em>, qui elle même modifiera les fichiers système <em>/etc/passwd</em>. Cependant, ce fichier est propriété de l&rsquo;administrateur et n&rsquo;es modifiable que par lui. Regardons maintenant les permissions de la commande <em>passwd</em> (fichier exécutable situé dans &ldquo; <em>/usr/bin/passwd</em> &ldquo;):</p>
-
-<pre><code>$ ls -l /usr/bin/passwd
--rwSr-xr-x 1 root root 54256 mars  29  2016 /usr/bin/passwd
-</code></pre>
-
-<p>Vous remarquerez le nouveau caractère <strong>s</strong> : il s&rsquo;agit du SUID. Quand cette permission est mise sur un fichier, n&rsquo;importe quel utilisateur exécutant ce fichier sera considéré comme son propriétaire, dans notre exemple l&rsquo;administrateur (<em>root</em>). Sans ce droit spécial, il serait impossible à un utilisateur de changer son mot de passe sans passer par le compte administrateur.</p>
-
-<p>Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>4</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u+s test.txt
--rwSrw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod u-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 4755 test.txt 
--rwsr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<p>De la même manière, il est possible d&rsquo;autoriser l&rsquo;exécution d&rsquo;une commande en étant considéré comme appartenant au groupe propriétaire du fichier, et cela par l&rsquo;intermédiaire de la permission <strong>Set Group ID (SGID)</strong>. Ce champ peut être affecté de manière symbolique comme n&rsquo;importe quel droit, ou en précédent la représentation numérique des permissions d&rsquo;un <em>2</em> :</p>
-
-<pre><code>$ ls -l
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g+s test.txt
--rw-rwSr--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod g-s test.txt
--rw-rw-r--  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 2555 test.txt 
--r-xr-sr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<!-- 
-
-7. Process Permissions
-
-Let's segue into process permissions for a bit, remember how I told you that when you run the passwd command with the SUID permission bit enabled you will run the program as root? That is true, however does that mean since you are temporarily root you can modify other user's passwords? Nope fortunately not!
-
-This is because of the many UIDs that Linux implements. There are three UIDS associated with every process:
-
-When you launch a process, it runs with the same permissions as the user or group that ran it, this is known as an effective user ID. This UID is used to grant access rights to a process. So naturally if Bob ran the touch command, the process would run as him and any files he created would be under his ownership.
-
-There is another UID, called the real user ID this is the ID of the user that launched the process. These are used to track down who the user who launched the process is.
-
-One last UID is the saved user ID, this allows a process to switch between the effective UID and real UID, vice versa. This is useful because we don't want our process to run with elevated privileges all the time, it's just good practice to use special privileges at specific times.
-
-Now let's piece these all together by looking at the passwd command once more.
-
-When running the passwd command, your effective UID is your user ID, let's say its 500 for now. Oh but wait, remember the passwd command has the SUID permission enabled. So when you run it, your effective UID is now 0 (0 is the UID of root). Now this program can access files as root.
-
-Let's say you get a little taste of power and you want to modify Sally's password, Sally has a UID of 600. Well you'll be out of luck, fortunately the process also has your real UID in this case 500. It knows that your UID is 500 and therefore you can't modify the password of UID of 600. (This of course is always bypassed if you are a superuser on a machine and can control and change everything).
-
-Since you ran passwd, it will start the process off using your real UID, and it will save the UID of the owner of the file (effective UID), so you can switch between the two. No need to modify all files with root access if it's not required.
-
-Most of the time the real UID and the effective UID are the same, but in such cases as the passwd command they will change.
-
- -->
-
-<h2 id="le-sticky-bit">Le &ldquo;Sticky bit&rdquo;</h2>
-
-<p>Parlons maintenant d&rsquo;une dernière permissions spéciale: le &ldquo;sticky bit&rdquo;. Il est possible de rendre un fichier destructible seulement par son propriétaire et l&rsquo;administrateur, et ce quelles que soient les permissions sur ce fichier. Prenons l&rsquo;exemple du répertoire &ldquo; <em>/tmp</em> &ldquo; (l&rsquo;option <em>-d</em> de <em>ls</em> permet de lister les répertoires, et non leur contenu):</p>
-
-<pre><code>$ ls -ld /tmp
-drwxrwxrwt 13 root root 135168 avril 19 14:19 /tmp
-</code></pre>
-
-<p>Vous remarquerez que le dernier caractère des droits est à <strong>t</strong>. C&rsquo;est le fameur &ldquo;<strong>sticky bit</strong>&rdquo;. Ce dossier ne peut donc être supprimé que par l&rsquo;administrateur, tout en étant modifiable par tous.</p>
-
-<p>Comme pour les SUID et SGID, le &ldquo;sticky bit&rdquo; peut être affecté de manière symbolique avec <strong>t</strong> ou de manière numérique en précédent les droits d&rsquo;un <strong>1</strong> :</p>
-
-<pre><code>$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod 1755 test.txt
-$ ls -l
--rwxr-xr-t  1 julien julien    0 avril 18 16:06 test.txt
-
-$ sudo chmod -t test.txt
-$ ls -l
--rwxr-xr-x  1 julien julien    0 avril 18 16:06 test.txt
-</code></pre>
-
-<h1 id="recherches-par-utilisateurs-et-permissions">Recherches par utilisateurs et permissions</h1>
-
-<p>Je vous ai montré dans <a href="https://zirkachok.github.io/2017/04/10/lfcs--effectuer-des-recherches-dans-larborescence">un précédent article</a> comment lister et trouver les fichiers dans le système, en proposant quelques filtres possibles. En voici quelques autres permettent de filtrer en fonction des utilisateurs, groupes et permissions :</p>
-
-<ul>
-<li><strong>find -user <em>u</em></strong> : Liste les fichiers appartenant à l&rsquo;utilisateur <em>u</em>.</li>
-<li><strong>find -group <em>g</em></strong> : Liste les fichiers appartenant au groupe <em>g</em>.</li>
-<li><strong>find -perm</strong> : Liste les fichiers selon leurs permissions:
-
-<ul>
-<li><strong>-perm <em>p</em></strong> : ne liste que les fichiers dont les permissions sont exactement <em>p</em>.</li>
-<li><strong>-perm <em>-p</em></strong> : liste les fichiers dont les permissions sont au moins <em>p</em>.</li>
-<li><strong>-perm <em>/p</em></strong> : liste les fichiers dont au moins un des droits de <em>p</em> est setté.</li>
-</ul></li>
-</ul>
-
-<p>Et en pratique, cela nous donne :</p>
-
-<pre><code>$ ls -l
--rw-r--r--  1 root    root     0 avril 18 16:11 supertest.txt
--rw-r--rw-  1 calvin  humains  0 avril 18 16:07 testbis.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:14 testTer.txt
--rw-rw-r--  1 hobbes  tigres   0 avril 18 16:06 test.txt
-
-$ find . -user hobbes
-./testTer.txt
-./test.txt
-
-$ find . -group humains
-./testbis.txt
-
-$ find . -perm 664
-./testTer.txt
-./test.txt
-</code></pre>
-
-<!--
-Ref : https://linuxjourney.com/lesson/file-permissions
--->
-
-<!-- sudo -->
-
-<!-- uname -a -->
-
-<!-- Linux Epinet 3.13.0-93-generic #140-Ubuntu SMP Mon Jul 18 21:21:05 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux -->
-
-<!--   A      B         C                                D                          E      F      G      H      -->
-
-<!-- A = kernel name ; B = network node hostname ; C = kernel release ; D = kernel version ; E = machine hardware name -->
-
-<!-- F = processor type (non-portable) ; G = hardware platform (non-portable) ; H = operating system -->
-
-<!-- shutdown -->
-
-<!-- logout -->
+<!-- https://wiki.archlinux.org/index.php/disk_quota -->
 <div class="footnotes">
 
 <hr />
 
 <ol>
-<li id="fn:1">À noter que la modification des droits par défaut n&rsquo;est pas persistante (elle ne sera plus valable après redémarrage de l&rsquo;appareil par exemple). Pour l&rsquo;affecter de manière permanente, il faudra modifier le profil de démarrage (fichier <em>.profile</em>), mais j&rsquo;aborderai ce point dans un autre article.
+<li id="fn:1">Si tel n&rsquo;est pas le cas, il vous sera nécessaire de recompiler votre noyau en activant cette option (option <em>CONFIG_QUOTA</em> dans la catégorie <em>File systems</em>).
  <a class="footnote-return" href="#fnref:1">↩</a></li>
+<li id="fn:2">Il existe aussi un <a href="http://en.tldp.org/HOWTO/Quota.html">tutoriel en ligne</a>
+ <a class="footnote-return" href="#fnref:2">↩</a></li>
+<li id="fn:3">Il est aussi possible qu&rsquo;il faille activer le service <em>quota</em> au démarrage du système. Référez-vous à l&rsquo;article associé pour découvrir comment.
+ <a class="footnote-return" href="#fnref:3">↩</a></li>
+<li id="fn:4">La taille des blocs mémoire variant selon le matériel.
+ <a class="footnote-return" href="#fnref:4">↩</a></li>
 </ol>
 </div>
 </div>
@@ -692,7 +541,7 @@ Et comme il n'y a pas que le travail dans la vie, le Tango et d'oenologie, je tr
           <nav class="page-footer-nav">
             <h6 class="page-footer-nav__title">Community</h6>
             <ul class="page-footer-nav__list">
-              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/04/18/lfcs--utilisateurs-et-droits-le-retour" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
+              <li class="page-footer-nav__item"><a href="https://zirkachok.github.io/2017/06/06/lfcs--g%C3%A9rer-les-quotas-disque" title="Our thoughts" target="_blank" class="page-footer-nav__link">Blog</a></li>
               
               
               <li class="page-footer-nav__item"><a href="https://github.com/zirkachok" title="We are on GitHub, check it out." target="_blank" class="page-footer-nav__link">GitHub</a></li>
